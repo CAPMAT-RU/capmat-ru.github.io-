@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Армия получила новые поставки техники — РАКУРС NEWS</title>
+  <link rel="icon" type="image/png" href="images/IMG_20260706_221334.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+        --bg-color: #1a1a1a;
+        --text-color: #f0f0f0;
+        --accent-color: #e09f7d;
+        --card-bg: #222222;
+        --menu-bg: #2c2c2c;
+        --footer-height: 80px;
+        --border-color: #333333;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; }
+    
+    /* Шапка */
+    header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .header-left { display: flex; align-items: center; }
+    .logo-container { display: flex; align-items: center; gap: 10px; }
+    .site-logo-img { height: 35px; width: auto; }
+    .logo { font-size: 24px; font-weight: 700; letter-spacing: 1px; color: var(--accent-color); }
+    
+    main { padding: 80px 20px; max-width: 900px; margin: 0 auto; width: 100%; flex: 1; }
+    
+    /* Карточка самой новости (теперь это не анонс, а вся статья) */
+    .single-news-card { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 40px; border-radius: 8px; }
+    .category-tag { color: var(--accent-color); font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; display: block; }
+    .full-title { font-size: 36px; line-height: 1.2; margin-bottom: 30px; color: #fff; }
+    .meta-info { color: #888; margin-bottom: 30px; font-size: 16px; display: flex; gap: 20px; flex-wrap: wrap; }
+    .publish-date { color: var(--accent-color); } /* Дата теперь акцентная */
+    .author-name { color: var(--accent-color); } /* Автор тоже акцентный */
+    
+    .article-content p { font-family: 'Merriweather', serif; font-size: 18px; line-height: 1.8; margin-bottom: 20px; color: #ddd; }
+    .article-content img { width: 100%; border-radius: 4px; margin: 30px 0; object-fit: cover; }
+
+    footer { height: var(--footer-height); padding: 20px; background-color: rgba(26, 26, 26, 0.8); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: auto; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; bottom: 0; left: 0; width: 100%; z-index: 999; }
+    .copyright { font-size: 16px; color: #888; }
+
+    @media (max-width: 768px) {
+      main { padding: 70px 15px; }
+      .single-news-card { padding: 25px; }
+      .full-title { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Шапка сайта -->
+  <header>
+    <div class="header-left">
+      <div class="logo-container">
+        <img src="https://raw.github.com/CAPMAT-RU/News-Rakurs/main/images/IMG_20260706_221334.png" class="site-logo-img" alt="Логотип" />
+        <div class="logo">РАКУРС NEWS</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Единственная карточка: теперь это полноценная статья -->
+    <article class="single-news-card">
+      
+      <!-- Категория (одна, только для этой новости) -->
+      <span class="category-tag">Геополитика </span>
+      
+      <!-- Заголовок статьи -->
+      <h1 class="full-title">Военные тайны под защитой пароля «12345</h1>
+      
+      <!-- Метаданные: дата и автор (оба в акцентном цвете) -->
+      <div class="meta-info">
+        <span class="publish-date">11 июля 2026</span>
+        <span class="author-name">Автор: Дмитрий Мусиенко </span>
+      </div>
+
+      <!-- Текст статьи (сюда пишешь всё подробно) -->
+       
+      <div class="article-content">
+      <img src="https://raw.github.com/CAPMAT-RU/News-Rakurs/main/images/IMG_20260711_000718.webp"
+        <p>Оказывается, чтобы следить за логистикой НАТО, не нужны спутники-шпионы: достаточно просто проверить настройки камер у дорог, которые, судя по всему, охранялись «железобетонным» паролем вроде «qwerty».</p>
+        
+        <p>Разведка Нидерландов с нескрываемым удивлением обнаружила, что российские хакеры буквально поселились в видеопотоках, наблюдая за транспортировкой западного вооружения в сторону украинских границ в режиме реального времени.</p>
+        
+        <p>Самое забавное в этой шпионской саге — это полное пренебрежение элементарной кибербезопасностью: устаревший софт и доступность систем превратили секретные военные маршруты в реалити-шоу для хакеров, которые, вероятно, даже не ожидали такого радушного приема от альянса.</p>
+        
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p class="copyright">2026 © РАКУРС NEWS</p>
+  </footer>
+
+</body>
+</html>
