@@ -4,27 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>РАКУРС NEWS — Все новости</title>
-  <meta name="yandex-verification" content="8e3a5a0a7520b3b8" />
-  <link rel="icon" type="image/png" href="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260706_221334.png" />
+  <meta name="yandex-verification" content="8e3a5a0a7520b3b8" />  <link rel="icon" type="image/png" href="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260706_221334.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
         --bg-color: #1a1a1a;
         --text-color: #f0f0f0;
         --accent-color: #e09f7d;
-        --card-bg: #222222;
-        --menu-bg: #2c2c2c;
+        --card-bg: #222222;--menu-bg: #2c2c2c;
         --footer-height: 80px;
         --border-color: #333333;
     }
 
-    * {
-        margin: 0;
+    * {        margin: 0;
         padding: 0;
-        box-sizing: border-box;
-        font-family: 'Montserrat', sans-serif;
+        box-sizing: border-box;        font-family: 'Montserrat', sans-serif;
     }
 
     body {
@@ -35,20 +30,16 @@
         flex-direction: column;
     }
 
-    h1, h2, h3,
-    .logo, .nav-link, .site-logo-img,
-    #siteSearch, .category-tag,
-    .author, .publish-date, .publish-time,
+    h1, h2, h3,    .logo, .nav-link, .site-logo-img,
+    #siteSearch, .category-tag,    .author, .publish-date, .publish-time,
     .copyright, .social-icon {
         font-family: 'Montserrat', sans-serif;
     }
 
     p, .meta-info span,
     .author, .publish-date, .publish-time,
-    .copyright {
-        font-family: 'Merriweather', serif;
-        line-height: 1.6;
-    }
+    .copyright {font-family: 'Merriweather', serif;
+        line-height: 1.6;}
 
     header {
         position: fixed;
@@ -60,21 +51,17 @@
         backdrop-filter: blur(10px);
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 0 15px;
-        z-index: 1000;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        align-items: center;        padding: 0 15px;
+        z-index: 1000;border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .header-left {
         display: flex;
         align-items: center;
-    }
-
-    .logo-container {
+    }.logo-container {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap:10px;
     }
 
     .site-logo-img {
@@ -85,8 +72,7 @@
     .logo {
         font-size: 24px;
         font-weight: 700;
-        letter-spacing: 1px;
-        color: var(--accent-color);
+        letter-spacing: 1px;        color: var(--accent-color);
     }
 
     .header-right {
@@ -108,18 +94,15 @@
     }
 
     #siteSearch:focus {
-        border-color: var(--accent-color);
-    }
+        border-color: var(--accent-color);    }
 
     .burger {
         cursor: pointer;
-        width: 30px;
-        height: 21px;
+        width: 30px;height: 21px;
         position: relative;
     }
 
-    .burger span {
-        position: absolute;
+    .burger span {position: absolute;
         width: 100%;
         height: 3px;
         background-color: var(--text-color);
@@ -127,28 +110,21 @@
         transition: all 0.3s ease;
     }
 
-    .burger span:nth-child(1) {
-        top: 0;
+    .burger span:nth-child(1) {        top: 0;
     }
 
-    .burger span:nth-child(2) {
-        top: 9px;
+    .burger span:nth-child(2) {top: 9px;
     }
 
-    .burger span:nth-child(3) {
-        top: 18px;
+    .burger span:nth-child(3) {top: 18px;
     }
 
     .burger.active span:nth-child(1) {
         transform: rotate(45deg);
         top: 9px;
-    }
-
-    .burger.active span:nth-child(2) {
+    }.burger.active span:nth-child(2) {
         opacity: 0;
-    }
-
-    .burger.active span:nth-child(3) {
+    }    .burger.active span:nth-child(3) {
         transform: rotate(-45deg);
         top: 9px;
     }
@@ -176,8 +152,7 @@
     .nav-link {
         color: var(--text-color);
         text-decoration: none;
-        font-size: 18px;
-        padding: 12px 0;
+        font-size: 18px;        padding: 12px 0;
         border-bottom: 1px solid var(--accent-color);
         cursor: pointer;
         user-select: none;
@@ -192,8 +167,7 @@
     main {
         margin-top: 60px;
         padding: 40px;
-        max-width: 1200px;
-        margin-left: auto;
+        max-width: 1200px;        margin-left: auto;
         margin-right: auto;
         width: 100%;
         flex: 1;
@@ -214,23 +188,18 @@
     }
 
     .news-card {
-        background-color: var(--card-bg);
-        border-radius: 4px;
-        border: 1px solid var(--border-color);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        background-color: var(--card-bg);        border-radius: 4px;
+        border: 1px solid var(--border-color);        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
         display: block;
         overflow: hidden;
-        cursor: pointer;
-    }
+        cursor: pointer;    }
 
     .news-card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transform: scale(1.02);box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         opacity: 0.9;
     }
 
-    .category-tag {
-        color: var(--accent-color);
+    .category-tag {color: var(--accent-color);
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
@@ -241,27 +210,22 @@
     .card-title {
         font-size: 20px;
         margin-bottom: 15px;
-        line-height: 1.3;
-    }
+        line-height: 1.3;}
 
     .publish-date {
         color: #666;
-        margin-right: 10px;
+        margin-right:10px;
     }
 
     .card-meta {
-        margin-top: auto;
-        font-size: 14px;
+        margin-top: auto;font-size: 14px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 10px;
-    }
-
-    footer {
+    }    footer {
         height: var(--footer-height);
-        padding: 20px;
-        background-color: rgba(26, 26, 26, 0.8);
+        padding: 20px;background-color: rgba(26, 26, 26, 0.8);
         backdrop-filter: blur(10px);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         margin-top: auto;
@@ -271,8 +235,7 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        bottom: 0;
-        left: 0;
+        bottom: 0;        left: 0;
         width: 100%;
         z-index: 999;
     }
@@ -286,7 +249,7 @@
     .social-icons-container {
         display: flex;
         justify-content: center;
-        gap: 25px;
+        gap:25px;
         margin-top: 30px;
     }
 
@@ -315,18 +278,16 @@
         box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
     }
 
-    .load-more-btn {
-        display: block;
+    .load-more-btn {display: block;
         padding: 10px 20px;
         margin: 30px auto;
         background: transparent;
-        border: 2px solid var(--accent-color);
-        color: var(--accent-color);
+        border: 2px solid var(--accent-color);        color: var(--accent-color);
         text-decoration: none;
         font-weight: bold;
         border-radius: 25px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-size: 1rem;
+        font-size:1rem;
         cursor: pointer;
         outline: none;
     }
@@ -337,6 +298,11 @@
         color: white;
         transform: scale(1.05);
         box-shadow: 0 0 15px rgba(224, 159, 125, 0.6);
+    }    .news-video {
+        width: 100%;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        background: #000;
     }
 
     @media (max-width: 768px) {
@@ -346,7 +312,7 @@
 
         main {
             padding: 20px;
-            max-width: 100%;
+            max-width:100%;
         }
 
         .news-grid {
@@ -360,7 +326,7 @@
         }
 
         .header-left .logo {
-            font-size: 20px;
+            font-size:20px;
         }
 
         .header-left .site-logo-img {
@@ -369,16 +335,14 @@
 
         #siteSearch {
             width: 140px;
-        }
-    }
+        }}
 </style>
 </head>
 <body>
   <header>
     <div class="header-left">
       <div class="logo-container">
-        <img src="https://raw.github.com/CAPMAT-RU/News-Rakurs/main/images/IMG_20260706_221334.png" class="site-logo-img" alt="Логотип РАКУРС NEWS" />
-        <div class="logo">РАКУРС NEWS</div>
+        <img src="https://raw.github.com/CAPMAT-RU/News-Rakurs/main/images/IMG_20260706_221334.png" class="site-logo-img" alt="Логотип РАКУРС NEWS" /><div class="logo">РАКУРС NEWS</div>
       </div>
     </div>
     <div class="header-right">
@@ -397,8 +361,7 @@
     <a href="#" class="nav-link" onclick="filterNews('Армия'); closeMobileMenu();">Армия</a>
     <a href="#" class="nav-link" onclick="filterNews('Коррупция'); closeMobileMenu();">Коррупция</a>
     <a href="#" class="nav-link" onclick="filterNews('Криминал'); closeMobileMenu();">Криминал</a>
-    <a href="#" class="nav-link" onclick="filterNews('Спорт'); closeMobileMenu();">Спорт</a>
-    <a href="#" class="nav-link" onclick="filterNews('Шоу-бизнес'); closeMobileMenu();">Шоу-бизнес</a>
+    <a href="#" class="nav-link" onclick="filterNews('Спорт'); closeMobileMenu();">Спорт</a><a href="#" class="nav-link" onclick="filterNews('Шоу-бизнес'); closeMobileMenu();">Шоу-бизнес</a>
   </nav>
 
   <main>
@@ -411,16 +374,12 @@
     <div class="news-grid" id="grid-all" style="display: none;" role="list"></div>
     <div id="no-results" style="text-align:center; padding:40px; color:#888; display:none;" role="alert">В этом разделе пока нет новостей.</div>
     <button id="load-more-btn" class="load-more-btn" style="display: none;" aria-label="Загрузить еще новости">Еще новости</button>
-  </main>
-
-  <footer>
-    <div class="social-icons-container" aria-label="Социальные сети">
-      <a href="https://vk.ru/rakurs_news" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="ВКонтакте">
+  </main>  <footer>
+    <div class="social-icons-container" aria-label="Социальные сети">      <a href="https://vk.ru/rakurs_news" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="ВКонтакте">
         <img src="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260710_182354.webp" alt="ВКонтакте" width="30" height="30" />
       </a>
       <a href="https://t.me/RAKURS_NEWS_RU" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Telegram">
-        <img src="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260710_182249.webp" alt="Telegram" width="30" height="30" />
-      </a>
+        <img src="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260710_182249.webp" alt="Telegram" width="30" height="30" /></a>
     </div>
     <p class="copyright">2026 © РАКУРС NEWS</p>
   </footer>
@@ -435,68 +394,47 @@
     const loader = document.getElementById('loader');
     const grid = document.getElementById('grid-all');
     
-    // Показываем лоадер
     loader.style.display = 'flex';
     grid.style.display = 'none';
 
     try {
-      // ВАЖНО: Проверь, чтобы имя файла точно совпадало с регистром букв в репозитории!
       const response = await fetch('news.json'); 
-      
-      if (!response.ok) {
-        throw new Error(`Ошибка сети: ${response.status} ${response.statusText}`);
-      }
-      
+      if (!response.ok) throw new Error(`Ошибка сети: ${response.status} ${response.statusText}`);
       allNewsGlobal = await response.json();
-      
-      console.log('Новости загружены:', allNewsGlobal.length); // Смотри в консоль браузера!
-      
       loader.style.display = 'none';
       grid.style.display = 'grid'; 
       filterNews(currentCategory);
       
-      // Теперь безопасно вешаем событие на кнопку, так как данные уже есть
       const btn = document.getElementById('load-more-btn');
-      if (btn) {
-        btn.addEventListener('click', loadMoreNews, { once: false });
-      }
-
+      if (btn) btn.addEventListener('click', loadMoreNews, { once: false });
     } catch (error) {
       console.error('Ошибка загрузки:', error);
-      loader.style.display = 'none';
-      grid.style.display = 'block';
-      // Красивая ошибка вместо красного текста
-      grid.innerHTML = `
-        <div style="color:#ff4757; text-align:center; padding: 40px; border: 1px solid #333; background: #111;">
-          <p>Не удалось загрузить новости.</p>
-          <p><b>Проверь консоль (F12) и:</b></p>
-          <ul style="text-align:left; margin-top:10px;">
-            <li>Лежит ли файл news.json в корне репозитория?</li>
-            <li>Совпадает ли регистр букв (news.json vs News.json)?</li>
-            <li>Валиден ли JSON (нет ли запятых в конце)?</li>
-          </ul>
-        </div>`;
+      loader.style.display = 'none';grid.style.display = 'block';
+      grid.innerHTML = `<div style="color:#ff4757; text-align:center; padding: 40px;">Не удалось загрузить новости.</div>`;
     }
   }
 
   function createCardHTML(item, index) {
-    const linkUrl = item.url || `#`; // Если нет ссылки, ставим заглушку
+    const linkUrl = item.url || `#`;
+    const media = item.video_url 
+      ? `<video class="news-video" controls preload="metadata"><source src="${item.video_url}" type="video/mp4"></video>` 
+      : '';
     
     return `
       <article class="news-card">
-        <a href="${linkUrl}" style="text-decoration: none; color: inherit; display: block; height: 100%;">
-          <div style="padding: 20px; height: 100%; display: flex; flex-direction: column;">
+        <div style="padding: 20px; height: 100%; display: flex; flex-direction: column;">
+          ${media}
+          <a href="${linkUrl}" style="text-decoration: none; color: inherit; display: block; flex-grow: 1;">
             <span class="category-tag">${item.category || 'Разное'}</span>
             <h3 class="card-title" style="margin: 10px 0;">${item.title}</h3>
-            <div class="card-meta" style="margin-top: auto; color: #888; font-size: 14px;">
-              <span>${item.date}</span>
-              ${item.time ? '<span style="margin-left:10px;">в ' + item.time + '</span>' : ''}
-            </div>
+          </a>
+          <div class="card-meta" style="margin-top: auto; color: #888; font-size: 14px;">
+            <span>${item.date}</span>
+            ${item.time ? '<span style="margin-left:10px;">в ' + item.time + '</span>' : ''}
           </div>
-        </a>
+        </div>
       </article>
-    `;
-  }
+    `;  }
 
   function displayNews(newsItems) {
     const grid = document.getElementById('grid-all');
@@ -515,9 +453,7 @@
     }
 
     const initialDisplayCount = Math.min(NEWS_PER_PAGE, newsItems.length);
-    for (let i = 0; i < initialDisplayCount; i++) {
-      const cardHTML = createCardHTML(newsItems[i], i);
-      grid.insertAdjacentHTML('beforeend', cardHTML);
+    for (let i = 0; i < initialDisplayCount; i++) {grid.insertAdjacentHTML('beforeend', createCardHTML(newsItems[i], i));
     }
     displayedNewsCount = initialDisplayCount;
 
@@ -527,87 +463,51 @@
   }
 
   function loadMoreNews() {
-    if (allNewsGlobal.length === 0) return; // Защита, если данные не загрузились
-
+    if (allNewsGlobal.length === 0) return;
     const grid = document.getElementById('grid-all');
     const startIndex = displayedNewsCount;
     const endIndex = Math.min(startIndex + NEWS_PER_PAGE, allNewsGlobal.length);
     const newsToDisplay = allNewsGlobal.slice(startIndex, endIndex);
 
     newsToDisplay.forEach((item, i) => {
-      const cardHTML = createCardHTML(item, startIndex + i);
-      grid.insertAdjacentHTML('beforeend', cardHTML);
+      grid.insertAdjacentHTML('beforeend', createCardHTML(item, startIndex + i));
     });
 
     displayedNewsCount = endIndex;
-
     const btn = document.getElementById('load-more-btn');
-    if (btn) {
-      btn.style.display = (displayedNewsCount < allNewsGlobal.length) ? 'block' : 'none';
-    }
-  }
-
-  window.filterNews = function(category) {
+    if (btn) btn.style.display = (displayedNewsCount < allNewsGlobal.length) ? 'block' : 'none';
+  }window.filterNews = function(category) {
     currentCategory = category;
     const titleEl = document.getElementById('current-title');
     titleEl.textContent = category === 'Все' ? 'Все новости' : `${category}`;
-
-    let filtered;
-    if (category === 'Все') {
-      filtered = allNewsGlobal;
-    } else {
-      filtered = allNewsGlobal.filter(item => item.category === category);
-    }
+    const filtered = category === 'Все' ? allNewsGlobal : allNewsGlobal.filter(item => item.category === category);
     displayNews(filtered);
   };
 
-  // Поиск (упрощенный, работает только если карточки уже нарисованы)
   document.getElementById('siteSearch').addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const cards = document.querySelectorAll('.news-card');
-    
     if (query.length < 2) {
-       // Если поиск пустой, сбрасываем видимость всех карточек
        cards.forEach(c => c.style.display = 'block');
        document.getElementById('no-results').style.display = 'none';
        return;
     }
-
     let found = false;
     cards.forEach(card => {
-      const titleElement = card.querySelector('.card-title');
-      if (titleElement) {
-        const title = titleElement.innerText.toLowerCase();
-        if (title.includes(query)) {
-          card.style.display = 'block';
-          found = true;
-        } else {
-          card.style.display = 'none';
-        }
-      }
+      const title = card.querySelector('.card-title').innerText.toLowerCase();
+      if (title.includes(query)) { card.style.display = 'block'; found = true; } 
+      else { card.style.display = 'none'; }
     });
-
     document.getElementById('no-results').style.display = found ? 'none' : 'block';
   });
 
   const burger = document.getElementById('burger');
   const mobileMenu = document.getElementById('mobileMenu');
-
-  function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    burger.classList.remove('active');
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); burger.classList.remove('active'); }  if (burger && mobileMenu) {
+    burger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); burger.classList.toggle('active'); });
   }
 
-  if (burger && mobileMenu) {
-    burger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      burger.classList.toggle('active');
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    loadNews();
-  });
+  document.addEventListener('DOMContentLoaded', () => { loadNews(); });
 </script>
 </body>
 </html>
