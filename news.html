@@ -3,70 +3,90 @@
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Новость | РАКУРС</title>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --bg-color: #1a1a1a; --text-color: #f0f0f0; --accent-color: #e09f7d; --card-bg: #222222; --border-color: #333333; }
+    <meta name="description" content="Читайте последние новости на портале РАКУРС"><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --accent-color: #e09f7d;
+            --card-bg: #222222;
+            --border-color: #333333;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; padding-top: 60px; }
-        #article-container { max-width: 800px; margin: 40px auto; padding: 30px; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color); }
-        
-        .video-container { width: 100%; position: relative; border-radius: 8px; background-color: black; overflow: hidden; aspect-ratio: 16/9; }
-        .video { width: 100%; height: 100%; }
-        .controls { position: absolute; bottom: 0; left: 0; right: 0; height: 50px; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); display: flex; align-items: center; padding: 0 15px; opacity: 0; transition: opacity 0.3s; justify-content: space-between; }
-        .video-container:hover .controls { opacity: 1; }
-        .controls button { background: transparent; border: none; color: var(--accent-color); font-size: 18px; cursor: pointer; padding: 5px; }
-        
-        .left { display: flex; align-items: center; gap: 15px; }
-        .playback-line { flex-grow: 1; height: 4px; background-color: #444; cursor: pointer; margin: 0 10px; }
-        .progress-bar { height: 100%; width: 0; background-color: var(--accent-color); }
-        .video-timer { font-size: 12px; color: #fff; white-space: nowrap; }
-        
-        .right { display: flex; align-items: center; gap: 10px; }
-        .volume { width: 60px; height: 4px; accent-color: var(--accent-color); cursor: pointer; }
+        body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; padding-top: 60px; }
+        header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(26, 26, 26, 0.8); backdrop-filter: blur(10px); display: flex; align-items: center; padding: 015px; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        header .logo-container { display: flex; align-items: center; }
+        header .logo-container img { height:30px; margin-right: 10px; }
+        header h1 { color: var(--accent-color); font-weight: 700; letter-spacing: 1px; font-size: 28px; }
+        footer { margin-top: auto; padding: 20px; text-align: center; color: #888; font-size: 0.9rem; border-top:1px solid rgba(255, 255, 255, 0.1); }
+        .back-btn { display: block; padding: 10px 15px; max-width: 220px; width: 100%; box-sizing: border-box; background: transparent; border:2px solid var(--accent-color); color: var(--accent-color); text-decoration: none; font-weight: bold; border-radius:25px; transition: all 0.3s; margin: 30px auto 40px; text-align: center;}
+        .back-btn:hover { background: var(--accent-color); color: var(--bg-color); transform: scale(1.05); }
+        #article-container { max-width: 800px; margin:40px auto; padding: 30px; background: var(--card-bg); border-radius: 8px; border:1px solid var(--border-color); }
+        #article-container img { width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius:4px; margin-bottom: 25px; }
+        #article-container h1 { font-size: 2.2rem; margin-bottom: 20px; }
+        .meta-info { color: #aaa; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        .category-meta { color: var(--accent-color); font-weight: 700; }
+        .content-text { font-family: 'Merriweather', serif; font-size: 1.1rem; line-height: 1.7; white-space: pre-wrap; }
+        .video-container { position: relative; width:100%; margin-bottom: 20px; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; }
+        .video-container video { width: 100%; display: block; }
+        .play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: var(--card-bg); border-radius: 50%; display: flex; justify-content: center; align-items: center; border:2px solid var(--accent-color); pointer-events: none; }
+        .play-icon { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid var(--accent-color); margin-left: 5px; }
     </style>
 </head>
-<body>    <main><div id="article-container">Загрузка...</div></main>
-    <script>
-        async function loadSingleArticle() {
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260706_221334.png" alt="Логотип">
+            <h1>РАКУРС</h1>
+        </div>
+    </header>
+    <main>
+        <div id="article-container">
+            <p style="text-align: center; color: #666;">Загрузка статьи...</p>
+        </div>
+    </main>    <footer><p>©2026 РАКУРС</p></footer>
+
+    <script>async function loadSingleArticle() {
+            const params = new URLSearchParams(window.location.search);const newsId = params.get('id');
             const container = document.getElementById('article-container');
-            const params = new URLSearchParams(window.location.search);
-            const response = await fetch('news.json');
-            const data = await response.json();
-            const news = data.find(n => n.id == params.get('id'));
 
-            if (news && news.videoUrl) {
-                container.innerHTML = `
-                    <div class="video-container" id="vc">
-                        <video class="video" src="${news.videoUrl}"></video>
-                        <div class="controls">
-                            <div class="left">
-                                <button class="play-pause"><i class="fa-solid fa-play"></i></button>
-                                <div class="playback-line"><div class="progress-bar"></div></div>
-                                <div class="video-timer"><span class="current-time">00:00</span> / <span class="max-duration">00:00</span></div>
-                            </div>
-                            <div class="right">
-                                <button class="mute"><i class="fa-solid fa-volume-high"></i></button>
-                                <input type="range" class="volume" min="0" max="1" step="0.1" value="1">
-                                <button class="fs-btn"><i class="fa-solid fa-expand"></i></button></div>
-                        </div>
-                    </div><h1>${news.title}</h1>`;
+            try {const response = await fetch('news.json');
+                const data = await response.json();
+                const news = data.find(n => n.id == newsId);
 
-                const video = container.querySelector(".video"), playpause = container.querySelector(".play-pause"),
-                      volume = container.querySelector(".volume"), mutebtn = container.querySelector(".mute"),
-                      progressBar = container.querySelector(".progress-bar"), line = container.querySelector(".playback-line"),
-                      curr = container.querySelector(".current-time"), max = container.querySelector(".max-duration");
+                if (news) {
+                    document.title = `${news.title} | РАКУРС`;
+                    
+                    let mediaHtml = news.videoUrl
+                        ? `<div class="video-container" id="vid-wrapper">
+                             <video src="${news.videoUrl}" playsinline></video>
+                             <div class="play-button" id="play-btn"><div class="play-icon"></div></div>
+                           </div>`
+                        : `<img src="${news.image}" alt="${news.title}">`;container.innerHTML = `${mediaHtml}<h1>${news.title}</h1><div class="meta-info"><span class="category-meta">Рубрика: ${news.category}</span></div><div class="content-text">${news.content}</div><a href="index.html" class="back-btn">← На Главную</a>`;
 
-                playpause.onclick = () => { video.paused ? video.play() : video.pause(); };
-                video.onplay = () => playpause.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                video.onpause = () => playpause.innerHTML = '<i class="fa-solid fa-play"></i>';video.ontimeupdate = () => {
-                    progressBar.style.width = (video.currentTime / video.duration) * 100 + "%";
-                    curr.innerText = new Date(video.currentTime * 1000).toISOString().substr(14, 5);
-                    max.innerText = new Date(video.duration * 1000).toISOString().substr(14, 5);
-                };
-                line.onclick = (e) => video.currentTime = (e.offsetX / line.offsetWidth) * video.duration;
-                mutebtn.onclick = () => { video.muted = !video.muted; mutebtn.innerHTML = `<i class="fa-solid fa-volume-${video.muted ? 'xmark' : 'high'}"></i>`; };
-                volume.oninput = () => video.volume = volume.value;
-                container.querySelector(".fs-btn").onclick = () => !document.fullscreenElement ? container.requestFullscreen() : document.exitFullscreen();
+                    const video = container.querySelector('video');
+                    const btn = container.querySelector('#play-btn');
+                    const wrapper = container.querySelector('#vid-wrapper');
+
+                    if (wrapper && video && btn) {
+                        const toggleVideo = () => {
+                            if (video.paused) {
+                                video.play();
+                                btn.style.display = 'none';
+                            } else {
+                                video.pause();
+                                btn.style.display = 'flex';
+                            }
+                        };
+                        wrapper.addEventListener('click', toggleVideo);
+                    }
+                } else {
+                    container.innerHTML = `<h2>Новость не найдена</h2>`;
+                }
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `<h2>Ошибка загрузки</h2>`;
             }
         }
         loadSingleArticle();
