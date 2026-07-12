@@ -1,95 +1,334 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новость | РАКУРС</title>
-    <meta name="description" content="Читайте последние новости на портале РАКУРС"><link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">    <style>
-        :root {
-            --bg-color: #1a1a1a;
-            --text-color: #f0f0f0;
-            --accent-color: #e09f7d;
-            --card-bg: #222222;
-            --border-color: #333333;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; padding-top: 60px; }
-        header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(26, 26, 26, 0.8); backdrop-filter: blur(10px); display: flex; align-items: center; padding: 015px; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        header .logo-container { display: flex; align-items: center; }
-        header .logo-container img { height:30px; margin-right: 10px; }
-        header h1 { color: var(--accent-color); font-weight: 700; letter-spacing: 1px; font-size: 28px; }
-        footer { margin-top: auto; padding: 20px; text-align: center; color: #888; font-size: 0.9rem; border-top:1px solid rgba(255, 255, 255, 0.1); }
-        .back-btn { display: block; padding: 10px 15px; max-width: 220px; width: 100%; box-sizing: border-box; background: transparent; border:2px solid var(--accent-color); color: var(--accent-color); text-decoration: none; font-weight: bold; border-radius:25px; transition: all 0.3s; margin: 30px auto 40px; text-align: center;}
-        .back-btn:hover { background: var(--accent-color); color: var(--bg-color); transform: scale(1.05); }
-        #article-container { max-width: 800px; margin:40px auto; padding: 30px; background: var(--card-bg); border-radius: 8px; border:1px solid var(--border-color); }
-        #article-container img { width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius:4px; margin-bottom: 25px; }
-        #article-container h1 { font-size: 2.2rem; margin-bottom: 20px; }
-        .meta-info { color: #aaa; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
-        .category-meta { color: var(--accent-color); font-weight: 700; }
-        .content-text { font-family: 'Merriweather', serif; font-size: 1.1rem; line-height: 1.7; white-space: pre-wrap; }
-        .video-container { position: relative; width:100%; margin-bottom: 20px; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; }
-        .video-container video { width: 100%; display: block; }
-        .play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: var(--card-bg); border-radius: 50%; display: flex; justify-content: center; align-items: center; border:2px solid var(--accent-color); pointer-events: none; }
-        .play-icon { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid var(--accent-color); margin-left: 5px; }
-    </style>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Новость | РАКУРС</title>
+<meta name="description" content="Читайте последние новости на портале РАКУРС" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+
+<!-- Вставляем стили для плеера -->
+<style>
+/* Style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 100vh;
+}
+
+.gfg {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    font-weight: 600;
+    color: #01940b;
+    align-items: center;
+}
+
+.video-container {
+    max-width: 500px;
+    max-height: 300px;
+    width: 100%;
+    position: relative;
+    border: 1px ridge;
+    background-color: black;
+    overflow: hidden;
+}
+
+.video-thumbnail {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.controls button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.left {
+    width: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.video-timer {
+    display: flex;
+    align-items: center;
+    color: #efefef;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.separator {
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+.right {
+    padding-left: 10px;
+}
+
+.volume-container {
+    display: flex;
+    align-items: center;
+}
+
+.volume {
+    margin-left: 5px;
+    width: 60px;
+    height: 3px;
+    cursor: pointer;
+}
+
+.mute {
+    cursor: pointer;
+}
+
+.fa-volume-up,
+.fa-solid {
+    font-size: 14px;
+    color: #fff;
+}
+
+.playback-line {
+    position: relative;
+    height: 4px;
+    background-color: #ddd;
+    width: 40%;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: #0078d4;
+    transition: width 0.1s linear;
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260706_221334.png" alt="Логотип">
-            <h1>РАКУРС</h1>
-        </div>
-    </header>
-    <main>
-        <div id="article-container">
-            <p style="text-align: center; color: #666;">Загрузка статьи...</p>
-        </div>
-    </main>    <footer><p>©2026 РАКУРС</p></footer>
+<header>
+    <div class="logo-container">
+        <img src="https://raw.github.com/rakurs-news/rakurs-news.github.io/main/images/IMG_20260706_221334.png" alt="Логотип" />
+        <h1>РАКУРС</h1>
+    </div>
+</header>
+<main>
+    <div id="article-container">
+        <p style="text-align: center; color: #666;">Загрузка статьи...</p>
+    </div>
+</main>
+<footer><p>©2026 РАКУРС</p></footer>
 
-    <script>async function loadSingleArticle() {
-            const params = new URLSearchParams(window.location.search);const newsId = params.get('id');
-            const container = document.getElementById('article-container');
+<!-- Вставляем скрипт для плеера -->
+<script>
+const timeFormatter = (timeInput) => {
+    let minute = Math.floor(timeInput / 60);
+    minute = minute < 10 ? "0" + minute : minute;
+    let second = Math.floor(timeInput % 60);
+    second = second < 10 ? "0" + second : second;
+    return `${minute}:${second}`;
+};
 
-            try {const response = await fetch('news.json');
-                const data = await response.json();
-                const news = data.find(n => n.id == newsId);
+async function loadSingleArticle() {
+    const params = new URLSearchParams(window.location.search);
+    const newsId = params.get('id');
+    const container = document.getElementById('article-container');
 
-                if (news) {
-                    document.title = `${news.title} | РАКУРС`;
-                    
-                    let mediaHtml = news.videoUrl
-                        ? `<div class="video-container" id="vid-wrapper">
-                             <video src="${news.videoUrl}" playsinline></video>
-                             <div class="play-button" id="play-btn"><div class="play-icon"></div></div>
-                           </div>`
-                        : `<img src="${news.image}" alt="${news.title}">`;container.innerHTML = `${mediaHtml}<h1>${news.title}</h1><div class="meta-info"><span class="category-meta">Рубрика: ${news.category}</span></div><div class="content-text">${news.content}</div><a href="index.html" class="back-btn">← На Главную</a>`;
+    try {
+        const response = await fetch('news.json');
+        const data = await response.json();
+        const news = data.find(n => n.id == newsId);
 
-                    const video = container.querySelector('video');
-                    const btn = container.querySelector('#play-btn');
-                    const wrapper = container.querySelector('#vid-wrapper');
+        if (news) {
+            document.title = `${news.title} | РАКУРС`;
+            let mediaHtml = news.videoUrl
+                ? `<div class="video-container" id="vid-wrapper">
+                     <video src="${news.videoUrl}" playsinline></video>
+                     <div class="play-button" id="play-btn"><div class="play-icon"></div></div>
+                   </div>`
+                : `<img src="${news.image}" alt="${news.title}">`;
+            container.innerHTML = `${mediaHtml}<h1>${news.title}</h1>
+                <div class="meta-info"><span class="category-meta">Рубрика: ${news.category}</span></div>
+                <div class="content-text">${news.content}</div>
+                <a href="index.html" class="back-btn">← На Главную</a>`;
 
-                    if (wrapper && video && btn) {
-                        const toggleVideo = () => {
-                            if (video.paused) {
-                                video.play();
-                                btn.style.display = 'none';
-                            } else {
-                                video.pause();
-                                btn.style.display = 'flex';
-                            }
-                        };
-                        wrapper.addEventListener('click', toggleVideo);
+            const video = container.querySelector('video');
+            const btn = container.querySelector('#play-btn');
+            const wrapper = container.querySelector('#vid-wrapper');
+
+            if (wrapper && video && btn) {
+                const toggleVideo = () => {
+                    if (video.paused) {
+                        video.play();
+                        btn.style.display = 'none';
+                    } else {
+                        video.pause();
+                        btn.style.display = 'flex';
                     }
-                } else {
-                    container.innerHTML = `<h2>Новость не найдена</h2>`;
-                }
-            } catch (err) {
-                console.error(err);
-                container.innerHTML = `<h2>Ошибка загрузки</h2>`;
+                };
+                wrapper.addEventListener('click', toggleVideo);
             }
+
+            // Инициализация элементов для плеера
+            if (video) {
+                // Создаем элементы управления
+                const controlsHtml = `
+                <div class="controls" style="opacity: 0;">
+                    <div class="left">
+                        <button class="play-pause"><i class="fa-solid fa-pause"></i></button>
+                        <button class="skipminus-10"><i class="fa-solid fa-backward"></i></button>
+                        <button class="skip-10"><i class="fa-solid fa-forward"></i></button>
+                    </div>
+                    <div class="video-timer">
+                        <span class="current-time">00:00</span>
+                        <span class="separator">/</span>
+                        <span class="max-duration">00:00</span>
+                    </div>
+                    <div class="right volume-container">
+                        <button class="mute"><i class="fa-solid fa-volume-up"></i></button>
+                        <input type="range" min="0" max="1" step="0.01" class="volume" />
+                    </div>
+                </div>
+                <div class="playback-line">
+                    <div class="progress-bar"></div>
+                </div>`;
+                // Вставляем управляющие элементы перед видео
+                video.parentNode.insertAdjacentHTML('afterend', controlsHtml);
+
+                const containerVideo = video.parentNode; // контейнер, где есть видео и controls
+                const controls = containerVideo.querySelector('.controls');
+                const progressBar = containerVideo.querySelector('.progress-bar');
+                const currentTimeRef = containerVideo.querySelector('.current-time');
+                const maxDurationRef = containerVideo.querySelector('.max-duration');
+                const playpauseBtn = containerVideo.querySelector('.play-pause');
+                const skipForwardBtn = containerVideo.querySelector('.skip-10');
+                const skipBackwardBtn = containerVideo.querySelector('.skipminus-10');
+                const muteBtn = containerVideo.querySelector('.mute');
+                const volumeSlider = containerVideo.querySelector('.volume');
+
+                let isPlaying = false;
+
+                // Обработчики управления
+                playpauseBtn.addEventListener('click', () => {
+                    if (video.paused) {
+                        video.play();
+                        playpauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                    } else {
+                        video.pause();
+                        playpauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                    }
+                });
+
+                video.addEventListener('play', () => {
+                    isPlaying = true;
+                });
+                video.addEventListener('pause', () => {
+                    isPlaying = false;
+                });
+                video.addEventListener('ended', () => {
+                    playpauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                    progressBar.style.width = "0%";
+                });
+
+                skipForwardBtn.addEventListener('click', () => {
+                    video.currentTime += 5;
+                });
+                skipBackwardBtn.addEventListener('click', () => {
+                    video.currentTime -= 5;
+                });
+
+                muteBtn.addEventListener('click', () => {
+                    video.muted = !video.muted;
+                    if (video.muted) {
+                        muteBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                        volumeSlider.value = 0;
+                    } else {
+                        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                        volumeSlider.value = video.volume;
+                    }
+                });
+
+                volumeSlider.addEventListener('input', () => {
+                    video.volume = volumeSlider.value;
+                    if (video.volume == 0) {
+                        muteBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                    } else {
+                        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    }
+                });
+
+                // Обновление прогресс бара и времени
+                video.addEventListener('timeupdate', () => {
+                    const percentage = (video.currentTime / video.duration) * 100;
+                    progressBar.style.width = percentage + "%";
+                    currentTimeRef.innerHTML = timeFormatter(video.currentTime);
+                    maxDurationRef.innerText = timeFormatter(video.duration);
+                });
+
+                // Клик по шкале для перемотки
+                const playbackLine = containerVideo.querySelector('.playback-line');
+                playbackLine.addEventListener('click', (e) => {
+                    const timelineWidth = playbackLine.clientWidth;
+                    video.currentTime = (e.offsetX / timelineWidth) * video.duration;
+                });
+
+                // Показать/скрыть управление при наведении
+                containerVideo.addEventListener("mouseenter", () => {
+                    controls.style.opacity = 1;
+                });
+                containerVideo.addEventListener("mouseleave", () => {
+                    controls.style.opacity = 0;
+                });
+            }
+        } else {
+            container.innerHTML = `<h2>Новость не найдена</h2>`;
         }
-        loadSingleArticle();
-    </script>
+    } catch (err) {
+        console.error(err);
+        container.innerHTML = `<h2>Ошибка загрузки</h2>`;
+    }
+}
+loadSingleArticle();
+</script>
 </body>
 </html>
