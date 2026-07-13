@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><!-- Главная страница -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Главная страница -->
   <url>
     <loc>https://rakurs-news.github.io/</loc>
-    <lastmod>2026-07-13</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1.0</priority></url>
-
-  <!-- Страница новостей -->
-  <url>
-    <loc>https://rakurs-news.github.io/news.html</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>1.0</priority>
   </url>
 
-  <!-- Страница контактов -->
-  <url>
-    <loc>https://rakurs-news.github.io/contacts.html</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url></urlset>
+  <!-- Список новостей -->
+  <url><loc>https://rakurs-news.github.io/news.html?id=deficit-benzina</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=dvorkovich-sekret-bogatstva</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=uzbeki-v-belorusi</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=seks-i-futbol</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=tadjikistan-budet-virashivat-maslo-v-rossii</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=poletnoe-zadanie-drona-vsu</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=ataka-bpla-na-moskvu</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=molodost–do-samoj-smerti</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=konfiskacija-bmw</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=ukrali-tank-i-razgrabili-mogili</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=matkapital-ne-dlya-nas</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=dizayner-citroen-poluchil-grazhdanstvo-rossii</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=zagryaznenie-mazutom-v-taganrogskom-zalive</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rakurs-news.github.io/news.html?id=orenburg-skandal-s-zhilishnymi-sertifikatami</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
