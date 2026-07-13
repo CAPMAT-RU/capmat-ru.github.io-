@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
+<head><meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Контакты — РАКУРС NEWS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,10 +11,9 @@
         --bg-color: #1a1a1a;
         --text-color: #f0f0f0;
         --accent-color: #e09f7d;
-        --card-bg: #222222;        --border-color: #333333;
-    }
-
-    body {
+        --card-bg: #222222;        
+        --border-color: #333333;
+    }body {
         background-color: var(--bg-color);
         color: var(--text-color);
         font-family: 'Montserrat', sans-serif;
@@ -25,11 +23,19 @@
 
     .contact-container {
         max-width: 600px;
-        margin: 100px auto 50px auto;
-        padding: 20px;}
+        margin: 100px auto 50px auto;padding: 20px;
+    }
 
-    h1 {
-        color: var(--accent-color);
+    .logo-header {
+        text-align: center;        margin-bottom: 20px;
+    }
+
+    .logo-header img {
+        max-width: 150px;
+        height: auto;
+    }
+
+    h1 {        color: var(--accent-color);
         margin-bottom: 30px;
         text-align: center;
     }
@@ -39,7 +45,8 @@
         border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 40px;
-        text-align: center;    }
+        text-align: center;    
+    }
 
     .contact-item {
         margin: 25px 0;
@@ -51,7 +58,8 @@
         display: block;
         margin-bottom: 8px;
         text-transform: uppercase;
-        font-size: 12px;letter-spacing: 1px;
+        font-size: 12px;
+        letter-spacing: 1px;
     }
 
     .contact-value {
@@ -59,22 +67,19 @@
         font-size: 18px;
     }
 
-    /* Стиль для кликабельной почты */
     .contact-value a {
-        color: var(--text-color);
-        text-decoration: none;
-        border-bottom: 1px solid var(--accent-color);
-        transition: color 0.3s;
+        color: var(--text-color);text-decoration: none;
+        border-bottom: 1px solid var(--accent-color);transition: color 0.3s;
     }
 
-    .contact-value a:hover {
-        color: var(--accent-color);
+    .contact-value a:hover {color: var(--accent-color);
     }
   </style>
 </head>
-<body>
-
-  <main class="contact-container">
+<body><main class="contact-container">
+    <div class="logo-header">
+        <img src="/images/favicon.png" alt="РАКУРС NEWS">
+    </div>
     <h1>Контакты</h1>
     <div class="contact-card">
         <div class="contact-item">
