@@ -51,16 +51,15 @@ footer { margin-top: auto; padding: 20px; text-align: center; color: #888; font-
     font-family: 'Merriweather', serif; 
     font-size: 1.1rem; 
     line-height: 1.7; 
-    hyphens: auto; /* Включаем автоматические переносы */
-    -webkit-hyphens: auto; /* Для WebKit */
-    -moz-hyphens: auto;    /* Для Firefox */
-    -ms-hyphens: auto;     /* Для IE */
-    text-align: justify; /* Выравнивание по ширине */
+    /* hyphens: auto;  -- Убрано, так как оно не всегда работает идеально */
+    /* -webkit-hyphens: auto; */
+    /* -moz-hyphens: auto; */
+    /* -ms-hyphens: auto; */
+    text-align: left; /* Изменено с justify на left для избежания больших пробелов */
 }
 .content-text p {
-    margin-top: 1.2em; /* Отступ сверху для абзацев */
-    margin-bottom: 1.2em; /* Отступ снизу для абзацев */
-    /* text-align: justify; <-- Это свойство теперь применяется к .content-text */
+    margin-top: 1.2em; 
+    margin-bottom: 1.2em; 
 }
 .video-container { position: relative; width:100%; margin-bottom: 20px; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; }
 .video-container video { width: 100%; display: block; }
