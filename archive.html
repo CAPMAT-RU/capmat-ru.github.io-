@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архив новостей | РАКУРС NEWS</title>
+</head>
+<body><h1>Архив всех новостей</h1>
+    <ul id="news-list">
+        <!-- Ссылки появятся здесь автоматически -->
+    </ul>
+
+    <script>
+        fetch('news.json')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('news-list');
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="news.html?id=${item.id}">${item.title}</a>`;
+                    list.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>
