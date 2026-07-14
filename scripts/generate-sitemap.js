@@ -1,50 +1,47 @@
 const fs = require('fs');
 const path = require('path');
 
-// 1. Громко говорим, где мы находимся
-console.log('🚀 START: Генерирую sitemap...');
-console.log('📁 process.cwd():', process.cwd());
-console.log('📂 __dirname (папка скрипта):', __dirname);
-
-// 2. Строим путь к news.json (поднимаемся из scripts на уровень выше)
-const rootDir = path.resolve(__dirname, '..');
+// 1. Самое важное: в GitHub Actions process.cwd() — это корень репозитория
+const rootDir = process.cwd();
 const newsPath = path.join(rootDir, 'news.json');
+const sitemapPath = path.join(rootDir, 'sitemap.xml');
 
-console.log('🔍 Ищу файл по пути:', newsPath);
+console.log('🚀 START: Генерирую sitemap...');
+console.log('📁 Рабочая папка (cwd):', rootDir);
+console.log('🔍 Ищу news.json по пути:', newsPath);
 
-// 3. ПРОВЕРКА: А вообще этот файл существует?
+// 2. Жесткая проверка существования файла
 if (!fs.existsSync(newsPath)) {
     console.error('💥 КРИТИЧЕСКАЯ ОШИБКА: Файл news.json НЕ НАЙДЕН!');
     
-    // Показываем, что реально лежит в папке, чтобы ты увидел подвох
+    // Выводим список ВСЕХ файлов в корне, чтобы ты увидел правду
     try {
         const files = fs.readdirSync(rootDir);
-        console.log('📋 Список файлов в корне проекта:', files);
+        console.error('📋 ФАЙЛЫ, КОТОРЫЕ ВИДИТ СИСТЕМА В КОРНЕ:', files);
     } catch (e) {
         console.error('Не удалось прочитать папку:', e.message);
     }
     
-    process.exit(1); // Останавливаем сборку, чтобы ты это увидел
+    process.exit(1); // Гарантированно сделаем сборку красной и заметной
 }
 
-// 4. Читаем и парсим JSON
+// 3. Чтение и парсинг
 let news;
 try {
     const rawData = fs.readFileSync(newsPath, 'utf8');
     news = JSON.parse(rawData);
-    console.log(`✅ Файл найден! Загружено новостей: ${Array.isArray(news) ? news.length : 'не массив'}`);
+    console.log(`✅ Файл найден и прочитан. Элементов: ${Array.isArray(news) ? news.length : 'НЕ МАССИВ'}`);
 } catch (err) {
-    console.error('💥 ОШИБКА при чтении JSON:', err.message);
+    console.error('💥 ОШИБКА ПАРСИНГА JSON:', err.message);
     process.exit(1);
 }
 
-// Если данные не массив — тоже ошибка
 if (!Array.isArray(news)) {
-    console.error('💥 Ошибка: news.json должен содержать список новостей (массив []), а не объект {}');
+    console.error('💥 Ошибка: news.json должен быть массивом [...]');
     process.exit(1);
 }
 
-// --- Дальше идёт твоя логика генерации ---
+// 4. Генерация XML
 const baseUrl = 'https://rakurs-news.github.io';
 
 let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -56,9 +53,7 @@ let xml = `<?xml version="1.0" encoding="UTF-8"?>
   </url>`;
 
 news.forEach(article => {
-    if (!article.id) {
-        return; // Пропускаем битые статьи
-    }
+    if (!article.id) return;
 
     const id = article.id;
     let slug = id
@@ -78,13 +73,15 @@ news.forEach(article => {
 
 xml += `\n</urlset>`;
 
-// Пишем sitemap.xml в корень
-const sitemapPath = path.join(rootDir, 'sitemap.xml');
+// 5. Запись файла
 try {
     fs.writeFileSync(sitemapPath, xml);
-    console.log(`🎉 Sitemap успешно создан: ${sitemapPath}`);
+    console.log(`🎉 Sitemap создан: ${sitemapPath}`);
+    
+    // Для проверки: выведем первые 100 символов созданного файла
+    const check = fs.readFileSync(sitemapPath, 'utf8').substring(0, 100);
+    console.log('📝 Проверка начала файла:', check);
 } catch (err) {
     console.error('💥 Не удалось записать sitemap.xml:', err.message);
     process.exit(1);
 }
-
