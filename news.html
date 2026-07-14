@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="ru">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Новость | РАКУРС</title>
-<link rel="icon" type="image/png" href="/images/favicon.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/images/favicon.png" sizes="32x32" />
 <meta name="yandex-verification" content="8e3a5a0a7520b3b8" />
 <meta name="description" content="Читайте последние новости на портале РАКУРС" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,23 +15,35 @@
     --bg-color: #1a1a1a;
     --text-color: #f0f0f0;
     --accent-color: #e09f7d;
-    --card-bg: #222222;
-    --border-color: #333333;
+    --card-bg: #222222;    --border-color: #333333;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
 body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; padding-top: 60px; }
-header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(26, 26, 26, 0.8); backdrop-filter: blur(10px); display: flex; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid rgba(255, 255,255, 0.1); }
-header .logo-container { display: flex; align-items: center; }header .logo-container img { height:30px; margin-right: 10px; }
+header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(26, 26, 26, 0.8); backdrop-filter: blur(10px); display: flex; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+header .logo-container { display: flex; align-items: center; }
+header .logo-container img { height:30px; margin-right: 10px; }
 header h1 { color: var(--accent-color); font-weight: 700; letter-spacing: 1px; font-size: 28px; }
 footer { margin-top: auto; padding: 20px; text-align: center; color: #888; font-size: 0.9rem; border-top:1px solid rgba(255, 255, 255, 0.1); }
-.back-btn { display: block; padding: 10px 15px; max-width: 220px; width: 100%; box-sizing: border-box; background: transparent; border:2px solid var(--accent-color); color: var(--accent-color); text-decoration: none; font-weight: bold; border-radius:25px; transition: all 0.3s; margin:30px auto 40px; text-align: center;}
+.back-btn { display: block; padding: 10px 15px; max-width: 220px; width: 100%; box-sizing: border-box; background: transparent; border:2px solid var(--accent-color); color: var(--accent-color); text-decoration: none; font-weight: bold; border-radius:25px; transition: all 0.3s; margin: 30px auto 40px; text-align: center;}
 .back-btn:hover { background: var(--accent-color); color: var(--bg-color); transform: scale(1.05); }
 #article-container { max-width: 800px; margin:40px auto; padding: 30px; background: var(--card-bg); border-radius: 8px; border:1px solid var(--border-color); }
 #article-container img { width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius:4px; margin-bottom: 25px; }
-#article-container h1 { font-size: 1.6rem; margin-bottom: 20px; line-height: 1.3; }
-.meta-info { color: #aaa; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 0.9rem; }
-.category-meta { color: var(--accent-color); font-weight: 700; margin-right: 10px; }
-.content-text { font-family: 'Merriweather', serif; font-size: 1.1rem; line-height: 1.7; text-align: left; }.content-text p { margin-top: 1.2em; margin-bottom: 1.2em; }
+
+#article-container h1 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.meta-info { color: #aaa; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+.category-meta { color: var(--accent-color); font-weight: 700; }
+.content-text { font-family: 'Merriweather', serif; font-size: 1.1rem; line-height: 1.7; text-align: left; }
+.content-text p { margin-top: 1.2em; margin-bottom: 1.2em; }
+.video-container { position: relative; width:100%; margin-bottom: 20px; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; }
+.video-container video { width: 100%; display: block; }
+.play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: var(--card-bg); border-radius: 50%; display: flex; justify-content: center; align-items: center; border:2px solid var(--accent-color); }
+.play-icon { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid var(--accent-color); margin-left: 5px; }
 </style>
 </head>
 <body>
@@ -41,7 +54,8 @@ footer { margin-top: auto; padding: 20px; text-align: center; color: #888; font-
     </div>
 </header>
 <main>
-    <div id="article-container"><p style="text-align: center; color: #666;">Загрузка статьи...</p></div>
+    <div id="article-container">        <p style="text-align: center; color: #666;">Загрузка статьи...</p>
+    </div>
 </main>
 <footer><p>©2026 РАКУРС</p></footer>
 
@@ -51,25 +65,42 @@ async function loadSingleArticle() {
     const newsId = params.get('id');
     const container = document.getElementById('article-container');
 
-    try {        const response = await fetch('news.json');
+    try {
+        const response = await fetch('news.json');
         const data = await response.json();
         const news = data.find(n => n.id == newsId);
 
-        if (news) {document.title = `${news.title} | РАКУРС`;
+        if (news) {
+            document.title = `${news.title} | РАКУРС`;
 
-            let mediaHtml = "";
-            if (news.image && news.image.trim() !== "") {
+            // Логика отображения медиа: если ссылки нет, переменная остается пустой
+            let mediaHtml = "";            if (news.videoUrl) {
+                mediaHtml = `<div class="video-container" id="vid-wrapper">
+                               <video src="${news.videoUrl}" playsinline></video>
+                               <div class="play-button" id="play-btn"><div class="play-icon"></div></div>
+                             </div>`;
+            } else if (news.image && news.image.trim() !== "") {
                 mediaHtml = `<img src="${news.image}" alt="${news.title}">`;
             }
 
             container.innerHTML = `${mediaHtml}
                 <h1>${news.title}</h1>
-                <div class="meta-info">
-                    <span class="category-meta">${news.category}</span> 
-                    <span>${news.date} в ${news.time}</span>
-                </div>
+                <div class="meta-info"><span class="category-meta">Рубрика: ${news.category}</span></div>
                 <div class="content-text">${news.content}</div>
-                <a href="index.html" class="back-btn">← На Главную</a>`;
+                <a href="index.html" class="back-btn">← На Главную</a>`;            const wrapper = document.getElementById('vid-wrapper');
+            const video = wrapper ? wrapper.querySelector('video') : null;            const btn = wrapper ? document.getElementById('play-btn') : null;
+
+            if (wrapper && video && btn) {
+                const toggleVideo = () => {
+                    if (video.paused) {video.play();
+                        btn.style.display = 'none';
+                    } else {
+                        video.pause();
+                        btn.style.display = 'flex';
+                    }
+                };
+                wrapper.addEventListener('click', toggleVideo);
+            }
         } else {
             container.innerHTML = `<h2>Новость не найдена</h2>`;
         }
@@ -78,6 +109,6 @@ async function loadSingleArticle() {
         container.innerHTML = `<h2>Ошибка загрузки</h2>`;
     }
 }
-loadSingleArticle();
-</script></body>
+loadSingleArticle();</script>
+</body>
 </html>
