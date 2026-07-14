@@ -6,6 +6,11 @@
 <priority>1.0</priority>
 </url>
  <url>
+<loc>https://rakurs-news.github.io/news.html?id=borba-s-vetryanymi-melnitsami-v-efire</loc>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+ <url>
 <loc>https://rakurs-news.github.io/news.html?id=ocherednaya-imitatsiya-zaboty-fas</loc>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
