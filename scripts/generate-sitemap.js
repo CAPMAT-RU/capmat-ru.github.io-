@@ -1,73 +1,90 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('--- START GENERATING SITEMAP ---');
-console.log('Current working directory:', process.cwd());
-console.log('Script directory (__dirname):', __dirname);
+// 1. Громко говорим, где мы находимся
+console.log('🚀 START: Генерирую sitemap...');
+console.log('📁 process.cwd():', process.cwd());
+console.log('📂 __dirname (папка скрипта):', __dirname);
 
-// Пытаемся найти news.json в корне проекта
+// 2. Строим путь к news.json (поднимаемся из scripts на уровень выше)
 const rootDir = path.resolve(__dirname, '..');
 const newsPath = path.join(rootDir, 'news.json');
 
-console.log('Looking for news.json at:', newsPath);
+console.log('🔍 Ищу файл по пути:', newsPath);
 
-// Проверка: существует ли файл?
+// 3. ПРОВЕРКА: А вообще этот файл существует?
 if (!fs.existsSync(newsPath)) {
-    console.error('❌ ОШИБКА: Файл news.json НЕ найден по пути:', newsPath);
-    console.log('📂 Список файлов в корне проекта:', fs.readdirSync(rootDir));
-    process.exit(1);
+    console.error('💥 КРИТИЧЕСКАЯ ОШИБКА: Файл news.json НЕ НАЙДЕН!');
+    
+    // Показываем, что реально лежит в папке, чтобы ты увидел подвох
+    try {
+        const files = fs.readdirSync(rootDir);
+        console.log('📋 Список файлов в корне проекта:', files);
+    } catch (e) {
+        console.error('Не удалось прочитать папку:', e.message);
+    }
+    
+    process.exit(1); // Останавливаем сборку, чтобы ты это увидел
 }
 
+// 4. Читаем и парсим JSON
 let news;
 try {
     const rawData = fs.readFileSync(newsPath, 'utf8');
     news = JSON.parse(rawData);
-    console.log('✅ Успешно загружено новостей:', news.length);
+    console.log(`✅ Файл найден! Загружено новостей: ${Array.isArray(news) ? news.length : 'не массив'}`);
 } catch (err) {
-    console.error('❌ ОШИБКА при чтении/парсинге news.json:', err.message);
-    console.log('📄 Содержимое файла (первые 500 символов):', rawData.substring(0, 500));
+    console.error('💥 ОШИБКА при чтении JSON:', err.message);
     process.exit(1);
 }
 
+// Если данные не массив — тоже ошибка
+if (!Array.isArray(news)) {
+    console.error('💥 Ошибка: news.json должен содержать список новостей (массив []), а не объект {}');
+    process.exit(1);
+}
+
+// --- Дальше идёт твоя логика генерации ---
 const baseUrl = 'https://rakurs-news.github.io';
+
 let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>${baseUrl}/</loc>
-<changefreq>daily</changefreq>
-<priority>1.0</priority>
-</url>`;
+  <url>
+    <loc>${baseUrl}/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>`;
 
-if (Array.isArray(news)) {
-    news.forEach(article => {
-        if (!article.id) {
-            console.warn('⚠️ Пропуск новости без ID:', article);
-            return;
-        }
-        const id = article.id;
-        let slug = id
-            .replace(/–/g, '-')
-            .replace(/[^a-z0-9-]/gi, '-')
-            .toLowerCase();
-        
-        const loc = `${baseUrl}/news.html?id=${slug}`;
-        
-        xml += `
-<url>
-<loc>${loc}</loc>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>`;
-    });
-} else {
-    console.error('❌ ОШИБКА: news.json должен содержать массив объектов!');
-    process.exit(1);
-}
+news.forEach(article => {
+    if (!article.id) {
+        return; // Пропускаем битые статьи
+    }
+
+    const id = article.id;
+    let slug = id
+        .replace(/–/g, '-')
+        .replace(/[^a-z0-9-]/gi, '-')
+        .toLowerCase();
+
+    const loc = `${baseUrl}/news.html?id=${slug}`;
+
+    xml += `
+  <url>
+    <loc>${loc}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+});
 
 xml += `\n</urlset>`;
 
+// Пишем sitemap.xml в корень
 const sitemapPath = path.join(rootDir, 'sitemap.xml');
 try {
     fs.writeFileSync(sitemapPath, xml);
-    console.log('✅ Sitemap успешно создан:', sitemapPath);
-} catch
+    console.log(`🎉 Sitemap успешно создан: ${sitemapPath}`);
+} catch (err) {
+    console.error('💥 Не удалось записать sitemap.xml:', err.message);
+    process.exit(1);
+}
+
