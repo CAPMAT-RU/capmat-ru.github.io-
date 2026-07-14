@@ -1,26 +1,61 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Архив новостей | РАКУРС NEWS</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Архив всех новостей | РАКУРС NEWS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+        --bg-color: #1a1a1a;
+        --text-color: #f0f0f0;
+        --accent-color: #e09f7d;
+        --card-bg: #222222;        --border-color: #333333;
+    }
+    body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Montserrat', sans-serif; padding: 20px; }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { color: var(--accent-color); margin-bottom: 30px; text-align: center; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: var(--accent-color); text-decoration: none; }
+    
+    .archive-list { display: flex; flex-direction: column; gap: 10px; }
+    .news-item { 
+        background-color: var(--card-bg);
+        padding: 15px 20px;
+        border-radius: 4px;
+        border: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: border-color 0.3s;
+    }
+    .news-item:hover { border-color: var(--accent-color); }
+    .news-item a { color: var(--text-color); text-decoration: none; font-weight:600; flex: 1; }
+    .news-item span { font-family: 'Merriweather', serif; font-size: 0.9rem; color: #888; margin-left: 20px; }
+  </style>
 </head>
-<body><h1>Архив всех новостей</h1>
-    <ul id="news-list">
-        <!-- Ссылки появятся здесь автоматически -->
-    </ul>
+<body>
+  <div class="container"><a href="/" class="back-link">← На главную</a>
+    <h1>Архив новостей</h1>
+    <div id="archive-list" class="archive-list">Загрузка архива...</div>
+  </div>
 
-    <script>
-        fetch('news.json')
-            .then(response => response.json())
-            .then(data => {
-                const list = document.getElementById('news-list');
-                data.forEach(item => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="news.html?id=${item.id}">${item.title}</a>`;
-                    list.appendChild(li);
-                });
-            });
-    </script>
+  <script>    fetch('news.json')
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById('archive-list');
+        list.innerHTML = '';data.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'news-item';
+          div.innerHTML = `
+            <a href="news.html?id=${item.id}">${item.title}</a>
+            <span>${item.date || ''}</span>
+          `;
+          list.appendChild(div);
+        });
+      })
+      .catch(err => {
+        document.getElementById('archive-list').innerHTML = 'Не удалось загрузить архив.';
+      });
+  </script>
 </body>
 </html>
