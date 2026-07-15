@@ -1,114 +1,153 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Новость | РАКУРС</title>
-  <link rel="icon" type="image/png" href="/images/favicon.png" sizes="32x32" />
-<meta name="yandex-verification" content="8e3a5a0a7520b3b8" />
-<meta name="description" content="Читайте последние новости на портале РАКУРС" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Сюда JS подставит заголовок новости -->
+    <title id="page-title">Новость</title>
 
-<style>
-:root {
-    --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
-    --accent-color: #e09f7d;
-    --card-bg: #222222;    --border-color: #333333;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; padding-top: 60px; }
-header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(26, 26, 26, 0.8); backdrop-filter: blur(10px); display: flex; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-header .logo-container { display: flex; align-items: center; }
-header .logo-container img { height:30px; margin-right: 10px; }
-header h1 { color: var(--accent-color); font-weight: 700; letter-spacing: 1px; font-size: 28px; }
-footer { margin-top: auto; padding: 20px; text-align: center; color: #888; font-size: 0.9rem; border-top:1px solid rgba(255, 255, 255, 0.1); }
-.back-btn { display: block; padding: 10px 15px; max-width: 220px; width: 100%; box-sizing: border-box; background: transparent; border:2px solid var(--accent-color); color: var(--accent-color); text-decoration: none; font-weight: bold; border-radius:25px; transition: all 0.3s; margin: 30px auto 40px; text-align: center;}
-.back-btn:hover { background: var(--accent-color); color: var(--bg-color); transform: scale(1.05); }
-#article-container { max-width: 800px; margin:40px auto; padding: 30px; background: var(--card-bg); border-radius: 8px; border:1px solid var(--border-color); }
-#article-container img { width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius:4px; margin-bottom: 25px; }
+    <!-- МИКРОРАЗМЕТКА ДЛЯ ЯНДЕКСА (обязательно!) -->
+    <!-- Робот прочитает это и покажет дату/заголовок в поиске -->
+    <script type="application/ld+json" id="schema-data">
+        {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "headline": "",
+            "datePublished": "",
+            "author": {"@type": "Organization", "name": "Ракурс NEWS"},
+            "publisher": {"@type": "Organization", "name": "Ракурс NEWS"}
+        }
+    </script>
 
-#article-container h1 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-    line-height: 1.3;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-.meta-info { color: #aaa; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
-.category-meta { color: var(--accent-color); font-weight: 700; }
-.content-text { font-family: 'Merriweather', serif; font-size: 1.1rem; line-height: 1.7; text-align: left; }
-.content-text p { margin-top: 1.2em; margin-bottom: 1.2em; }
-.video-container { position: relative; width:100%; margin-bottom: 20px; border-radius: 8px; overflow: hidden; background: #000; cursor: pointer; }
-.video-container video { width: 100%; display: block; }
-.play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: var(--card-bg); border-radius: 50%; display: flex; justify-content: center; align-items: center; border:2px solid var(--accent-color); }
-.play-icon { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid var(--accent-color); margin-left: 5px; }
-</style>
+    <style>
+        :root { --bg: #121212; --text: #e0e0e0; --accent: #ff9800; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; line-height: 1.7; padding: 20px; max-width: 800px; margin: auto; }
+        h1 { color: var(--accent); margin-top: 0; font-size: 24px; }
+        .meta { color: var(--accent); font-size: 13px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        article p { margin-bottom: 1rem; text-align: justify; }
+        a.back { color: #888; text-decoration: underline; margin-bottom: 20px; display: inline-block; font-size: 14px; }
+        
+        /* Стили для ошибок и отладки */
+        #loading { text-align: center; margin-top: 50px; color: var(--accent); font-size: 18px; }
+        .error-box { 
+            color: red; 
+            padding: 20px; 
+            background: #222; 
+            border-radius: 5px; 
+            text-align: center;
+            margin-top: 30px;
+            border: 1px solid red;
+        }
+        #debug-info {
+            background: #1a1a1a;
+            padding: 15px;
+            color: #aaa;
+            font-family: monospace;
+            margin-top: 20px;
+            border-left: 4px solid var(--accent);
+            display: none; /* Скрыто по умолчанию */
+        }
+    </style>
 </head>
 <body>
-<header>
-    <div class="logo-container">
-        <img src="/images/favicon.png" alt="Логотип">
-        <h1>РАКУРС</h1>
-    </div>
-</header>
-<main>
-    <div id="article-container">        <p style="text-align: center; color: #666;">Загрузка статьи...</p>
-    </div>
-</main>
-<footer><p>©2026 РАКУРС</p></footer>
+    <!-- Кнопка назад -->
+    <a href="index.html" class="back">← Вернуться к ленте новостей</a>
+    
+    <!-- Экран загрузки -->
+    <div id="loading">Загрузка новости...</div>
+    
+    <!-- Контейнер для готовой новости (скрыт пока не загрузится) -->
+    <article id="content-area" style="display: none;">
+        <h1 id="article-title"></h1>
+        <div class="meta">
+            <span id="article-date"></span> • <span id="article-category"></span>
+        </div>
+        <div id="article-body"></div>
+    </article>
 
-<script>
-async function loadSingleArticle() {
-    const params = new URLSearchParams(window.location.search);
-    const newsId = params.get('id');
-    const container = document.getElementById('article-container');
+    <!-- Блок ошибки -->
+    <div id="error" class="error-box" style="display:none;"></div>
+    
+    <!-- БЛОК ОТЛАДКИ (покажет, какой ID он искал и какие есть в файле) -->
+    <div id="debug-info"></div>
 
-    try {
-        const response = await fetch('news.json');
-        const data = await response.json();
-        const news = data.find(n => n.id == newsId);
+    <script>
+        // 1. Получаем ID из адресной строки
+        const urlParams = new URLSearchParams(window.location.search);
+        const newsId = urlParams.get('id'); // Например: "iran-obnulit-starlink-vmesto-peregovorov"
 
-        if (news) {
-            document.title = `${news.title} | РАКУРС`;
-
-            // Логика отображения медиа: если ссылки нет, переменная остается пустой
-            let mediaHtml = "";            if (news.videoUrl) {
-                mediaHtml = `<div class="video-container" id="vid-wrapper">
-                               <video src="${news.videoUrl}" playsinline></video>
-                               <div class="play-button" id="play-btn"><div class="play-icon"></div></div>
-                             </div>`;
-            } else if (news.image && news.image.trim() !== "") {
-                mediaHtml = `<img src="${news.image}" alt="${news.title}">`;
-            }
-
-            container.innerHTML = `${mediaHtml}
-                <h1>${news.title}</h1>
-                <div class="meta-info"><span class="category-meta">Рубрика: ${news.category}</span></div>
-                <div class="content-text">${news.content}</div>
-                <a href="index.html" class="back-btn">← На Главную</a>`;            const wrapper = document.getElementById('vid-wrapper');
-            const video = wrapper ? wrapper.querySelector('video') : null;            const btn = wrapper ? document.getElementById('play-btn') : null;
-
-            if (wrapper && video && btn) {
-                const toggleVideo = () => {
-                    if (video.paused) {video.play();
-                        btn.style.display = 'none';
-                    } else {
-                        video.pause();
-                        btn.style.display = 'flex';
-                    }
-                };
-                wrapper.addEventListener('click', toggleVideo);
-            }
+        if (!newsId) {
+            document.getElementById('loading').innerText = "Ошибка: ID новости не передан в ссылке.";
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('error').innerText = "Ссылка должна выглядеть как: .../news.html?id=iran-obnulit-starlink...";
         } else {
-            container.innerHTML = `<h2>Новость не найдена</h2>`;
+            console.log('Ищем новость с ID:', newsId);
+            loadAndShowNews(newsId);
         }
-    } catch (err) {
-        console.error(err);
-        container.innerHTML = `<h2>Ошибка загрузки</h2>`;
-    }
-}
-loadSingleArticle();</script>
+
+        async function loadAndShowNews(id) {
+            try {
+                // ВАЖНО: fetch без слэша ищет файл рядом с этим HTML (работает на GitHub Pages)
+                const response = await fetch('news.json');
+                
+                if (!response.ok) {
+                    throw new Error('Файл news.json не найден (статус ' + response.status + '). Проверь название файла и регистр букв!');
+                }
+                
+                const allNews = await response.json();
+                console.log('В файле найдено новостей:', allNews.length);
+
+                // ГЛАВНОЕ: Точное сравнение строк. 
+                // Если в JSON id: "iran...", а в ссылке "iran...", они совпадут.
+                const news = allNews.find(n => n.id === id);
+
+                if (news) {
+                    renderNews(news);
+                } else {
+                    // Если не нашел — покажем список всех ID, которые ЕСТЬ в файле.
+                    const availableIds = allNews.map(n => n.id).join('\n- ');
+                    const msg = `Новость с ID "${id}" не найдена в файле.\n\nДоступные ID в news.json:\n- ${availableIds}`;
+                    
+                    throw new Error(msg);
+                }
+            } catch (e) {
+                document.getElementById('loading').style.display = 'none';
+                const errDiv = document.getElementById('error');
+                errDiv.style.display = 'block';
+                errDiv.innerText = e.message;
+                
+                // Включаем блок отладки, чтобы ты видел текст ошибки
+                const debugDiv = document.getElementById('debug-info');
+                debugDiv.style.display = 'block';
+                debugDiv.innerText = 'Техническая информация:\nЗапрошен ID: ' + (newsId || 'нет') + '\nОшибка JS: ' + e.toString();
+                
+                console.error(e);
+            }
+        }
+
+        function renderNews(item) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content-area').style.display = 'block';
+
+            // Заполняем заголовок страницы
+            document.getElementById('article-title').innerText = item.title;
+            document.getElementById('page-title').innerText = item.title + " — Ракурс NEWS";
+
+            // Заполняем метаданные
+            document.getElementById('article-date').innerText = item.date;
+            document.getElementById('article-category').innerText = item.category;
+
+            // Разбиваем текст на абзацы (по двойному переносу строки)
+            const paragraphs = item.content.split('\n\n').map(p => `<p>${p}</p>`).join('');
+            document.getElementById('article-body').innerHTML = paragraphs;
+
+            // Обновляем микроразметку для Яндекса
+            const script = document.getElementById('schema-data');
+            const json = JSON.parse(script.innerText);
+            json.headline = item.title;
+            json.datePublished = item.date; // Формат YYYY-MM-DD обязателен!
+            script.innerText = JSON.stringify(json);
+        }
+    </script>
 </body>
 </html>

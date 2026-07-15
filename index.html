@@ -3,153 +3,73 @@
 <head>
     <meta name="yandex-verification" content="8e3a5a0a7520b3b8" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Ракурс NEWS — актуальные новости политики, геополитики, регионов, криминала, спорта и шоу-бизнеса. Оперативная информация и аналитика.">
-    <meta name="keywords" content="новости, политика, спорт, криминал, шоу-бизнес, Ракурс NEWS">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://rakurs-news.github.io/">
-    <title>Ракурс NEWS — Последние новости</title>
-    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
-    <meta name="theme-color" content="#121212">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ракурс NEWS — Лента</title>
     <style>
         :root { --bg: #121212; --card: #1e1e1e; --accent: #ff9800; --text: #e0e0e0; }
-        * { box-sizing: border-box; margin:0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: #000; padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent); }
-        .logo-wrapper { display: flex; align-items: center; gap: 10px; }
-        .logo { width: 40px; height: 40px; background: #333; display: flex; align-items: center; justify-content: center; border-radius: 5px; flex-shrink: 0; }
-        .logo img { width: 30px; height: 30px; } .site-name { font-size: 20px; font-weight: bold; color: var(--accent); white-space: nowrap; }
-        .search-container { width: 150px; }
-        #search { padding: 8px 15px; border-radius:20px; border: 2px solid var(--accent); width: 100%; background: #000; color: white; outline: none; font-size: 12px; text-align: center; }
-        #search::placeholder { color: var(--accent); opacity: 0.7; }
-        nav { padding: 15px 5%; background: #1a1a1a; display: flex; gap: 20px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
-        nav::-webkit-scrollbar { display: none; }
-        nav a { color: #aaa; text-decoration: none; font-size: 14px; cursor: pointer; font-weight: 500; }nav a:hover { color: var(--accent); }
-        main { padding: 20px 5%; max-width: 1200px; margin: auto; }
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card); padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent); transition: 0.3s; }
-        .date { font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 5px; }
-        .card h3 { font-size: 18px; margin-bottom: 8px; line-height: 1.3; }
-        @media (min-width: 768px) {
-            .search-container { width: 220px; }
-        }
-        #no-results { display: none; text-align: center; padding: 40px; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+        header { background: #000; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent); }
+        .logo { font-weight: bold; color: var(--accent); font-size: 18px; }
+        
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        
+        /* Карточка новости */
+        .card { background: var(--card); padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent); cursor: pointer; transition: transform 0.2s; text-decoration: none; color: inherit; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        
+        .meta { color: var(--accent); font-size: 11px; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        h3 { margin: 10px 0; font-size: 18px; line-height: 1.3; }
+        p.preview { color: #aaa; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        #error-msg { color: #ff4444; text-align: center; padding: 40px; display: none; }
     </style>
 </head>
 <body>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsMediaOrganization",
-      "name": "Ракурс NEWS",
-      "url": "https://rakurs-news.github.io/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>"
-      },
-      "description": "Актуальные новости политики, геополитики, регионов, криминала, спорта и шоу-бизнеса."
-    }
-    </script>
 
     <header>
-        <div class="logo-wrapper">
-            <div class="logo">
-                <img src="/images/logo.png" alt="Логотип Ракурс NEWS" loading="lazy">
-            </div>
-            <div class="site-name">Ракурс NEWS</div>
-        </div>
-        <div class="search-container">
-            <input type="text" id="search" placeholder="Поиск по сайту" aria-label="Поиск новостей">
-        </div>
+        <div class="logo">РАКУРС NEWS</div>
+        <!-- Сюда потом вставишь лого, если надо -->
     </header>
 
-    <nav>
-        <a onclick="filter('Все')" aria-label="Показать все новости">Все</a>
-        <a onclick="filter('Политика')" aria-label="Показать новости политики">Политика</a>
-        <a onclick="filter('Геополитика')" aria-label="Показать новости геополитики">Геополитика</a>
-        <a onclick="filter('Регионы')" aria-label="Показать новости регионов">Регионы</a>
-        <a onclick="filter('Криминал')" aria-label="Показать новости криминала">Криминал</a>
-        <a onclick="filter('Коррупция')" aria-label="Показать новости коррупции">Коррупция</a>
-        <a onclick="filter('Спорт')" aria-label="Показать новости спорта">Спорт</a>
-        <a onclick="filter('Шоу-бизнес')" aria-label="Показать новости шоу-бизнеса">Шоу-бизнес</a>
-    </nav>
-
-    <main>
-        <h1 style="display:none;">Последние новости — Ракурс NEWS</h1>
-        <div id="news-container" class="news-grid" role="main" aria-label="Список новостей"></div>
-        <div id="no-results">По вашему запросу новостей не найдено</div>
-    </main>
+    <div class="container">
+        <h1 style="margin-bottom: 20px;">Последние новости</h1>
+        <div id="error-msg">Ошибка загрузки новостей</div>
+        <div id="news-container" class="news-grid"></div>
+    </div>
 
     <script>
-        let newsData = [];
-
-        async function fetchData() {
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
-                const response = await fetch('news.json', { signal: controller.signal });
-                clearTimeout(timeoutId);
-                newsData = await response.json();
-                
-                newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                const cutoffDate = new Date();
-                cutoffDate.setDate(cutoffDate.getDate() - 3);
-                
-                newsData = newsData.filter(newsItem => {
-                    const newsDate = new Date(newsItem.date);
-                    return !isNaN(newsDate.getTime()) && newsDate >= cutoffDate;
-                });
-
-                render(newsData);
-            } catch(e) {
-                console.error("Ошибка загрузки news.json", e);
-            }
-        }
-
-        function render(data) {
+        async function loadNews() {
             const container = document.getElementById('news-container');
-            container.innerHTML = '';
-            if (data.length === 0) {
-                document.getElementById('no-results').style.display = 'block';
-            } else {
-                document.getElementById('no-results').style.display = 'none';
+            const errorMsg = document.getElementById('error-msg');
+
+            try {
+                // Относительный путь — работает на GitHub Pages
+                const response = await fetch('news.json');
+                if (!response.ok) throw new Error('Статус ' + response.status);
+                const data = await response.json();
+
                 data.forEach(item => {
-                    container.innerHTML += `
-                        <a href="news.html?id=${item.id}" style="text-decoration: none; color: inherit;" aria-label="Читать новость: ${item.title}">
-                            <div class="card">
-                                <div class="date">${item.date} — ${item.category}</div>
-                                <h3>${item.title}</h3>
-                            </div>
+                    // Ссылка ведет на news.html?id=ID_новости
+                    const link = `news.html?id=${item.id}`;
+
+                    const card = `
+                        <a href="${link}" class="card" aria-label="${item.title}">
+                            <span class="meta">${item.date} • ${item.category}</span>
+                            <h3>${item.title}</h3>
+                            <p class="preview">${item.content.substring(0, 150)}...</p>
                         </a>
                     `;
+                    container.innerHTML += card;
                 });
+
+            } catch (err) {
+                console.error(err);
+                errorMsg.style.display = 'block';
+                errorMsg.innerText = 'Ошибка: ' + err.message;
             }
         }
-
-        function filter(cat) {
-            const filtered = cat === 'Все' ? newsData : newsData.filter(n => n.category === cat);
-            render(filtered);
-        }
-
-        document.getElementById('search').addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            if (val.length < 2) {
-                render(newsData); 
-                document.getElementById('no-results').style.display = 'none';
-                return; 
-            }
-            const filtered = newsData.filter(n => n.title.toLowerCase().includes(val));
-            render(filtered);
-            document.getElementById('no-results').style.display = filtered.length ? 'none' : 'block';
-        });
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', fetchData);
-        } else {
-            fetchData();
-        }
+        loadNews();
     </script>
 </body>
 </html>
