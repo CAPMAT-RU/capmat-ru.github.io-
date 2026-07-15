@@ -6,11 +6,6 @@
 <priority>1.0</priority>
 </url>
  <url>
-<loc>https://rakurs-news.github.io/news.html?id=pasportnyy-konveyer-i-krakh-migratsionnoy-politiki</loc>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
- <url>
 <loc>https://rakurs-news.github.io/news.html?id=skandalnaya-karera-chinovnicy-posle-rastyraty</loc>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
@@ -101,7 +96,7 @@
 <priority>0.8</priority>
 </url>
  <url>
-<loc>https://rakurs-news.github.io/news.html?id=molodost-do-samoj-smerti</loc>
+<loc>https://rakurs-news.github.io/news.html?id=molodost–do-samoj-smerti</loc>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
