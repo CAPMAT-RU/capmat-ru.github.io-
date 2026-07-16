@@ -80,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (newsItem) {
                 const descText = newsItem.description || newsItem.content.replace(/<[^>]*>/g, '').substring(0, 160) + "...";
                 
-                document.getElementById('article-title').textContent = newsItem.title;document.getElementById('page-title').textContent = newsItem.title + ' — Ракурс NEWS';
+                document.getElementById('article-title').textContent = newsItem.title;
+                document.getElementById('page-title').textContent = newsItem.title + ' — Ракурс NEWS';
                 document.getElementById('meta-description').setAttribute('content', descText);
                 document.getElementById('article-date').textContent = newsItem.date;
                 document.getElementById('article-category').textContent = newsItem.category;
@@ -102,9 +103,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     "image": newsItem.image ? [newsItem.image] : []
                 };
                 document.getElementById('schema-data').textContent = JSON.stringify(schemaData);
+            } else {
+                document.getElementById('article-content').innerHTML = '<h1 style="color:#e0e0e0; text-align:center;">Новость не найдена</h1>';
             }
         })
-        .catch(err => console.error(err));
-});</script>
+        .catch(err => {
+            console.error(err);
+            document.getElementById('article-content').innerHTML = '<h1 style="color:#e0e0e0; text-align:center;">Ошибка загрузки новости</h1>';
+        });
+});
+</script>
 </body>
 </html>

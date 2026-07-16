@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>    <meta name="yandex-verification" content="8e3a5a0a7520b3b8" />
+<head>
+    <meta name="yandex-verification" content="8e3a5a0a7520b3b8" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
@@ -15,101 +16,38 @@
         .logo-wrapper { display: flex; align-items: center; gap: 10px; }
         .site-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 4px; }
         .logo { font-weight: bold; color: var(--accent); font-size: 18px; text-transform: uppercase; letter-spacing: 1px; }
-
         .search-container { display: flex; gap: 10px; align-items: center; width: 50%; }
-        .search-input {            background: var(--input-bg);
-            border: 1px solid #333;color: var(--text);
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-size: 14px;
-            width: 100%;
-            outline: none;
-        }
+        .search-input { background: var(--input-bg); border: 1px solid #333; color: var(--text); padding: 10px 15px; border-radius: 4px; font-size: 14px; width: 100%; outline: none; }
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 8px rgba(255, 152, 0, 0.3); }
-
         .container { max-width: 1200px; margin: auto; padding: 20px; }
-        
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-        .category-btn {background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 10px 16px;
-            border-radius: 5px;            cursor: pointer;
-            font-size: 14px;
-            text-transform: uppercase;
-            transition: all 0.2s;
-            text-decoration: none;
-            text-align: center;
-            display: block;
-        }
-        .category-btn:hover, .category-btn.active {            background: var(--accent);
-            color: #000;
-        }
-
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin-bottom: 30px; }
+        .category-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 16px; border-radius: 5px; cursor: pointer; font-size: 14px; text-transform: uppercase; transition: all 0.2s; text-decoration: none; text-align: center; display: block; }
+        .category-btn:hover, .category-btn.active { background: var(--accent); color: #000; }
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        
         .card { background: var(--card); padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent); cursor: pointer; transition: transform 0.2s; text-decoration: none; color: inherit; }
         .card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        
         .meta { color: var(--accent); font-size: 11px; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        h3 { margin: 10px 0; font-size: 18px; line-height: 1.3; }
+        h2 { margin: 10px 0; font-size: 18px; line-height: 1.3; } /* Стиль для заголовка H2 */
         p.preview { color: #aaa; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
         #error-msg { color: #ff4444; text-align: center; padding: 40px; display: none; }
-        
-        #search-results { 
-            display: none; margin-bottom: 30px; background: #1a1a1a; padding: 20px; 
-            border-radius: 8px; border-left: 4px solid var(--accent);
-        }
+        #search-results { display: none; margin-bottom: 30px; background: #1a1a1a; padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent); }
         .result-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #333; }
         .result-title { color: var(--accent); font-weight: bold; font-size: 16px; text-decoration: none; }
         .result-meta { color: #888; font-size: 12px; margin-top: 4px; }
-
-        .load-more-btn {
-            display: block;
-            margin: 40px auto;
-            padding: 15px 30px;
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
+        .load-more-btn { display: block; margin: 40px auto; padding: 15px 30px; background: transparent; border: 1px solid var(--accent); color: var(--accent); font-weight: bold; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
         .load-more-btn:hover { background: var(--accent); color: #000; }
         .load-more-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .spinner-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display: flex; justify-content: center; align-items: center; pointer-events: none; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(255, 255, 255, 0.1); border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .spinner-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-        }
-
-        .spinner {
-            width: 40px;height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        /* CSS для кнопки "Наверх" */
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: #000; border: none; padding: 10px 15px; border-radius: 5px; display: none; cursor: pointer; transition: background 0.3s; }
+        .back-to-top:hover { background```html
+        .back-to-top:hover { background: #e68a00; }
     </style>
-</head><body>
+</head>
+<body>
 
     <div id="loadingSpinner" class="spinner-container">
         <div class="spinner"></div>
@@ -152,17 +90,20 @@
         <div id="news-container" class="news-grid"></div>
         
         <button id="loadMoreBtn" class="load-more-btn" onclick="loadMoreNews()">Ещё новости</button>
+        
+        <button class="back-to-top" id="backToTopBtn">Наверх</button>
     </div>
 
     <script>
         let allNews = [];
         let displayedCount = 0;
         const batchSize = 6;
-        let currentCategory = 'all';        function hideSpinner() {
+        let currentCategory = 'all';
+
+        function hideSpinner() {
             const spinner = document.getElementById('loadingSpinner');
             spinner.style.opacity = '0';
-            setTimeout(() => {
-                spinner.style.display = 'none';}, 300);
+            setTimeout(() => { spinner.style.display = 'none'; }, 300);
         }
 
         async function loadNews() {
@@ -178,7 +119,8 @@
                 allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
 
                 displayedCount = 0;
-                renderNews();                if (allNews.length <= batchSize) {
+                renderNews();
+                if (allNews.length <= batchSize) {
                     loadMoreBtn.style.display = 'none';
                 } else {
                     loadMoreBtn.style.display = 'block';
@@ -186,7 +128,6 @@
                 }
 
                 hideSpinner();
-
             } catch (err) {
                 console.error(err);
                 errorMsg.style.display = 'block';
@@ -197,27 +138,27 @@
 
         function renderNews() {
             const container = document.getElementById('news-container');
-            container.innerHTML = '';let filteredNews = allNews;
+            container.innerHTML = '';
+            let filteredNews = allNews;
             if (currentCategory !== 'all') {
                 filteredNews = allNews.filter(item => item.category === currentCategory);
             }
 
             const toDisplay = filteredNews.slice(displayedCount, displayedCount + batchSize);
-
             toDisplay.forEach(item => {
                 const [day, month, year] = item.date.split('.');
                 const isoDate = `${year}-${month}-${day}`;
                 const link = `news.html?id=${item.id}`;
-                // Используем item.description из JSON, если он есть, иначе берем контент
                 const previewText = item.description ? item.description : item.content.replace(/<[^>]*>/g, '').substring(0, 150);
                 
-                const card =`
-                    <a href="${link}" class="card" itemscope itemtype="https://schema.org/NewsArticle" aria-label="${item.title}">
+                const card = `
+                    <article class="card" itemscope itemtype="https://schema.org/NewsArticle" aria-label="${item.title}">
                         <span class="meta" itemprop="datePublished" content="${isoDate}">${item.date} • ${item.category}</span>
-                        <h3 itemprop="headline">${item.title}</h3><p class="preview" itemprop="description">${previewText}...</p>
+                        <h2 itemprop="headline">${item.title}</h2>
+                        <p class="preview" itemprop="description">${previewText}...</p>
                         <meta itemprop="author" content="Ракурс NEWS">
                         <meta itemprop="publisher" content="Ракурс NEWS">
-                    </a>
+                    </article>
                 `;
                 container.innerHTML += card;
             });
@@ -235,9 +176,7 @@
         function loadMoreNews() {
             const btn = document.getElementById('loadMoreBtn');
             btn.disabled = true;
-            setTimeout(() => {
-                renderNews();
-            }, 300);
+            setTimeout(() => { renderNews(); }, 300);
         }
 
         document.querySelectorAll('.category-btn').forEach(btn => {
@@ -245,7 +184,8 @@
                 e.preventDefault();
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
                 const category = btn.getAttribute('data-category');
-                currentCategory = category;btn.classList.add('active');
+                currentCategory = category;
+                btn.classList.add('active');
                 displayedCount = 0;
                 renderNews();
             });
@@ -258,7 +198,8 @@
 
             if (query.length < 2) {
                 searchResults.style.display = 'none';
-                return;}
+                return;
+            }
 
             const lowerQuery = query.toLowerCase();
             const found = allNews.filter(item => 
@@ -291,6 +232,19 @@
         const searchInput = document.getElementById('searchInput');
         searchInput.addEventListener('input', (e) => {
             performSearch(e.target.value.trim());
+        });
+
+        window.addEventListener('scroll', () => {
+            const backToTopButton = document.getElementById('backToTopBtn');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        document.getElementById('backToTopBtn').addEventListener('click', () => {
+            window.scrollTo({top: 0, behavior: 'smooth'});
         });
 
         loadNews();
