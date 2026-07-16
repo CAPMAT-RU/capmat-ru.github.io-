@@ -1,65 +1,60 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">Загрузка...</title>
-<meta name="description" id="meta-description" content="">
-<!-- Микроразметка Schema.org (будет обновлена скриптом) -->
-<script type="application/ld+json" id="schema-data">
-{
-"@context": "https://schema.org",
-"@type": "NewsArticle",
-"headline": "Загрузка...",
-"datePublished": "2026-07-14T10:00:00+03:00",
-"dateModified": "2026-07-14T10:00:00+03:00",
-"author": {
-"@type": "Organization",
-"name": "Ракурс NEWS"},
-"publisher": {
-"@type": "Organization",
-"name": "Ракурс NEWS",
-"logo": {
-"@type": "ImageObject",
-"url": "/logo.png"
-}
-},
-"description": "Загрузка...",
-"image": []
-}
-</script>
-<style>
-:root { --bg: #121212; --card: #1e1e1e; --accent: #ff9800; --text: #e0e0e0; }
-body { background: var(--bg); color: var(--text); font-family: sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
-header { border-bottom: 2px solid var(--accent); padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: bold; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-size: 18px; }.back-btn {
-background: transparent;
-border: 1px solid var(--accent);
-color: var(--accent);padding: 8px 16px;
-text-decoration: none;
-font-size: 14px;
-border-radius: 4px;
-transition: all 0.3s;
-cursor: pointer;
-}
-.back-btn:hover { background: var(--accent); color: #000; }article { max-width: 800px; margin: 0 auto; }
-h1 { color: var(--accent); margin-bottom: 15px; }
-.meta { color: #888; font-size: 13px; margin-bottom: 25px; text-transform: uppercase; }img.featured-image { width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; object-fit: cover; }
-p { font-size: 16px; margin-bottom: 15px; color: #e0e0e0; }
-a { color: var(--accent); text-decoration: underline; }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Загрузка...</title>
+    <meta name="description" id="meta-description" content="">
+    <script type="application/ld+json" id="schema-data">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": "Загрузка...",
+        "datePublished": "2026-07-14T10:00:00+03:00",
+        "dateModified": "2026-07-14T10:00:00+03:00",
+        "author": {
+            "@type": "Organization",
+            "name": "Ракурс NEWS"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Ракурс NEWS",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "/logo.png"
+            }
+        },
+        "description": "Загрузка...",
+        "image": []
+    }
+    </script>
+    <style>
+        :root { --bg: #121212; --card: #1e1e1e; --accent: #ff9800; --text: #e0e0e0; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+        header { border-bottom: 2px solid var(--accent); padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: bold; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-size: 18px; }
+        .back-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px 16px; text-decoration: none; font-size: 14px; border-radius: 4px; transition: all 0.3s; cursor: pointer; }
+        .back-btn:hover { background: var(--accent); color: #000; }
+        article { max-width: 800px; margin: 0 auto; }
+        h1 { color: var(--accent); margin-bottom: 15px; }
+        .meta { color: #888; font-size: 13px; margin-bottom: 25px; text-transform: uppercase; }
+        img.featured-image { width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; object-fit: cover; }
+        p { font-size: 16px; margin-bottom: 15px; color: #e0e0e0; }
+        a { color: var(--accent); text-decoration: underline; }
+    </style>
 </head>
 <body>
 <header>
-<div class="logo">РАКУРС NEWS</div>
-<a href="index.html" class="back-btn">← Назад к ленте</a>
+    <div class="logo">РАКУРС NEWS</div>
+    <a href="index.html" class="back-btn">← Назад к ленте</a>
 </header>
 <article>
-<h1 id="article-title">Загрузка новости...</h1>
-<div class="meta">
-Опубликовано: <span id="article-date">...</span> • Категория: <span id="article-category">...</span>
-</div>
-<div id="article-image-container"></div>
-<div id="article-content"></div>
+    <h1 id="article-title">Загрузка новости...</h1>
+    <div class="meta">
+        Опубликовано: <span id="article-date">...</span> • Категория: <span id="article-category">...</span>
+    </div>
+    <div id="article-image-container"></div>
+    <div id="article-content"></div>
 </article>
 
 <script>
@@ -79,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (newsItem) {
                 const descText = newsItem.description || newsItem.content.replace(/<[^>]*>/g, '').substring(0, 160) + "...";
-                
+
                 document.getElementById('article-title').textContent = newsItem.title;
                 document.getElementById('page-title').textContent = newsItem.title + ' — Ракурс NEWS';
                 document.getElementById('meta-description').setAttribute('content', descText);
