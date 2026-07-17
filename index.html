@@ -44,7 +44,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
 #scrollToTop:hover { opacity: 1; }
 .floating-buttons { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; transition: opacity 0.3s; opacity: 0; visibility: hidden; }
 .floating-buttons img { width: 40px; height: 40px; }
-@media (max-width: 500px) { #scrollToTop { width:44px; height: 44px; bottom: 20px; right: 20px; }
+@media (max-width: 500px) { #scrollToTop { width:44px; height: 44px; bottom: 90px; right: 20px; }
 .floating-buttons img { width: 30px; height: 30px; }
 }
 .card-image { width: 100%; height: 180px; object-fit: cover; border-radius: 4px 4px 0 0; margin-bottom: 12px; background-color: #333; }
@@ -232,7 +232,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
 
 <div id="news-container" class="news-grid"></div>
 
-<button id="scrollToTop" onclick="scrollToTop()" aria-label="Вернуться наверх" role="button" style="margin-bottom: 50px;">
+<button id="scrollToTop" onclick="scrollToTop()" aria-label="Вернуться наверх" role="button">
     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: auto;">
         <line x1="12" y1="19" x2="12" y2="5"></line>
         <polyline points="5 12 12 5 19 12"></polyline>
