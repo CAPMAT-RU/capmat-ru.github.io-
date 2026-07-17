@@ -1,5 +1,7 @@
-```text User-agent: *
-Allow: /
+User-agent: Yandex
+Disallow:
 
+User-agent: *
+Disallow:
+Allow: /
 Sitemap: https://rakurs-news.github.io/sitemap.xml
-```
