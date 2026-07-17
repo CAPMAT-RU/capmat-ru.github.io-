@@ -1,230 +1,230 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://rakurs-news.github.io/</loc>
-<changefreq>daily</changefreq>
-<priority>1.0</priority>
+    <loc>https://rakurs-news.github.io/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=televizionniy-tsirk-vmesto-realnoy-voyni</loc>
-<lastmod>2026-07-17</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--televizionniy-tsirk-vmesto-realnoy-voyni.html</loc>
+    <lastmod>2026-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=sudebnyy-gumanizm-kak-posobnichestvo-ubiystvam</loc>
-<lastmod>2026-07-16</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--sudebnyy-gumanizm-kak-posobnichestvo-ubiystvam.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=yuliya-peresild-ivan-raspravil-plechi-kirovskiy-zavod</loc>
-<lastmod>2026-07-16</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--yuliya-peresild-ivan-raspravil-plechi-kirovskiy-zavod.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=vodovod-don-donbass-masshtab-vorovstva</loc>
-<lastmod>2026-07-16</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--vodovod-don-donbass-masshtab-vorovstva.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=udalenije-prilozheniy-vk-i-maks-iz-google-play</loc>
-<lastmod>2026-07-16</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/-google-play-udalenije-prilozheniy-vk-i-maks-iz-google-play.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=epidemiya-totalnoy-leni-v-rossii</loc>
-<lastmod>2026-07-16</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--epidemiya-totalnoy-leni-v-rossii.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=korolevskiy-krakh-prints-garri</loc>
-<lastmod>2026-07-16</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--korolevskiy-krakh-prints-garri.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=kitay-trebuet-gaz-po-vnutrennim-cenam</loc>
-<lastmod>2026-07-16</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--kitay-trebuet-gaz-po-vnutrennim-cenam.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=timur-ivanov-trebuet-frontovoe-iskupleniya</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--timur-ivanov-trebuet-frontovoe-iskupleniya.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=vashington-opjat-kljanchit-peregovory</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--vashington-opjat-kljanchit-peregovory.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=pasportnyy-konveyer-i-krakh-migratsionnoy-politiki</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--pasportnyy-konveyer-i-krakh-migratsionnoy-politiki.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=skandalnaya-karera-chinovnicy-posle-rastyraty</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--skandalnaya-karera-chinovnicy-posle-rastyraty.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=robot-hirurg-deshevaya-imitaciya-operacii</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--robot-hirurg-deshevaya-imitaciya-operacii.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=pochemu-rossiyane-boyatsya-bogatstva</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--pochemu-rossiyane-boyatsya-bogatstva.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=pensionnaya-reforma-i-konets-illyuziy</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--pensionnaya-reforma-i-konets-illyuziy.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=iran-obnulit-starlink-vmesto-peregovorov</loc>
-<lastmod>2026-07-15</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--iran-obnulit-starlink-vmesto-peregovorov.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=skazochnaya-statistika-rossiyskogo-blagopoluchiya</loc>
-<lastmod>2026-07-14</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--skazochnaya-statistika-rossiyskogo-blagopoluchiya.html</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=pochemu-latviya-voyuet-s-igrushkami</loc>
-<lastmod>2026-07-14</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--pochemu-latviya-voyuet-s-igrushkami.html</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=borba-s-vetryanymi-melnitsami-v-efire</loc>
-<lastmod>2026-07-14</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--borba-s-vetryanymi-melnitsami-v-efire.html</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=ocherednaya-imitatsiya-zaboty-fas</loc>
-<lastmod>2026-07-14</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--ocherednaya-imitatsiya-zaboty-fas.html</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=programma-pereseleniya-dlya-migrantov-bespredel</loc>
-<lastmod>2026-07-14</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--programma-pereseleniya-dlya-migrantov-bespredel.html</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=tramp-gotovit-ekonomicheskuyu-voynu-rf</loc>
-<lastmod>2026-07-14</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--tramp-gotovit-ekonomicheskuyu-voynu-rf.html</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=germaniya-sponsor-terrora-rf</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--germaniya-sponsor-terrora-rf.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=orenburg-skandal-s-zhilishnymi-sertifikatami</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--orenburg-skandal-s-zhilishnymi-sertifikatami.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=zagryaznenie-mazutom-v-taganrogskom-zalive</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--zagryaznenie-mazutom-v-taganrogskom-zalive.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=dizayner-citroen-poluchil-grazhdanstvo-rossii</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/-citroen--dizayner-citroen-poluchil-grazhdanstvo-rossii.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=matkapital-ne-dlya-nas</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--matkapital-ne-dlya-nas.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=ukrali-tank-i-razgrabili-mogili</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--ukrali-tank-i-razgrabili-mogili.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=konfiskacija-bmw</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/-100-bmw--konfiskacija-bmw.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=molodost-do-samoj-smerti</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/-40--molodost-do-samoj-smerti.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=ataka-bpla-na-moskvu</loc>
-<lastmod>2026-07-13</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--ataka-bpla-na-moskvu.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=poletnoe-zadanie-drona-vsu</loc>
-<lastmod>2026-07-12</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/-hornet--poletnoe-zadanie-drona-vsu.html</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=tadjikistan-budet-virashivat-maslo-v-rossii</loc>
-<lastmod>2026-07-12</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--tadjikistan-budet-virashivat-maslo-v-rossii.html</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=seks-i-futbol</loc>
-<lastmod>2026-07-11</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--seks-i-futbol.html</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=uzbeki-v-belorusi</loc>
-<lastmod>2026-07-11</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--uzbeki-v-belorusi.html</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=dvorkovich-sekret-bogatstva</loc>
-<lastmod>2026-07-11</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--dvorkovich-sekret-bogatstva.html</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 <url>
-<loc>https://rakurs-news.github.io/article.html?id=deficit-benzina</loc>
-<lastmod>2026-07-11</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
+    <loc>https://rakurs-news.github.io/./posts/--deficit-benzina.html</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
 </url>
 </urlset>
