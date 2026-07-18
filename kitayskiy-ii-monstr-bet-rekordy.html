@@ -100,7 +100,7 @@
 
         /* --- ОСНОВНОЙ КОНТЕНТ --- */
         .article-container {
-            max-width: 800px; /* Ограничиваем ширину текста для удобства чтения */
+            max-width: 800px; 
             margin: 0 auto;   
             padding: 20px;    
             box-sizing: border-box;
@@ -113,7 +113,7 @@
             display: block;
         }
 
-        /* --- СТИЛИ ДЛЯ КАРТИНКИ (КОМПАКТНЫЕ, НЕ НА ПОЛСТРАНИЦЫ) --- */
+        /* --- СТИЛИ ДЛЯ КАРТИНКИ --- */
         .article-image-wrapper {
             width: 100%;
             margin-bottom: 20px;
@@ -122,16 +122,13 @@
         .article-image {
             width: 100%;
             height: auto;
-            
-            /* ГЛАВНЫЕ ИЗМЕНЕНИЯ ЗДЕСЬ: */
-            max-height: 450px;       /* Ограничиваем высоту, чтобы не было на полстраницы */
-            object-fit: cover;       /* Обрезаем лишнее, сохраняя пропорции (как в превью) */
-            
-            border-radius: 12px;     /* Скругление */
-            border: 2px solid var(--accent); /* Оранжевая рамка */
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Тень */
+            max-height: 450px;       
+            object-fit: cover;       
+            border-radius: 12px;     
+            border: 2px solid var(--accent); 
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); 
             display: block;
-            background-color: #333;   /* Цвет заглушки, если фото не загрузится */
+            background-color: #333;   
         }
         .article-image:hover {
             opacity: 0.95;
@@ -160,6 +157,28 @@
             padding-left: 15px;
         }
 
+        /* --- СТИЛЬ КНОПКИ "НАЗАД" --- */
+        .back-btn-wrapper {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .back-btn {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 12px 24px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background-color: var(--accent);
+            color: #000;
+        }
+
         /* --- ФУТЕР --- */
         .footer { 
             position: relative; 
@@ -181,8 +200,14 @@
         @media (max-width: 768px) {
             .page-title { font-size: 20px; }
             .article-container { padding: 15px; }
-            /* На мобильных max-height можно убрать или увеличить, если нужно */
             .article-image { max-height: none; } 
+            
+            /* Кнопка на мобильном: на всю ширину, но с отступами */
+            .back-btn {
+                width: 100%;
+                max-width: 300px;
+                box-sizing: border-box;
+            }
         }
     </style>
 </head>
@@ -191,7 +216,7 @@
     <!-- Шапка как на главной -->
     <header>
         <div class="logo-wrapper">
-            <img src="/images/logo.png" alt="Logo">
+            <img src="./images/logo.png" alt="Logo">
             <span>Ракурс NEWS</span>
         </div>
         <div class="controls-wrapper">
@@ -223,8 +248,8 @@
         
         <!-- Картинка новости -->
         <div class="article-image-wrapper">
-            <!-- ВАЖНО: Проверь путь к картинке. Если она лежит в папке images/news/, оставь как есть. -->
-            <img src="/images/IMG_20260717_163141.webp" alt="Китайский ИИ Kimi K3" class="article-image">
+            <!-- Путь изменен на относительный. Если у тебя реально файл IMG_... замени src обратно -->
+            <img src="./images/news/kimi-ai.jpg" alt="Китайский ИИ Kimi K3" class="article-image">
             <span class="article-caption">Фото: сгенерировано ИИ</span>
         </div>
 
@@ -234,13 +259,18 @@
             
             <p>Несмотря на то что Kimi K3 пока не дотягивает до закрытых систем вроде Claude Fable 5 или GPT 5.6 Sol, амбиции создателей заставляют игнорировать этот факт, выпячивая успехи в сравнительных тестах. Очевидно, что попытка догнать технологических гигантов выглядит как марш-бросок в сторону прогресса, где количество параметров пытается подменить собой истинное качество алгоритмических решений, оставляя пользователям лишь...</p>
         </article>
+
+        <!-- Кнопка "Назад" -->
+        <div class="back-btn-wrapper">
+            <a href="index.html" class="back-btn">Назад</a>
+        </div>
     </div>
 
     <!-- Футер -->
     <footer class="footer">
         <div class="social-icons">
-            <a href="https://vk.ru/rakurs_news" target="_blank"><img src="/images/VK.png" alt="VK"></a>
-            <a href="https://t.me/RAKURS_NEWS_RU" target="_blank"><img src="/images/Telegram.png" alt="Telegram"></a>
+            <a href="https://vk.ru/rakurs_news" target="_blank"><img src="./images/VK.png" alt="VK"></a>
+            <a href="https://t.me/RAKURS_NEWS_RU" target="_blank"><img src="./images/Telegram.png" alt="Telegram"></a>
         </div>
     </footer>
 
