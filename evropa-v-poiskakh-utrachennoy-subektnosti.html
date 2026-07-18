@@ -10,8 +10,8 @@
     <!-- Мета-теги Open Graph для превью при шаринге -->
     <meta property="og:title" content="Европа ищет субъектность в тумане">
     <meta property="og:description" content="Европейские политики внезапно осознали полную геополитическую несамостоятельность.">
-    <meta property="og:image" content="https://rakurs-news.github.io/images/IMG_20260718_161022.webp">
-    <meta property="og:url" content="https://rakurs-news.github.io/evropa-v-poiskakh-utrachennoy-subektnosti.html"> <!-- Замените на актуальный URL статьи -->
+    <meta property="og:image" content="https://github.com/rakurs-news/rakurs-news.github.io/images/IMG_20260718_161022.webp">
+    <meta property="og:url" content="https://evropa-v-poiskakh-utrachennoy-subektnosti.html"> <!-- Замените на актуальный URL статьи -->
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Ракурс NEWS">
     
@@ -264,8 +264,20 @@
             <span class="article-caption">Фото: соцсети</span>
         </div>
 
+        <!-- Информация об авторе и времени чтения -->
+        <div class="article-meta-info" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+            <div class="author-info" style="font-style: italic; color: var(--accent);">Автор: Дмитрий Мусиенко</div>
+            <div class="reading-time-container" style="display: flex; align-items: center; color: var(--accent);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 16"></polyline>
+                </svg>
+                <span id="reading-time"></span>
+            </div>
+        </div>
+
         <!-- Текст статьи -->
-        <article>
+        <article id="article-content">
             <p>Господин Вадефуль, внезапно прозревший на фоне охлаждения интереса Вашингтона к украинской повестке, решил поупражняться в риторике, призывая Европу к активному участию в переговорах. Очевидно, в Берлине только сейчас сообразили, что американцы могут быть заняты более насущными делами на Ближнем Востоке, оставив своих европейских сателлитов наедине с грудой нерешенных проблем. Это классический пример политического инфантилизма: годами бездумно следовать чужим указкам, а при первом намеке на изоляцию испуганно рассуждать о необходимости формирования собственной позиции. Вадефуль даже не удосужился предложить внятный алгоритм действий, ограничившись набором пустых фраз о дипломатических инструментах, которыми, судя по всему, никто в Брюсселе пользоваться до сих пор не научился.</p>
             
             <p>Германия, по заверениям ее представителей, якобы отказывается от жестких догм и стремится к диалогу, хотя на деле вся эта гибкость напоминает попытку усидеть на двух стульях в горящем доме. Министр старательно делает вид, что Европа способна влиять на ситуацию, не имея при этом ни политического веса, ни стратегического единства. Пока в Берлине вещают о мирном урегулировании и важности континентальной безопасности, реальные действия правительства направлены совсем в иную сторону. Инициатива 18 июля, озвученная Александером Добриндтом, демонстрирует истинное лицо европейского гуманизма: мужчин призывного возраста активно выпроваживают обратно в зону боевых действий, лишая их права на убежище под предлогом жесткой законности.</p>
@@ -295,7 +307,7 @@
         </div>
     </footer>
 
-    <!-- Скрипт для переключения темы -->
+    <!-- Скрипт для переключения темы и расчета времени чтения -->
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -311,7 +323,6 @@
             const newsUrl = window.location.href;
             const newsTitle = document.title;
 
-            // Приоритет: пробуем нативный шаринг (для мобильных)
             if (navigator.share) {
                 navigator.share({
                     title: newsTitle,
@@ -320,24 +331,36 @@
                     console.log('Успешно поделились через нативный интерфейс');
                 }).catch(console.error);
             } else {
-                // Фоллбэк: открываем соцсети с ПРАВИЛЬНЫМИ параметрами
-                // Раньше ты передавал в ?u= и текст, и ссылку — соцсети это не понимают.
-                // Теперь: ?url= только ссылка, ?text= только заголовок.
-                
                 const encodedUrl = encodeURIComponent(newsUrl);
                 const encodedTitle = encodeURIComponent(newsTitle);
-
-                // VK: ?url=...&title=...
-                const vkUrl = `https://vk.ru/share.php?url=${encodedUrl}&title=${encodedTitle}`;
-                
-                // Telegram: ?url=...&text=...
                 const tgUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
-
-                // Открываем Telegram (он лучше всего показывает превью), VK можно открыть в фоне
                 window.open(tgUrl, '_blank');
-                // Если хочешь открывать VK вместо TG, замени строку выше на: window.open(vkUrl, '_blank');
             }
         }
+
+        // Функция для расчета времени чтения
+        function calculateReadingTime() {
+            const articleContent = document.getElementById('article-content');
+            if (!articleContent) return;
+
+            // Получаем только текстовое содержимое, исключая HTML-теги
+            const text = articleContent.textContent || articleContent.innerText;
+            
+            // Разделяем текст на слова, учитывая различные разделители и пустые строки
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+            const wordsPerMinute = 250; // Средняя скорость чтения
+            const minutes = Math.ceil(words / wordsPerMinute);
+            
+            const readingTimeElement = document.getElementById('reading-time');
+            if (readingTimeElement) {
+                readingTimeElement.textContent = `${minutes} мин. на чтение`;
+            }
+        }
+
+        // Вызываем функцию при загрузке DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateReadingTime();
+        });
     </script>
 </body>
 </html>
