@@ -56,7 +56,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
 
 /* Стили для мобильного меню */
 .mobile-menu-button {
-    display: none; /* Скрыто по умолчанию на десктопе */
+    display: none;
     cursor: pointer;
     background: transparent;
     border: 1px solid var(--accent);
@@ -69,7 +69,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     height: 32px;
     width: 32px;
     padding: 0;
-    margin-left: 10px; /* Отступ от кнопки темы */
+    margin-left: 10px;
 }
 .mobile-menu-button:hover {
     background: var(--accent);
@@ -84,7 +84,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     position: fixed;
     top: 0;
     left: 0;
-    width: 200px; /* Ширина мобильного меню */
+    width: 200px;
     height: 100%;
     background: var(--mobile-menu-bg);
     color: var(--mobile-menu-text);
@@ -100,20 +100,20 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     transform: translateX(0);
 }
 .mobile-menu .category-btn {
-    display: block; /* Каждая категория на новой строке */
+    display: block;
     width: 100%;
     text-align: left;
-    padding: 12px 0; /* Уменьшен отступ для компактности */
-    font-size: 16px; /* Уменьшен шрифт для компактности */
+    padding: 12px 0;
+    font-size: 16px;
     border-bottom: 1px solid var(--mobile-menu-border);
     color: var(--mobile-menu-text);
-    cursor: pointer; /* Добавлено для кнопок */
+    cursor: pointer;
 }
 .mobile-menu .category-btn:last-child {
     border-bottom: none;
 }
 .mobile-menu .category-btn.active {
-    color: var(--accent); /* Активный пункт остается акцентным */
+    color: var(--accent);
 }
 
 /* Стили для заголовка вместо breadcrumbs */
@@ -126,23 +126,23 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
 }
 .page-title-indicator {
     width: 4px;
-    height: 20px; /* Чуть больше высоты букв */
+    height: 20px;
     background-color: var(--accent);
 }
 .page-title {
-    font-size: 20px; /* Размер шрифта H3 */
+    font-size: 20px;
     font-weight: bold;
     margin: 0;
 }
 
-@media (max-width: 768px) { /* Показываем бургер и скрываем десктопные категории */
+@media (max-width: 768px) {
     .categories-wrapper {
         display: none;
     }
     .mobile-menu-button {
         display: flex;
     }
-    .page-title-wrapper { /* Адаптация заголовка для мобильных */
+    .page-title-wrapper {
         padding: 10px 15px;
         gap: 8px;
     }
@@ -154,14 +154,14 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     }
 }
 
-/* Индикатор скролла справа */
+/* Индикатор скролла справа (тонкий, сверху) */
 .scroll-indicator-track {
     position: fixed;
-    right: 8px;
-    top: 0;
-    width: 6px;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
+    right: 4px; /* Сдвинули чуть ближе к краю */
+    top: 0; /* Строго сверху */
+    width: 4px; /* Тоньше, чем было 6px */
+    height: 100vh; /* Фиксированная высота экрана, чтобы всегда был виден сверху */
+    background: rgba(0, 0, 0, 0.08);
     pointer-events: none;
     z-index: 999;
 }
@@ -172,7 +172,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     width: 100%;
     height: 0%;
     background: var(--accent);
-    border-radius: 3px;
+    border-radius: 2px; /* Чуть меньше скругление для аккуратности */
     pointer-events: none;
 }
 </style>
@@ -239,32 +239,14 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     <button class="category-btn" data-category="Регионы">Регионы</button>
     <button class="category-btn" data-category="Государство">Государство</button>
     <button class="category-btn" data-category="Криминал">Криминал</button>
-    <button class="category-btn" data-category="Политика">Политика</button>
-    <button class="category-btn" data-category="Геополитика">Геополитика</button>
-    <button class="category-btn" data-category="Коррупция">Коррупция</button>
-    <button class="category-btn" data-category="Шоу-бизнес">Шоу-бизнес</button>
-    <button class="category-btn" data-category="Спорт">Спорт</button>
-    <button class="category-btn" data-category="Наука">Наука</button>
-    <button class="category-btn" data-category="Стиль">Стиль</button>
-    <button class="category-btn" data-category="Культура">Культура</button>
-</div>
-
-<!-- Мобильное меню -->
-<div class="mobile-menu" id="mobileMenu">
-    <button class="category-btn active" data-category="all">Все новости</button>
-    <button class="category-btn" data-category="СВО">СВО</button>
-    <button class="category-btn" data-category="Общество">Общество</button>
-    <button class="category-btn" data-category="Регионы">Регионы</button>
-    <button class="category-btn" data-category="Государство">Государство</button>
-    <button class="category-btn" data-category="Криминал">Криминал</button>
-    <button class="category-btn" data-category="Политика">Политика</button>
-    <button class="category-btn" data-category="Геополитика">Геополитика</button>
-    <button class="category-btn" data-category="Коррупция">Коррупция</button>
-    <button class="category-btn" data-category="Шоу-бизнес">Шоу-бизнес</button>
-    <button class="category-btn" data-category="Спорт">Спорт</button>
-    <button class="category-btn" data-category="Наука">Наука</button>
-    <button class="category-btn" data-category="Стиль">Стиль</button>
-    <button class="category-btn" data-category="Культура">Культура</button>
+<button class="category-btn" data-category="Политика">Политика</button>
+<button class="category-btn" data-category="Геополитика">Геополитика</button>
+<button class="category-btn" data-category="Коррупция">Коррупция</button>
+<button class="category-btn" data-category="Шоу-бизнес">Шоу-бизнес</button>
+<button class="category-btn" data-category="Спорт">Спорт</button>
+<button class="category-btn" data-category="Наука">Наука</button>
+<button class="category-btn" data-category="Стиль">Стиль</button>
+<button class="category-btn" data-category="Культура">Культура</button>
 </div>
 
 <div id="loader" style="text-align:center; padding: 20px;">Загрузка новостей...</div>
@@ -365,16 +347,13 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
         clearTimeout(searchTimeout);
         const val = e.target.value.trim().toLowerCase();
 
-        // Требование: 3 и более букв
         if (val.length < 3) { 
             searchResults.style.display = 'none'; 
             return; 
         }
         
-        // Фильтр ТОЛЬКО по заголовкам
         const filtered = allNews
             .filter(n => n.title.toLowerCase().includes(val))
-            // Сортировка: от самой свежей к старой
             .sort((a, b) => new Date(b.date) - new Date(a.date));
         
         if (filtered.length === 0) {
@@ -384,7 +363,6 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
         }
 
         searchResults.innerHTML = filtered.map(n => 
-            // ВАЖНО: ID передаётся в кавычках, чтобы работали текстовые ID
             `<div class="result-item" onclick="handleSearchResultClick('${n.id}')">
                 ${n.title.replace(new RegExp(`(${val})`, 'gi'), '<span class="highlight">$1</span>')}
             </div>`
@@ -393,11 +371,8 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     });
 
     function handleSearchResultClick(newsId) {
-        // 1. Стираем всё из строки ввода
         searchInput.value = '';
-        // 2. Убираем подсказку
         searchResults.style.display = 'none';
-        // 3. Открываем статью по ID (работает и для чисел, и для текста)
         window.location.href = `/${newsId}.html`;
     }
     // -------------------------------------
@@ -438,7 +413,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
 
     loadNews();
 
-    // Логика индикатора скролла
+    // Логика индикатора скролла (тонкий, сверху)
     const scrollIndicatorTrack = document.createElement('div');
     scrollIndicatorTrack.className = 'scroll-indicator-track';
     document.body.appendChild(scrollIndicatorTrack);
