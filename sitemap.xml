@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-    <loc>https://rakurs-news.github.io/</loc>
+    <loc>https://rakurs-news.github.io/rakurs-news/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
 </url>
 <url>
-    <loc>https://rakurs-news.github.io/./posts/--vsu-atakovali-rossiyskuyu-azs-vo-lgove.html</loc>
+    <loc>https://rakurs-news.github.io/rakurs-news/marketpleysy-pod-podozreniem-kto-vinovat.html</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://rakurs-news.github.io/rakurs-news/gerasimov-s-proverkoy-v-dnr.html</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
 </url>
 <url>
-    <loc>https://rakurs-news.github.io/./posts/--gerasimov-s-proverkoy-v-dnr.html</loc>
+    <loc>https://rakurs-news.github.io/rakurs-news/evropa-v-poiskakh-utrachennoy-subektnosti.html</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
 </url>
 <url>
-    <loc>https://rakurs-news.github.io/./posts/--evropa-v-poiskakh-utrachennoy-subektnosti.html</loc>
+    <loc>https://rakurs-news.github.io/rakurs-news/izrail-kolonizatsiya-gaza-i-prichiny-krakha-diplomatii.html</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
 </url>
 <url>
-    <loc>https://rakurs-news.github.io/./posts/--izrail-kolonizatsiya-gaza-i-prichiny-krakha-diplomatii.html</loc>
+    <loc>https://rakurs-news.github.io/rakurs-news/pozhar-v-elektrostali.html</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
 </url>
 <url>
-    <loc>https://rakurs-news.github.io/./posts/--pozhar-v-elektrostali.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-</url>
-<url>
-    <loc>https://rakurs-news.github.io/./posts/--krah-dikih-diversantov-v-krymu.html</loc>
+    <loc>https://rakurs-news.github.io/rakurs-news/krah-dikih-diversantov-v-krymu.html</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
