@@ -1,13 +1,50 @@
 {
-  "featuredNewsId": "1",
   "news": [
     {
-      "id": "1",
-      "title": "Саркастичный заголовок №1",
-      "category": "Политика",
-      "date": "24.10.2023",
-      "image": "/images/news1.jpg",
-      "description": "Краткое описание для карточки...",
-      "fullText": "<p>Это полный текст новости. Тут может быть HTML-разметка, картинки, цитаты.</p><p>Ракурс NEWS смотрит на мир с иронией!</p>"
+      "title": "Новая технология может изменить мир",
+      "link": "https://example.com/news/new-technology",
+      "description": "Ученые разработали новую технологию, которая способна революционизировать промышленность.",
+      "datePublished": "2023-10-10T10:00:00Z",
+      "author": {
+        "name": "Иван Иванов",
+        "url": "https://example.com/authors/ivan-ivanov"
+      },
+      "image": {
+        "url": "https://example.com/images/new-technology.jpg",
+        "caption": "Изображение новой технологии",
+        "height": 600,
+        "width": 800
+      },
+      "category": "Наука",
+      "keywords": ["технология", "наука", "инновации"],
+      "source": {
+        "name": "Научный журнал",
+        "url": "https://example.com/source/scientific-journal"
+      },
+      "content": "Новая технология, разработанная в области наноматериалов, обещает снизить затраты в производстве на 30%. Это открытие стало возможным благодаря многолетним исследованиям и сотрудничеству между различными университетами."
+    },
+    {
+      "title": "Последствия изменения климата для аграрного сектора",
+      "link": "https://example.com/news/climate-change-agriculture",
+      "description": "Эксперты прогнозируют ухудшение урожайности в связи с изменением климата.",
+      "datePublished": "2023-10-12T08:30:00Z",
+      "author": {
+        "name": "Мария Петрова",
+        "url": "https://example.com/authors/maria-petrova"
+      },
+      "image": {
+        "url": "https://example.com/images/climate-change-agriculture.jpg",
+        "caption": "Изменение климата и сельское хозяйство",
+        "height": 600,
+        "width": 800
+      },
+      "category": "Экология",
+      "keywords": ["климат", "сельское хозяйство", "экология"],
+      "source": {
+        "name": "Аграрные новости",
+        "url": "https://example.com/source/agricultural-news"
+      },
+      "content": "Согласно последнему отчету экспертов, изменение климата приведет к сокращению посевных площадей и ухудшению качества почвы, что в свою очередь негативно скажется на производстве продуктов питания."
     }
   ]
+}
