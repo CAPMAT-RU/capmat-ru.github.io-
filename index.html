@@ -284,230 +284,232 @@
     </div>
 
     <script>
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+    // --- Тема ---
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
 
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    }
+
+    let allNews = [];
+    let featuredNewsId = null;
+
+    async function loadNews() {
+        try {
+            const res = await fetch('news.json');
+            if (!res.ok) throw new Error('Не удалось загрузить news.json (ошибка сети или файл не найден)');
+            
+            const data = await res.json();
+            
+            if (!Array.isArray(data.news) || typeof data.featuredNewsId === 'undefined') {
+                throw new Error('Ошибка формата JSON: нужны поля "news" (массив) и "featuredNewsId"');
+            }
+
+            allNews = data.news;
+            featuredNewsId = data.featuredNewsId;
+
+            const loader = document.getElementById('loader');
+            if (loader) loader.style.display = 'none';
+
+            renderNews(allNews);
+        } catch (e) {
+            console.error(e);
+            const loader = document.getElementById('loader');
+            if (loader) {
+                loader.innerHTML = `<p style="color: red; font-weight: bold;">Ошибка: ${e.message}</p>`;
+                loader.style.textAlign = 'center';
+            }
         }
+    }
 
-        let allNews = [];
-        let featuredNewsId = null;
+    function renderNews(data, query = '') {
+        const container = document.getElementById('news-container');
+        if (!container) return;
+        container.innerHTML = '';
 
-        async function loadNews() {
-            try {
-                const res = await fetch('news.json');
-                if (!res.ok) throw new Error('Не удалось загрузить news.json');
-                
-                const data = await res.json();
-                
-                if (!data.news || typeof data.featuredNewsId === 'undefined') {
-                    throw new Error('В JSON нет полей "news" или "featuredNewsId"');
-                }
+        // --- Главная новость ---
+        const mainNewsEl = document.getElementById('main-news');
+        mainNewsEl.style.display = 'none';
 
-                allNews = data.news;
-                featuredNewsId = data.featuredNewsId;
-                
-                const loader = document.getElementById('loader');
-                if (loader) loader.style.display = 'none';
-                
-                renderNews(allNews);
-            } catch(e) {
-                console.error('Ошибка загрузки:', e);
-                const loader = document.getElementById('loader');
-                if (loader) {
-                    loader.innerHTML = `<p style="color: red;">Ошибка: ${e.message}</p>`;
-                    loader.style.color = 'red';
-                }
+        if (featuredNewsId) {
+            const featured = data.find(n => n.id === featuredNewsId);
+            if (featured) {
+                mainNewsEl.innerHTML = createCardInnerHTML(featured, true, query);
+                mainNewsEl.style.display = 'block';
             }
         }
 
-        function renderNews(data, query = '') {
-            const container = document.getElementById('news-container');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            // --- Блок с главной новостью (Featured) ---
-            if (featuredNewsId && data.some(item => item.id === featuredNewsId)) {
-                const featuredNews = data.find(item => item.id === featuredNewsId);
-                if (featuredNews) {
-                    const featuredHTML = `
-                        <div class="card featured-card" style="width: 100%;">
-                            <img src="${featuredNews.image || '/images/placeholder.jpg'}" alt="${featuredNews.title}" class="card-image" loading="lazy">
-                            <span class="meta">${featuredNews.category} • ${featuredNews.date}</span>
-                            <h3>${featuredNews.title}</h3>
-                            <div class="desc">${featuredNews.description || ''}</div>
-                        </div>
-                    `;
-                    const mainNewsEl = document.getElementById('main-news');
-                    if (mainNewsEl) {
-                        mainNewsEl.innerHTML = featuredHTML;
-                        mainNewsEl.style.display = 'block';
-                    }
-                }
-            } else {
-                const mainNewsEl = document.getElementById('main-news');
-                if (mainNewsEl) mainNewsEl.style.display = 'none';
-            }
+        // --- Лента новостей ---
+        const filtered = data.filter(n => n.id !== featuredNewsId);
 
-            // --- Обычные новости (Лента) ---
-            const filteredNews = data.filter(item => item.id !== featuredNewsId);
+        filtered.forEach(item => {
+            // СОЗДАЕМ КАРТОЧКУ ЧЕРЕЗ DOM (это гарантирует отсутствие мусора в HTML)
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.cssText = 'cursor: pointer; text-decoration: none; color: inherit;';
             
-            container.innerHTML += filteredNews.map(item => {
-    let title = query ? item.title.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>') : item.title;
-    // Исправлено: добавлена закрывающая кавычка " перед style
-    return `
-<div class="card" onclick="showFullNews(${JSON.stringify(item)})" style="cursor: pointer; text-decoration: none; color: inherit;">
-<img src="${item.image || '/images/placeholder.jpg'}" alt="${item.title}" class="card-image" loading="lazy">
-<span class="meta">${item.category} • ${item.date}</span>
-<h3>${title}</h3>
-<div class="desc">${item.description || ''}</div>
-</div>
-`;
-}).join('');
+            // Привязываем клик напрямую к объекту
+            card.onclick = () => showFullNews(item);
+
+            // Вставляем содержимое
+            card.innerHTML = createCardInnerHTML(item, false, query);
+            container.appendChild(card);
+        });
+    }
+
+    // Функция только для внутренней части карточки (картинка, заголовок, текст)
+    function createCardInnerHTML(news, isFeatured, query) {
+        let title = news.title;
+        if (query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            title = title.replace(regex, '<span class="highlight">$1</span>');
         }
 
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('search-results');
-        let searchTimeout;
+        const imgSrc = news.image || '/images/placeholder.jpg';
+        
+        return `
+            <img src="${imgSrc}" alt="${news.title}" class="card-image" loading="lazy">
+            <span class="meta">${news.category} • ${news.date}</span>
+            <h3>${title}</h3>
+            <div class="desc">${news.description || ''}</div>
+        `;
+    }
 
-        if (searchInput && searchResults) {
-            searchInput.addEventListener('input', (e) => {
-                clearTimeout(searchTimeout);
-                const val = e.target.value.trim().toLowerCase();
+    // --- Поиск ---
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('search-results');
+    let searchTimeout;
 
-                if (val.length < 3) { 
-                    searchResults.style.display = 'none'; 
-                    return; 
-                }
-                
-                const filtered = allNews
-                    .filter(n => n.title.toLowerCase().includes(val))
-                    .sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                if (filtered.length === 0) {
-                    searchResults.innerHTML = '<div class="result-item">Ничего не найдено</div>';
-                    searchResults.style.display = 'block';
-                    return;
-                }
+    if (searchInput && searchResults) {
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const val = e.target.value.trim().toLowerCase();
 
-                searchResults.innerHTML = filtered.map(n => 
-                    `<div class="result-item" onclick="handleSearchResultClick('${n.id}')">
-                        ${n.title.replace(new RegExp(`(${val})`, 'gi'), '<span class="highlight">$1</span>')}
-                    </div>`
-                ).join('');
+            if (val.length < 3) { 
+                searchResults.style.display = 'none'; 
+                return; 
+            }
+            
+            const filtered = allNews
+                .filter(n => n.title.toLowerCase().includes(val))
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            if (filtered.length === 0) {
+                searchResults.innerHTML = '<div class="result-item">Ничего не найдено</div>';
                 searchResults.style.display = 'block';
-            });
-        }
-
-        function handleSearchResultClick(newsId) {
-            if (searchInput) searchInput.value = '';
-            if (searchResults) searchResults.style.display = 'none';
-            const newsItem = allNews.find(n => n.id === newsId);
-            if (newsItem) {
-                showFullNews(newsItem);
-            }
-        }
-
-        const menuElement = document.getElementById('menu');
-        const mobileMenuElement = document.getElementById('mobileMenu');
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const pageTitleElement = document.querySelector('.page-title');
-
-        function handleCategoryClick(e) {
-            if (!e.target.classList.contains('category-btn')) return;
-            
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            e.target.classList.add('active');
-            
-            const cat = e.target.dataset.category;
-            if (pageTitleElement) {
-                pageTitleElement.textContent = cat === 'all' ? 'Все новости' : cat;
-            }
-
-            renderNews(cat === 'all' ? allNews : allNews.filter(n => n.category === cat));
-
-            if (mobileMenuElement && mobileMenuElement.classList.contains('open')) {
-                mobileMenuElement.classList.remove('open');
-            }
-        }
-
-        if (menuElement) menuElement.addEventListener('click', handleCategoryClick);
-        if (mobileMenuElement) mobileMenuElement.addEventListener('click', handleCategoryClick);
-
-        if (mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', () => {
-                if (mobileMenuElement) mobileMenuElement.classList.toggle('open');
-            });
-        }
-
-        document.addEventListener('click', (e) => {
-            if (mobileMenuElement && mobileMenuElement.classList.contains('open') && !mobileMenuElement.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-                mobileMenuElement.classList.remove('open');
-            }
-        });
-
-        loadNews();
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            if (docHeight > 0) {
-                const scrollPercent = (scrollTop / docHeight) * 100;
-                const indicator = document.getElementById('top-scroll-indicator');
-                if (indicator) indicator.style.width = scrollPercent + '%';
-            }
-        });
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('scrollToTop');
-            if (btn) {
-                if (window.scrollY > 300) {
-                    btn.style.display = 'flex';
-                    btn.style.opacity = '0.7';
-                } else {
-                    btn.style.display = 'none';
-                }
-            }
-        });
-
-        function showFullNews(news) {
-            const container = document.getElementById('full-news-container');
-            const titleEl = document.getElementById('fn-title');
-            const metaEl = document.getElementById('fn-meta');
-            const imgEl = document.getElementById('fn-image');
-            const contentEl = document.getElementById('fn-content');
-
-            if (!container || !titleEl || !metaEl || !imgEl || !contentEl) {
-                console.error('Элементы для показа полной новости не найдены!');
                 return;
             }
 
-            titleEl.textContent = news.title;
-            metaEl.textContent = `${news.category} • ${news.date}`;
-            imgEl.src = news.image;
-            contentEl.innerHTML = news.fullText || news.content || news.description; 
+            searchResults.innerHTML = filtered.map(n => 
+                `<div class="result-item" onclick="handleSearchResultClick('${n.id}')">
+                    ${n.title.replace(new RegExp(`(${val})`, 'gi'), '<span class="highlight">$1</span>')}
+                </div>`
+            ).join('');
+            searchResults.style.display = 'block';
+        });
+    }
 
-            container.style.display = 'block';
-            
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
-            setTimeout(() => {
-                window.scrollBy(0, -80);
-            }, 300);
+    function handleSearchResultClick(newsId) {
+        if (searchInput) searchInput.value = '';
+        if (searchResults) searchResults.style.display = 'none';
+        const newsItem = allNews.find(n => n.id === newsId);
+        if (newsItem) showFullNews(newsItem);
+    }
+
+    // --- Меню категорий ---
+    function handleCategoryClick(e) {
+        if (!e.target.classList.contains('category-btn')) return;
+        
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        const cat = e.target.dataset.category;
+        const pageTitleElement = document.querySelector('.page-title');
+        if (pageTitleElement) {
+            pageTitleElement.textContent = cat === 'all' ? 'Все новости' : cat;
         }
-    </script>
 
+        renderNews(cat === 'all' ? allNews : allNews.filter(n => n.category === cat));
+
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
+            mobileMenu.classList.remove('open');
+        }
+    }
+
+    document.getElementById('menu')?.addEventListener('click', handleCategoryClick);
+    document.getElementById('mobileMenu')?.addEventListener('click', handleCategoryClick);
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenuElement = document.getElementById('mobileMenu');
+
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', () => {
+            if (mobileMenuElement) mobileMenuElement.classList.toggle('open');
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        if (mobileMenuElement && mobileMenuElement.classList.contains('open') && 
+            !mobileMenuElement.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+            mobileMenuElement.classList.remove('open');
+        }
+    });
+
+    loadNews();
+
+    // --- Индикатор скролла ---
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (docHeight > 0) {
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            const indicator = document.getElementById('top-scroll-indicator');
+            if (indicator) indicator.style.width = scrollPercent + '%';
+        }
+    });
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('scrollToTop');
+        if (btn) {
+            btn.style.display = (window.scrollY > 300) ? 'flex' : 'none';
+        }
+    });
+
+    // --- Открытие полной новости ---
+    function showFullNews(news) {
+        const container = document.getElementById('full-news-container');
+        const titleEl = document.getElementById('fn-title');
+        const metaEl = document.getElementById('fn-meta');
+        const imgEl = document.getElementById('fn-image');
+        const contentEl = document.getElementById('fn-content');
+
+        if (!container || !titleEl || !metaEl || !imgEl || !contentEl) {
+            alert('Ошибка: не найдены элементы для отображения новости. Проверьте ID в HTML.');
+            return;
+        }
+
+        titleEl.textContent = news.title;
+        metaEl.textContent = `${news.category} • ${news.date}`;
+        imgEl.src = news.image;
+        contentEl.innerHTML = news.fullText || news.content || news.description;
+
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        setTimeout(() => {
+            window.scrollBy(0, -80);
+        }, 300);
+    }
+</script>
     <!-- Блок для полного текста новости -->
     <div id="full-news-container" style="padding: 20px; max-width: 800px; margin: 40px auto; display: none; background: var(--card); border-left: 4px solid var(--accent);">
         <button onclick="document.getElementById('full-news-container').style.display='none'" style="background:none; border:none; color:var(--accent); cursor:pointer; font-weight:bold;">← Назад к ленте</button>
