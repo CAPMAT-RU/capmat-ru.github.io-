@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -122,7 +123,7 @@
             </button>
 
             <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Открыть меню">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -203,7 +204,6 @@
                 <div class="modal-meta" id="modalMeta">Категория • Дата</div>
             </div>
             <div class="modal-body" id="modalBody">
-                <!-- Контент новости -->
                 <button class="share-button" id="shareButton" onclick="shareNews()">Поделиться ссылкой</button>
             </div>
         </div>
@@ -221,14 +221,15 @@
         }
 
         let allNews = [];
-        let featuredNewsId = null;
+        let featuredNewsId = null; // Убедитесь, что это поле есть в вашем news.json, если вы его используете
 
         async function loadNews() {
             try {
                 const res = await fetch('news.json');
                 if (!res.ok) throw new Error('Не удалось загрузить news.json');
                 allNews = await res.json();
-                featuredNewsId = allNews.featuredNewsId;
+                // Если featuredNewsId есть в news.json, раскомментируйте следующую строку:
+                // featuredNewsId = allNews.find(item => item.isFeatured)?.id || null; // Пример: ищем новость с полем isFeatured: true
                 document.getElementById('loader').style.display = 'none';
                 renderNews(allNews);
             } catch(e) {
@@ -253,15 +254,17 @@
             const container = document.getElementById('news-container');
             container.innerHTML = '';
 
+            // Если featuredNewsId задан и такая новость есть в данных
             if (featuredNewsId && data.some(item => item.id === featuredNewsId)) {
                 const featuredNews = data.find(item => item.id === featuredNewsId);
                 if (featuredNews) {
-                    const title = query 
-                        ? featuredNews.title.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>') 
+                    const title = query
+                        ? featuredNews.title.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>')
                         : featuredNews.title;
-                    
+
+                    // ИСПРАВЛЕНИЕ: Ссылка должна вести на news-<id>.html
                     const featuredHTML = `
-                        <a href="news-${featuredNews.id}.html" class="card-link" style="text-decoration: none; color: inherit; display: block;">
+                        <a href="news-${featuredNews.id}.html" class="card-link">
                             <div class="card">
                                 <img src="${featuredNews.image || 'images/placeholder.jpg'}" alt="${featuredNews.title}" class="card-image" loading="lazy">
                                 <div class="meta-container">
@@ -280,12 +283,13 @@
             }
 
             const filteredNews = data.filter(item => item.id !== featuredNewsId);
-            
+
             container.innerHTML += filteredNews.map(item => {
                 let title = query ? item.title.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>') : item.title;
-                
+
+                // ИСПРАВЛЕНИЕ: Ссылка должна вести на news-<id>.html
                 return `
-                    <a href="news-${item.id}.html" class="card-link" style="text-decoration: none; color: inherit; display: block;">
+                    <a href="news-${item.id}.html" class="card-link">
                         <div class="card">
                             <img src="${item.image || 'images/placeholder.jpg'}" alt="${item.title}" class="card-image" loading="lazy">
                             <div class="meta-container">
@@ -298,7 +302,6 @@
                     </a>`;
             }).join('');
 
-            // Применяем Observer к новым карточкам
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 card.style.opacity = '0';
@@ -313,9 +316,9 @@
         searchInput.addEventListener('input', (e) => {
             clearTimeout(searchTimeout);
             const val = e.target.value.trim().toLowerCase();
-            if (val.length < 3) { 
-                searchResults.style.display = 'none'; 
-                return; 
+            if (val.length < 3) {
+                searchResults.style.display = 'none';
+                return;
             }
             const filtered = allNews
                 .filter(n => n.title.toLowerCase().includes(val))
@@ -325,7 +328,7 @@
                 searchResults.style.display = 'block';
                 return;
             }
-            searchResults.innerHTML = filtered.map(n => 
+            searchResults.innerHTML = filtered.map(n =>
                 `<div class="result-item" onclick="handleSearchResultClick('${n.id}')">
                     ${n.title.replace(new RegExp(`(${val})`, 'gi'), '<span class="highlight">$1</span>')}
                 </div>`
@@ -336,6 +339,7 @@
         function handleSearchResultClick(newsId) {
             searchInput.value = '';
             searchResults.style.display = 'none';
+            // ИСПРАВЛЕНИЕ: Ссылка должна вести на news-<id>.html
             window.location.href = `news-${newsId}.html`;
         }
 
@@ -377,9 +381,11 @@
             document.getElementById('modalTitle').textContent = newsItem.title;
             document.getElementById('modalMeta').textContent = `${newsItem.category} • ${newsItem.date}`;
             const body = document.getElementById('modalBody');
+            // Обработка переносов строк в контенте для корректного отображения в <p>
+            const formattedContent = (newsItem.content || newsItem.description || '').replace(/\n/g, '</p><p>');
             body.innerHTML = `
                 ${newsItem.image ? `<div class="modal-img-wrapper"><img src="${newsItem.image}" alt="${newsItem.title}" class="modal-image"></div>` : ''}
-                ${(newsItem.content || newsItem.description || '').replace(/\n/g, '</p><p>')}
+                <p>${formattedContent}</p>
                 <button class="share-button" onclick="shareNews()">Поделиться ссылкой</button>
             `;
             modal.classList.add('active');
@@ -388,15 +394,24 @@
 
         function shareNews() {
             const newsTitle = document.getElementById('modalTitle').textContent;
-            const newsId = allNews.find(n => n.title === newsTitle).id;
+            // Находим новость по заголовку, чтобы получить ее ID и сформировать правильную ссылку
+            const newsItem = allNews.find(n => n.title === newsTitle);
+            if (!newsItem) return;
+            const newsId = newsItem.id;
+            // ИСПРАВЛЕНИЕ: Ссылка должна вести на news-<id>.html
             const newsUrl = `news-${newsId}.html`;
             const shareData = {
                 title: newsTitle,
                 url: newsUrl
             };
-            navigator.share(shareData)
-                .then(() => console.log('Успешно поделились'))
-                .catch((error) => console.error('Ошибка при поделении:', error));
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Успешно поделились'))
+                    .catch((error) => console.error('Ошибка при поделении:', error));
+            } else {
+                // Fallback для браузеров, не поддерживающих Web Share API
+                alert(`Скопируйте эту ссылку: ${window.location.origin}/${newsUrl}`);
+            }
         }
 
         function closeModal() {
@@ -431,7 +446,7 @@
             if (window.scrollY > 300) {
                 btn.style.display = 'flex';
                 btn.style.opacity = '0.7';
-                btn.style.bottom = '150px'; 
+                btn.style.bottom = '150px';
                 btn.style.right = '20px';
             } else {
                 btn.style.display = 'none';
@@ -447,7 +462,8 @@
                 if (index < text.length) {
                     container.textContent = text.substring(0, index + 1);
                     index++;
-                    const delays = [100, 150, 120, 180, 140, 160, 130, 170, 110, 190, 150, 200, 100];
+                     
+const delays = [100, 150, 120, 180, 140, 160, 130, 170, 110, 190, 150, 200, 100];
                     const delay = delays[index % delays.length] || 150;
                     timer = setTimeout(type, 150);
                 }
@@ -457,4 +473,5 @@
     </script>
 </body>
 </html>
-
+ 
+ 
