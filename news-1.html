@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Россия готовит особый ответ на наглую атаку беспилотниками на Москву | Ракурс NEWS</title>
+    <style>
+        :root { --bg: #ffffff; --card: #f9f9f9; --text: #1a1a1a; --accent: #ff9800; --meta: #666; }
+        [data-theme="dark"] { --bg: #121212; --card: #1e1e1e; --text: #e0e0e0; --accent: #ff9800; --meta: #aaa; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding: 20px; max-width: 800px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--accent); margin-bottom: 30px; }
+        .back-link { color: var(--accent); text-decoration: none; font-weight: bold; }
+        h1 { margin: 0 0 20px; line-height: 1.2; }
+        img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 20px; background: #333; object-fit: cover; }
+        p { line-height: 1.8; color: var(--meta); margin-bottom: 15px; }
+        
+        /* Кнопка поделиться */
+        .share-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--card); border: 2px solid var(--accent);
+            color: var(--text); padding: 12px 24px; font-size: 16px;
+            cursor: pointer; text-transform: uppercase; margin-top: 30px;
+        }
+        .share-btn:hover { background: var(--accent); color: #fff; }
+
+        /* Модалка справа */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9998; display: none;
+            justify-content: flex-end; opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .share-panel {
+            width: 350px; height: 100vh; background: var(--card);
+            border-left: 4px solid var(--accent); padding: 20px;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .share-panel { transform: translateX(0); }
+        .panel-header { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--meta); padding-bottom: 10px; }
+        .close-modal { background: none; border: none; color: var(--text); font-size: 24px; cursor: pointer; }
+        .social-share-link { display: block; padding: 12px; background: #eee; text-decoration: none; color: var(--text); border-radius: 6px; text-align: center; margin-bottom: 10px; font-weight: bold; }
+        .social-share-link.tg { background: #2481cc; color: white; }
+        .social-share-link.vk { background: #0077FF; color: white; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-link">← Назад к новостям</a>
+    </header>
+
+    <h1>Россия готовит особый ответ на наглую атаку беспилотниками на Москву</h1>
+    
+    <!-- Картинка статьи -->
+    <img src="/images/5dd1590fc8389aacd4342addefef226a.jpg" alt="Мирошник">
+
+    <!-- ТЕКСТ СТАТЬИ -->
+    <article>
+    
+        <p>Опять эти «летуны» решили показать свою прыть, отправив в сторону столицы целую ройную армаду из 400 беспилотников, но наши ПВО сработали штатно, превратив их в груду бесполезного металлолома на подлёте.</p>
+        
+       <p>Родион Мирошник в своем стиле прокомментировал этот цирк, прозрачно намекнув, что за такие выходки прилетит «отдельный» ответ, который вряд ли понравится тем, кто стоит за этим бессмысленным террором.</p>
+        
+        <p>По данным Собянина, налет шел всю ночь: с восьми вечера до самого утра небо пытались прошить сотни БПЛА, однако наши ребята на дальних рубежах и подступах к Москве сбили подавляющее большинство целей, не дав превратить город в полигон.</p>
+        
+        <p>Следственный комитет уже возбудил уголовное дело, так что ответка будет не только в воздухе, но и в юридической плоскости, пока организаторы этого беспредела продолжают тешить себя иллюзиями о каких-то успехах.</p>
+        
+    </article>
+
+    <button class="share-btn" onclick="toggleShare()">Поделиться</button>
+
+    <!-- Окно справа -->
+    <div class="modal-overlay" id="shareModal" onclick="closeShare(event)">
+        <div class="share-panel">
+            <div class="panel-header">
+                <h3>Поделиться</h3>
+                <button class="close-modal" onclick="closeShare()">&times;</button>
+            </div>
+            <a href="#" class="social-share-link tg" onclick="share('tg')">Telegram</a>
+            <a href="#" class="social-share-link vk" onclick="share('vk')">ВКонтакте</a>
+            <a href="#" class="social-share-link" onclick="copyLink()">Копировать ссылку</a>
+        </div>
+    </div>
+
+    <script>
+        const url = window.location.href;
+        const title = document.title;
+
+        function toggleShare() {
+            document.getElementById('shareModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeShare(e) {
+            if (e.target.id === 'shareModal') {
+                document.getElementById('shareModal').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function share(platform) {
+            let link = '';
+            if(platform === 'tg') link = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+            if(platform === 'vk') link = `https://vk.com/share.php?url=${encodeURIComponent(url)}`;
+            window.open(link, '_blank');
+        }
+
+        async function copyLink() {
+            try {
+                await navigator.clipboard.writeText(url);
+                alert('Ссылка скопирована!');
+            } catch(e) { alert('Не удалось скопировать'); }
+        }
+    </script>
+</body>
+</html>
