@@ -1,117 +1,178 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Технологический суверенитет за миллиарды рублей | Ракурс NEWS</title>
-    <style>
-        :root { --bg: #ffffff; --card: #f9f9f9; --text: #1a1a1a; --accent: #ff9800; --meta: #666; }
-        [data-theme="dark"] { --bg: #121212; --card: #1e1e1e; --text: #e0e0e0; --accent: #ff9800; --meta: #aaa; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Технологический суверенитет за миллиарды рублей | Ракурс NEWS</title>
+<meta name="description" content="Разбор закупки серверов Минцифры на 1,31 млрд рублей: риски зависимости от зарубежных технологий и уязвимости процессоров Intel Xeon. Ироничный взгляд Ракурс NEWS.">
+<meta name="keywords" content="технологический суверенитет, Минцифры, импортозамещение, Intel Xeon, кибербезопасность, Ракурс NEWS">
+<meta property="og:title" content="Технологический суверенитет за миллиарды рублей">
+<meta property="og:description" content="Разбор закупки серверов Минцифры на 1,31 млрд рублей и риски зависимости от зарубежных технологий.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ваш-домен.ru/articles/tech-sovereignty.html">
+<meta property="og:image" content="/images/IMG_20260721_111931.webp">
+<meta property="article:published_time" content="2024-07-21T10:00:00+03:00">
+<meta property="article:author" content="Ракурс NEWS">
+<meta property="article:section" content="Аналитика">
+<meta property="article:tag" content="импортозамещение, кибербезопасность">
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "NewsArticle",
+"headline": "Технологический суверенитет за миллиарды рублей",
+"image": "/images/IMG_20260721_111931.webp",
+"datePublished": "2024-07-21T10:00:00+03:00",
+"dateModified": "2024-07-21T10:00:00+03:00",
+"author": {
+"@type": "Organization",
+"name": "Ракурс NEWS",
+"url": "https://ваш-домен.ru"
+},
+"publisher": {
+"@type": "Organization",
+"name": "Ракурс NEWS",
+"logo": {
+"@type": "ImageObject",
+"url": "/images/logo.png"
+}
+},
+"description": "Разбор закупки серверов Минцифры на 1,31 млрд рублей: риски зависимости от зарубежных технологий и уязвимости процессоров Intel Xeon."
+}
+</script>
+<style>
+:root { --bg: #ffffff; --card: #f9f9f9; --text: #1a1a1a; --accent: #ff9800; --meta: #666; }
+[data-theme="dark"] { --bg: #121212; --card: #1e1e1e; --text: #e0e0e0; --accent: #ff9800; --meta: #aaa; }
+body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding: 20px; max-width: 800px; margin: 0 auto; line-height: 1.6; transition: background 0.3s; }
+header { padding: 15px 0; border-bottom: 1px solid var(--accent); margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+.logo-wrapper { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 20px; cursor: pointer; }
+.logo-wrapper img { width: 30px; height: 30px; }
+h1 { margin: 0 0 20px; line-height: 1.2; font-size: 24px; }
+img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 20px; background: #333; }
+p { margin-bottom: 20px;  }
+h3 { font-size: 20px; color: var(--text); margin: 30px 0 15px; border-bottom: 1px solid var(--accent); padding-bottom: 8px; }
 
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding: 20px; max-width: 800px; margin: 0 auto; line-height: 1.6; transition: background 0.3s; }
-        header { padding: 15px 0; border-bottom: 1px solid var(--accent); margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-        .logo-wrapper { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 20px; cursor: pointer; }
-        .logo-wrapper img { width: 30px; height: 30px; }
-        
-        h1 { margin: 0 0 20px; line-height: 1.2; font-size: 24px; }
-        img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 20px; background: #333; }
-        p { margin-bottom: 20px; text-align: justify; }
-        
-        .controls { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; flex-wrap: wrap; gap: 10px; }
-        .btn { text-decoration: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold; border: 1px solid var(--accent); color: var(--text); background: var(--card); transition: all 0.2s; }
-        .btn:hover { background: var(--accent); color: #fff; }
-        
-        .theme-toggle { cursor: pointer; background: transparent; border: 1px solid var(--accent); color: var(--text); display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: all 0.3s; height: 32px; width: 32px; padding: 0; }
-        .theme-toggle:hover { background: var(--accent); color: #000; }
+/* Стили для кнопок навигации */
+.controls { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; flex-wrap: wrap; gap: 10px; }
+.btn { text-decoration: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold; border: 1px solid var(--accent); color: var(--text); background: var(--card); transition: all 0.2s; font-size: 14px; }
+.btn:hover { background: var(--accent); color: #fff; }
 
-        .modal-overlay { position: fixed; top:0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9998; display: none; justify-content: flex-end; }
-        .modal-overlay.active { display: flex; }
-        .share-panel { width: 100%; max-width: 300px; height: 100vh; background: var(--card); border-left: 4px solid var(--accent); padding: 20px; box-sizing: border-box; transition: transform 0.3s ease; }
-        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text); }
-        .social-share-link { display: block; padding: 10px; background: var(--card); text-decoration: none; color: var(--text); border-radius: 4px; text-align: center; margin-bottom: 10px; border: 1px solid var(--accent); }
-        .social-share-link.tg { background: #2481cc; color: white; border-color: #2481cc; }.social-share-link.vk { background: #0077FF; color: white; border-color: #0077FF; }
-    </style>
+/* Стили для кнопок соцсетей */
+.social-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.social-btn {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    border: none;
+    transition: opacity 0.2s;
+}
+.social-btn:hover { opacity: 0.9; }
+.social-btn.tg { background: #2481cc; }
+.social-btn.vk { background: #0077FF; }
+
+.theme-toggle { cursor: pointer; background: transparent; border: 1px solid var(--accent); color: var(--text); display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: all 0.3s; height: 32px; width: 32px; padding: 0; }
+.theme-toggle:hover { background: var(--accent); color: #000; }
+.modal-overlay { position: fixed; top:0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9998; display: none; justify-content: flex-end; }
+.modal-overlay.active { display: flex; }
+.share-panel { width: 100%; max-width: 300px; height: 100vh; background: var(--card); border-left: 4px solid var(--accent); padding: 20px; box-sizing: border-box; transition: transform 0.3s ease; }
+.close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text); }
+.social-share-link { display: block; padding: 10px; background: var(--card); text-decoration: none; color: var(--text); border-radius: 4px; text-align: center; margin-bottom: 10px; border: 1px solid var(--accent); }
+.social-share-link.tg { background: #2481cc; color: white; border-color: #2481cc; }.social-share-link.vk { background: #0077FF; color: white; border-color: #0077FF; }
+</style>
 </head>
 <body>
-    <header>
-        <div class="logo-wrapper" onclick="window.location.href='index.html'">
-            <img src="/images/logo.png" alt="Logo">
-            <span id="logo-text">Ракурс NEWS</span>
-        </div>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Сменить тему">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        </button>
-    </header>
-    
-    <h1>Технологический суверенитет за миллиарды рублей</h1>
-    <img src="/images/IMG_20260721_111931.webp" alt="Чебурнет">
-    
-    <article>
-        <p>Российские государственные мужи в очередной раз продемонстрировали выдающийся талант к покупке билета на Титаник, гордо именуя этот процесс развитием суверенного Рунета. Пока трибуны сотрясаются от пафосных речей об импортозамещении, реальность выглядит куда более комично: Минцифры через своих верных подрядчиков из АО ДЦОА спускает 1,31 миллиарда рублей на оборудование, которое в любой момент может превратиться в дорогостоящий офисный мусор. Закупка 154 серверов на базе процессоров Intel Xeon поколения Emerald Rapids выглядит как изощренная форма мазохизма, замаскированная под обеспечение национальной безопасности. Видимо, чиновникам глубоко импонирует идея зависеть от технологий, которые потенциально контролируются нашими геополитическими оппонентами с той стороны океана.</p>
+<header>
+<div class="logo-wrapper" onclick="window.location.href='index.html'">
+<img src="/images/logo.png" alt="Логотип Ракурс NEWS">
+<span id="logo-text">Ракурс NEWS</span>
+</div>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Сменить тему">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" y1="1" x2="12" y2="3"></line>
+<line x1="12" y1="21" x2="12" y2="23"></line>
+<line x1="1" y1="12" x2="3" y2="12"></line>
+<line x1="21" y1="12" x2="23" y2="12"></line>
+<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+</button>
+</header>
 
-        <p>Наивность, с которой ответственные лица игнорируют наличие в чипсетах Intel автономного микроконтроллера Management Engine, просто поражает воображение. Этот программно-аппаратный элемент обладает доступом к памяти и сетевым интерфейсам, минуя волю операционной системы, что делает сервер уязвимым для любой внешней команды из Вашингтона. Устанавливать подобную закладку в ядро системы, призванной защищать российский сегмент сети от угроз, это не просто непрофессионализм, это какой-то запредельный уровень институциональной слепоты. Платить миллиарды за инфраструктуру, которая по щелчку пальцев может быть дистанционно деактивирована, — это высший пилотаж государственного планирования, достойный отдельного исследования в области клинической психологии.</p>
-    </article>
-    
-    <div class="controls">
-        <a href="index.html" class="btn">На главную</a>
-        <button class="btn" onclick="document.getElementById('shareModal').classList.add('active')">Поделиться</button>
-    </div>
-    
-    <div class="modal-overlay" id="shareModal" onclick="if(event.target.id==='shareModal') this.classList.remove('active')">
-        <div class="share-panel">
-            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-                <h3>Поделиться</h3>
-                <button class="close-modal" onclick="document.getElementById('shareModal').classList.remove('active')">&times;</button>
-            </div>
-            <a href="#" class="social-share-link tg" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href))">Telegram</a>
-            <a href="#" class="social-share-link vk" onclick="window.open('https://vk.com/share.php?url='+encodeURIComponent(window.location.href))">ВКонтакте</a>
-        </div>
-    </div>
+<h1>Технологический суверенитет за миллиарды рублей</h1>
+<img src="/images/IMG_20260721_111931.webp" alt="Серверы для Минцифры: закупка на 1,31 млрд рублей">
 
-    <script>
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+<article>
+    <p>Российские государственные мужи в очередной раз продемонстрировали выдающийся талант к покупке билета на Титаник, гордо именуя этот процесс развитием <strong>суверенного Рунета</strong>. Пока трибуны сотрясаются от пафосных речей об <strong>импортозамещении</strong>, реальность выглядит куда более комично: Минцифры через своих верных подрядчиков из АО ДЦОА спускает 1,31 миллиарда рублей на оборудование, которое в любой момент может превратиться в дорогостоящий офисный мусор. Закупка 154 серверов на базе процессоров Intel Xeon поколения Emerald Rapids выглядит как изощренная форма мазохизма, замаскированная под обеспечение национальной безопасности. Видимо, чиновникам глубоко импонирует идея зависеть от технологий, которые потенциально контролируются нашими геополитическими оппонентами с той стороны океана.</p>
+
+    <p>Наивность, с которой ответственные лица игнорируют наличие в чипсетах Intel автономного микроконтроллера <strong>Management Engine</strong>, просто поражает воображение. Этот программно-аппаратный элемент обладает доступом к памяти и сетевым интерфейсам, минуя волю операционной системы, что делает сервер уязвимым для любой внешней команды из Вашингтона. Устанавливать подобную закладку в ядро системы, призванной защищать российский сегмент сети от угроз, это не просто непрофессионализм, это какой-то запредельный уровень институциональной слепоты. Платить миллиарды за инфраструктуру, которая по щелчку пальцев может быть дистанционно деактивирована, — это высший пилотаж государственного планирования, достойный отдельного исследования в области клинической психологии.</p>
+</article>
+
+<div class="controls">
+    <a href="index.html" class="btn">На главную</a>
+    <button class="btn" onclick="document.getElementById('shareModal').classList.add('active')">Поделиться</button>
+</div>
+
+<div class="social-buttons-container">
+    <a href="#" class="social-btn tg" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href))">Telegram</a>
+    <a href="#" class="social-btn vk" onclick="window.open('https://vk.com/share.php?url='+encodeURIComponent(window.location.href))">ВКонтакте</a>
+</div>
+
+<div class="modal-overlay" id="shareModal" onclick="if(event.target.id==='shareModal') this.classList.remove('active')">
+    <div class="share-panel">
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+            <h3>Поделиться</h3>
+            <button class="close-modal" onclick="document.getElementById('shareModal').classList.remove('active')">&times;</button>
+        </div>
+        <a href="#" class="social-share-link tg" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href))">Telegram</a>
+        <a href="#" class="social-share-link vk" onclick="window.open('https://vk.com/share.php?url='+encodeURIComponent(window.location.href))">ВКонтакте</a>
+    </div>
+</div>
+
+<script>
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    }
+
+    (function() {
+        const text = "Ракурс NEWS";
+        const container = document.getElementById('logo-text');
+        let index = 0;
+        let timer;
         
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
-        (function() {
-            const text = "Ракурс NEWS";
-            const container = document.getElementById('logo-text');
-            let index = 0;
-            let timer;
-            
-            function type() {
-                if (index < text.length) {
-                    container.textContent = text.substring(0, index + 1);
-                    index++;
-                    const delays = [100, 150, 120, 180, 140, 160, 130, 170, 110, 190, 150, 200, 100];
-                    const delay = delays[index % delays.length] || 150;
-                    timer = setTimeout(type, delay);
-                } else {
-                    setTimeout(() => {
-                        index = 0;
-                        container.textContent = "";
-                        type();
-                    }, 5000);
-                }
+        function type() {
+            if (index < text.length) {
+                container.textContent = text.substring(0, index + 1);
+                index++;
+                const delays = [100, 150, 120, 180, 140, 160, 130, 170, 110, 190, 150, 200, 100];
+                const delay = delays[index % delays.length] || 150;
+                timer = setTimeout(type, delay);
+            } else {
+                setTimeout(() => {
+                    index = 0;
+                    container.textContent = "";
+                    type();
+                }, 5000);
             }
-            type();
-        })();
-    </script>
+        }
+        type();
+    })();
+</script>
 </body>
 </html>
