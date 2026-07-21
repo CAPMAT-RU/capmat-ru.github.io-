@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Госдума против бесконечного скроллинга ленты | Ракурс NEWS</title>
+    <style>
+        :root { --bg: #ffffff; --card: #f9f9f9; --text: #1a1a1a; --accent: #ff9800; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding: 20px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+        header { padding: 15px 0; border-bottom: 1px solid var(--accent); margin-bottom: 30px; }
+        h1 { margin: 0 0 20px; line-height: 1.2; font-size: 24px; }
+        img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 20px; background: #333; }
+        p { margin-bottom: 20px; text-align: justify; }
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+        .btn { text-decoration: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold; border: 1px solid var(--accent); color: var(--text); background: var(--card); }
+        .btn:hover { background: var(--accent); color: #fff; }
+        .modal-overlay { position: fixed; top:0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9998; display: none; justify-content: flex-end; }
+        .modal-overlay.active { display: flex; }
+        .share-panel { width: 100%; max-width: 300px; height: 100vh; background: var(--card); border-left: 4px solid var(--accent); padding: 20px; box-sizing: border-box; }
+        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; }
+        .social-share-link { display: block; padding: 10px; background: #eee; text-decoration: none; color: var(--text); border-radius: 4px; text-align: center; margin-bottom: 10px; }
+        .social-share-link.tg { background: #2481cc; color: white; }.social-share-link.vk { background: #0077FF; color: white; }    </style>
+</head>
+<body>
+    <header></header>
+    <h1>Госдума против бесконечного скроллинга ленты</h1>
+    <img src="/images/IMG_20260721_091343.webp" alt="Свинцов">
+    <article>
+        <p>Депутатская фантазия в очередной раз достигла дна, породив инициативу о принудительном отключении лент в социальных сетях. Господин Свинцов, видимо, всерьез полагает, что проблема национальной деградации кроется в избыточном просмотре видео, а не в управленческой импотенции профильных комитетов. Вместо анализа системных сбоев или разработки реальной повестки, народные избранники решили поиграть в цифровых надзирателей. Подобная имитация бурной деятельности лишь подчеркивает интеллектуальную пустоту тех, кто пытается внедрить методы, оторванные от реальности и нужд современного общества.</p>
+
+        <p>Использование опыта других стран здесь выглядит как попытка прикрыть некомпетентность красивыми словами о заботе. Если контент в сети вызывает у населения потребность скроллить его бесконечно, то вопрос стоит задать не пользователям, а создателям той информационной среды, которую мы наблюдаем ежедневно. Вводить законодательный таймер — это признание в собственной неспособности влиять на качество информационного поля. Считать граждан недееспособными субъектами, требующими родительского контроля в смартфоне, — это стратегическая ошибка, свидетельствующая о полной утрате связи с электоратом.</p>
+                  
+    </article>
+    <div class="controls">
+        <a href="index.html" class="btn">На главную</a>
+        <button class="btn" onclick="document.getElementById('shareModal').classList.add('active')">Поделиться</button>
+    </div>
+    <div class="modal-overlay" id="shareModal" onclick="if(event.target.id==='shareModal') this.classList.remove('active')">
+        <div class="share-panel">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <h3>Поделиться</h3>
+                <button class="close-modal" onclick="document.getElementById('shareModal').classList.remove('active')">&times;</button>
+            </div>
+            <a href="#" class="social-share-link tg" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href))">Telegram</a>
+            <a href="#" class="social-share-link vk" onclick="window.open('https://vk.com/share.php?url='+encodeURIComponent(window.location.href))">ВКонтакте</a>
+        </div>
+    </div>
+</body>
+</html>
