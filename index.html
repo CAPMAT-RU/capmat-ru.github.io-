@@ -13,133 +13,574 @@
 <link rel="icon" type="image/png" href="https://rakurs-news.github.io/rakurs-news/images/favicon.png">
 <link rel="alternate" href="https://rakurs-news.github.io/rakurs-news/" media="only screen and (max-width: 600px)">
 <style>
-:root { --bg: #ffffff; --card: #f9f9f9; --text: #1a1a1a; --accent: #ff9800; --meta: #666; --mobile-menu-bg: var(--card); --mobile-menu-text: var(--text); --mobile-menu-border: var(--accent); }
-[data-theme="dark"] { --bg: #121212; --card: #1e1e1e; --text: #e0e0e0; --accent: #ff9800; --meta: #aaa; --mobile-menu-bg: #000000; --mobile-menu-text: var(--text); --mobile-menu-border: var(--accent); }
-body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; transition: background 0.3s; }
-h1 { display: none; }
-#progress-bar { position: fixed; top: 0; left: 0; width: 0%; height:3px; background: var(--accent); z-index: 2000; }
-header { background: var(--card); padding: 15px 5px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--accent); position: sticky; top: 0; z-index: 1000; }
-.logo-wrapper { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 20px; margin-left:5px; }
-.logo-wrapper img { width: 30px; height: 30px; }
-.controls-wrapper { display: flex; align-items: center; gap: 10px; }
-#searchInput { height: 32px; width: 150px; padding: 0 10px; border: 1px solid var(--accent); background: var(--bg); color: var(--text); border-radius: 2px; box-sizing: border-box; }
-@media (max-width: 500px) { #searchInput { width: 90px; } }
-.categories-wrapper { padding: 15px 20px; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--accent); display: flex; gap: 20px; scrollbar-width: none; }
-.categories-wrapper::-webkit-scrollbar { display: none; }
-.category-btn { background: none; border: none; color: var(--text); cursor: pointer; text-transform: uppercase; font-size: 13px; font-weight: bold; flex-shrink: 0; }
-.category-btn.active { color: var(--accent); }
-.search-wrapper { position: relative; }
-#search-results { position: absolute; top: 40px; right: 0; width: 250px; max-height: 400px; overflow-y: auto; background: var(--card); border: 1px solid var(--accent); z-index: 1500; display: none; }
-.result-item { display: flex; padding: 10px; gap: 10px; border-bottom: 1px solid var(--accent); cursor: pointer; align-items: center; }
-.highlight { background: var(--accent); color: #000; }
-.breadcrumbs { padding: 10px 20px; font-size: 12px; color: var(--meta); }
-.featured-news { background: var(--card); padding: 15px; border-bottom: 2px solid var(--accent); }
-.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
-.card { background: var(--card); padding: 15px; border-left: 4px solid var(--accent); transition: transform 0.2s; cursor: pointer; opacity: 0; transform: translateY(30px); animation: fadeInUp 0.6s ease forwards; }
-.card:hover { transform: translateY(-5px); }
-.meta-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.meta-date { color: var(--accent); font-size: 13px; }
-.meta-author { color: var(--accent); font-size: 13px; font-weight: bold; white-space: nowrap; }
-.desc { font-size: 14px; color: var(--meta); margin-top: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.theme-toggle { cursor: pointer; background: transparent; border: 1px solid var(--accent); color: var(--text); display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: all 0.3s; height: 32px; width: 32px; padding: 0; }
-.theme-toggle:hover { background: var(--accent); color: #000; }
-#scrollToTop { position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: #fff; border: none; border-radius: 50%; width: 50px; height: 50px; display: none; cursor: pointer; transition: opacity 0.3s, transform 0.3s; opacity: 0.7; }
-#scrollToTop:hover { opacity: 1; }
-.floating-buttons { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; transition: opacity 0.3s; opacity: 0; visibility: hidden; }
-.floating-buttons img { width: 40px; height: 40px; }
-@media (max-width: 500px) { #scrollToTop { width:44px; height: 44px; bottom: 90px; right: 20px; } .floating-buttons img { width: 30px; height: 30px; } }
-.card-image { width: 100%; height: 180px; object-fit: cover; border-radius: 4px 4px 0 0; margin-bottom: 12px; background-color: #333; }
-.footer { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: var(--bg); border-top: 1px solid var(--accent); display: flex; justify-content: center; align-items: center; }
-.social-icons { display: flex; gap: 35px; }
-.social-icons img { width: 40px; height: 40px; }
-.mobile-menu-button { display: none; cursor: pointer; background: transparent; border: 1px solid var(--accent); color: var(--text); display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: all 0.3s; height: 32px; width: 32px; padding: 0; margin-left: 10px; }
-.mobile-menu-button:hover { background: var(--accent); color: #000; }
-.mobile-menu-button svg { width: 20px; height: 20px; }
-.mobile-menu { position: fixed; top: 0; left: 0; width: 200px; height: 100%; background: var(--bg); color: var(--mobile-menu-text); transform: translateX(-100%); transition: transform 0.3s ease-in-out; z-index: 1100; padding: 20px; box-sizing: border-box; border-right: 1px solid var(--mobile-menu-border); overflow-y: auto; }
-.mobile-menu.open { transform: translateX(0); }
-.mobile-menu .category-btn { display: block; width: 100%; text-align: left; padding: 12px 0; font-size: 16px; border-bottom: 1px solid var(--mobile-menu-border); color: var(--mobile-menu-text); cursor: pointer; }
-.mobile-menu .category-btn:last-child { border-bottom: none; }
-.mobile-menu .category-btn.active { color: var(--accent); }
-.page-title-wrapper { padding: 15px 20px; border-bottom: 1px solid var(--accent); display: flex; align-items: center; gap: 10px; }
-.page-title-indicator { width: 4px; height: 20px; background-color: var(--accent); }
-.page-title { font-size: 20px; font-weight: bold; margin: 0; }
-@media (max-width: 768px) { .categories-wrapper { display: none; } .mobile-menu-button { display: flex; } .page-title-wrapper { padding: 10px 15px; gap: 8px; } .page-title { font-size: 18px; } .page-title-indicator { height: 18px; } }
-.scroll-indicator-track { position: fixed; right: 4px; top: 0; width: 4px; height: 100vh; background: rgba(0, 0, 0, 0.08); pointer-events: none; z-index: 999; }
-.scroll-indicator-thumb { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: var(--accent); border-radius: 2px; pointer-events: none; }
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    :root {
+        --bg: #ffffff;
+        --card: #f9f9f9;
+        --text: #1a1a1a;
+        --accent: #ff9800;
+        --meta: #666;
+        --mobile-menu-bg: var(--card);
+        --mobile-menu-text: var(--text);
+        --mobile-menu-border: var(--accent);
     }
-}
-/* Контейнер для картинки должен быть "родителем" для абсолютного бейджа */
-.card-image-wrapper {
-    position: relative;
-    display: block;
-}
 
-.hot-badge {
-    background-color: #ff4444; /* Жестко заданный красный, не зависит от темы */
-    color: #ffffff;
-    padding: 6px 12px;
-    font-size: 11px;
-    font-weight: bold;
-    border-radius: 0 4px 4px 0;
-    position: absolute;
-    top: 10px;
+    [data-theme="dark"] {
+        --bg: #121212;
+        --card: #1e1e1e;
+        --text: #e0e0e0;
+        --accent: #ff9800;
+        --meta: #aaa;
+        --mobile-menu-bg: #000000;
+        --mobile-menu-text: var(--text);
+        --mobile-menu-border: var(--accent);
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: sans-serif;
+        margin: 0;
+        transition: background 0.3s;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: var(--accent);
+        z-index: 2000;
+    }
+
+    header {
+        background: var(--card);
+        padding: 15px 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--accent);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: bold;
+        font-size: 20px;
+        margin-left: 5px;
+    }
+
+    .logo-wrapper img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .controls-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #searchInput {
+        height: 32px;
+        width: 150px;
+        padding: 0 10px;
+        border: 1px solid var(--accent);
+        background: var(--bg);
+        color: var(--text);
+        border-radius: 2px;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 500px) {
+        #searchInput {
+            width: 90px;
+        }
+    }
+
+    .categories-wrapper {
+        padding: 15px 20px;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-bottom: 1px solid var(--accent);
+        display: flex;
+        gap: 20px;
+        scrollbar-width: none;
+    }
+
+    .categories-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-btn {
+        background: none;
+        border: none;
+        color: var(--text);
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .category-btn.active {
+        color: var(--accent);
+    }
+
+    .search-wrapper {
+        position: relative;
+    }
+
+    #search-results {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        width: 250px;
+        max-height: 400px;
+        overflow-y: auto;
+        background: var(--card);
+        border: 1px solid var(--accent);
+        z-index: 1500;
+        display: none;
+    }
+
+    .result-item {
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        border-bottom: 1px solid var(--accent);
+        cursor: pointer;
+        align-items: center;
+    }
+
+    .highlight {
+        background: var(--accent);
+        color: #000;
+    }
+
+    .breadcrumbs {
+        padding: 10px 20px;
+        font-size: 12px;
+        color: var(--meta);
+    }
+
+    .featured-news {
+        background: var(--card);
+        padding: 15px;
+        border-bottom: 2px solid var(--accent);
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        background: var(--card);
+        padding: 15px;
+        border-left: 4px solid var(--accent);
+        transition: transform 0.2s;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .meta-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .meta-date {
+        color: var(--accent);
+        font-size: 13px;
+    }
+
+    .meta-author {
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .desc {
+        font-size: 14px;
+        color: var(--meta);
+        margin-top: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .theme-toggle {
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid var(--accent);
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2px;
+        transition: all 0.3s;
+        height: 32px;
+        width: 32px;
+        padding: 0;
+    }
+
+    .theme-toggle:hover {
+        background: var(--accent);
+        color: #000;
+    }
+
+    #scrollToTop {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: none;
+        cursor: pointer;
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0.7;
+    }
+
+    #scrollToTop:hover {
+        opacity: 1;
+    }
+
+    .floating-buttons {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        transition: opacity 0.3s;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .floating-buttons img {
+        width: 40px;
+        height: 40px;
+    }
+
+    @media (max-width: 500px) {
+        #scrollToTop {
+            width: 44px;
+            height: 44px;
+            bottom: 90px;
+            right: 20px;
+        }
+        .floating-buttons img {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    .card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 4px 4px 0 0;
+        margin-bottom: 12px;
+        background-color: #333;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: var(--bg);
+        border-top: 1px solid var(--accent);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 35px;
+    }
+
+    .social-icons img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .mobile-menu-button {
+        display: none;
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid var(--accent);
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2px;
+        transition: all 0.3s;
+        height: 32px;
+        width: 32px;
+        padding: 0;
+        margin-left: 10px;
+    }
+
+    .mobile-menu-button:hover {
+        background: var(--accent);
+        color: #000;
+    }
+
+    .mobile-menu-button svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        background: var(--mobile-menu-bg);
+        color: var(--mobile-menu-text);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1100;
+        padding: 20px;
+        box-sizing: border-box;
+        border-right: 1px solid var(--mobile-menu-border);
+        overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+        transform: translateX(0);
+    }
+
+    .mobile-menu .category-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 12px 0;
+        font-size: 16px;
+        border-bottom: 1px solid var(--mobile-menu-border);
+        color: var(--mobile-menu-text);
+        cursor: pointer;
+    }
+
+    .mobile-menu .category-btn:last-child {
+        border-bottom: none;
+    }
+
+    .mobile-menu .category-btn.active {
+        color: var(--accent);
+    }
+
+    .page-title-wrapper {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .page-title-indicator {
+        width: 4px;
+        height: 20px;
+        background-color: var(--accent);
+    }
+
+    .page-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .categories-wrapper {
+            display: none;
+        }
+        .mobile-menu-button {
+            display: flex;
+        }
+        .page-title-wrapper {
+            padding: 10px 15px;
+            gap: 8px;
+        }
+        .page-title {
+            font-size: 18px;
+        }
+        .page-title-indicator {
+            height: 18px;
+        }
+    }
+
+    .scroll-indicator-track {
+        position: fixed;
+        right: 4px;
+        top: 0;
+        width: 4px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.08);
+        pointer-events: none;
+        z-index: 999;
+    }
+
+    .scroll-indicator-thumb {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0%;
+        background: var(--accent);
+        border-radius: 2px;
+        pointer-events: none;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card-image-wrapper {
+        position: relative;
+        display: block;
+    }
+
+    .hot-badge {
+        background-color: #ff4444;
+        color: #ffffff;
+        padding: 6px 12px;
+        font-size: 11px;
+        font-weight: bold;
+        border-radius: 0 4px 4px 0;
+        position: absolute;
+        top: 10px;
+        left: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .category-badge {
+        position: absolute;
+        top: 15px;
+        right: 0px;
+        padding: 6px 12px;
+        font-size: 11px;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 2px;
+        z-index: 20;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+        line-height: 1;
+    }
+
+    .cat-svo {
+        background-color: #d32f2f;
+    }
+
+    .cat-politics {
+        background-color: #1976d2;
+    }
+
+    .cat-state {
+        background-color: #2e7d32;
+    }
+
+    .cat-geopolitics {
+        background-color: #4a148c;
+    }
+
+    .cat-society {
+        background-color: #f57c00;
+    }
+
+    .cat-regions {
+        background-color: #ffab40;
+    }
+
+    .cat-crime {
+        background-color: #7b1fa2;
+    }
+
+    .cat-corruption {
+        background-color: #c62828;
+    }
+
+    .cat-culture {
+        background-color: #388e3c;
+    }
+
+    .cat-science {
+        background-color: #00897b;
+    }
+
+    .cat-style {
+        background-color: #ec407a;
+    }
+
+    .cat-incidents {
+        background-color: #b71c1c;
+    }
+
+    .cat-sports {
+        background-color: #e91e63;
+    }
+
+    .cat-showbiz {
+        background-color: #fbc02d;
+    }
+
+    .cat-default {
+        background-color: #555;
+    }
+    .menu-overlay {
+    position: fixed;
+    top: 0;
     left: 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    /* Убираем var(--accent) отсюда */
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1099; /* Чуть ниже меню (1100), но выше всего остального */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: auto; /* Перехватывает клики */
 }
 
-/* Базовый стиль плашки (позиция: правый верхний угол) */
-.category-badge {
-    position: absolute;
-    top: 15px;       /* Отступ сверху */
-    right: 0px;     /* Отступ справа */
-    padding: 6px 12px;
-    font-size: 11px; /* Чуть уменьшил шрифт, чтобы влезло на узких экранах */
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-radius: 2px;
-    z-index: 20;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    pointer-events: none; /* Важно: чтобы клик по плашке не ломал ссылку */
-    line-height: 1;
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
-/* --- ВСЕ 13 КАТЕГОРИЙ (и запасные) --- */
-
-/* СВО, Политика, Государство, Геополитика */
-.cat-svo { background-color: #d32f2f; }           /* Красный */
-.cat-politics { background-color: #1976d2; }      /* Синий */
-.cat-state { background-color: #2e7d32; }          /* Зеленый (Государство) */
-.cat-geopolitics { background-color: #4a148c; }    /* Темно-фиолетовый (Геополитика) */
-
-/* Общество, Регионы */
-.cat-society { background-color: #f57c00; }        /* Оранжевый */
-.cat-regions { background-color: #ffab40; }        /* Светло-оранжевый (Регионы) */
-
-/* Криминал, Коррупция */
-.cat-crime { background-color: #7b1fa2; }           /* Фиолетовый */
-.cat-corruption { background-color: #c62828; }     /* Темно-красный (Коррупция) */
-
-/* Культура, Наука, Стиль */
-.cat-culture { background-color: #388e3c; }        /* Зеленый */
-.cat-science { background-color: #00897b; }        /* Бирюзовый (Наука) */
-.cat-style { background-color: #ec407a; }          /* Розовый (Стиль) */
-.cat-incidents { background-color: #b71c1c; } /* Тёмно-бордовый для Происшествий */
-/* Спорт, Шоу-бизнес */
-.cat-sports { background-color: #e91e63; }         /* Малиновый */
-.cat-showbiz { background-color: #fbc02d; }        /* Золотистый */
-
-/* Если категория не найдена ни под одно правило */
-.cat-default { background-color: #555; }          /* Серый */
 
 </style>
 </head>
@@ -199,6 +640,7 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
     <button class="category-btn" data-category="Культура">Культура</button>
 </div>
 <div class="mobile-menu" id="mobileMenu">
+<div id="menuOverlay" class="menu-overlay"></div>
     <button class="category-btn active" data-category="all">Все новости</button>
     <button class="category-btn" data-category="СВО">СВО</button>
     <button class="category-btn" data-category="Общество">Общество</button>
@@ -248,14 +690,17 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
 <script>
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
+
     function toggleTheme() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     }
+
     let allNews = [];
     let featuredNewsId = null;
+
     async function loadNews() {
         try {
             const res = await fetch('news.json');
@@ -269,11 +714,11 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
             document.getElementById('loader').innerHTML = `<p style="color: red;">Ошибка: ${e.message}</p>`;
         }
     }
+
     function renderNews(data, query = '') {
         const container = document.getElementById('news-container');
-        container.innerHTML = ''; // Очищаем контейнер
+        container.innerHTML = '';
         
-        // --- 1. ГЛАВНАЯ НОВОСТЬ ---
         if (featuredNewsId && data.some(item => item.id === featuredNewsId)) {
             const featuredNews = data.find(item => item.id === featuredNewsId);
             if (featuredNews) {
@@ -281,7 +726,6 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
                     ? '<span class="hot-badge">ТОП</span>' 
                     : '';
                 
-                // Получаем класс цвета для главной новости
                 const featuredCatClass = getCategoryClass(featuredNews.category);
 
                 const featuredHTML = `
@@ -289,12 +733,10 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
                         <div class="card-image-wrapper">
                             <img src="${featuredNews.image || '/images/placeholder.jpg'}" alt="${featuredNews.title}" class="card-image" loading="lazy">
                             ${hotBadge}
-                            <!-- ПЛАШКА КАТЕГОРИИ (работает!) -->
                             <span class="category-badge ${featuredCatClass}">${featuredNews.category}</span>
                         </div>
                         
                         <div class="meta-container">
-                            <!-- ТОЛЬКО ДАТА, БЕЗ КАТЕГОРИИ -->
                             <span class="meta-date">${featuredNews.date}</span>
                             <span class="meta-author">${featuredNews.author || ''}</span>
                         </div>
@@ -309,8 +751,6 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
             document.getElementById('main-news').style.display = 'none';
         }
 
-        // --- 2. ОБЫЧНЫЕ НОВОСТИ (СЕТКА) ---
-        // Фильтруем новости, убирая главную из списка
         const filteredNews = data.filter(item => item.id !== featuredNewsId);
         
         container.innerHTML = filteredNews.map(item => {
@@ -318,7 +758,6 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
                 ? '<span class="hot-badge">ТОП</span>' 
                 : '';
             
-            // Получаем класс цвета ДЛЯ КАЖДОЙ новости в сетке
             const catClass = getCategoryClass(item.category); 
             
             let title = query ? item.title.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>') : item.title;
@@ -328,12 +767,10 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
                     <div class="card-image-wrapper">
                         <img src="${item.image || '/images/placeholder.jpg'}" alt="${item.title}" class="card-image" loading="lazy">
                         ${hotBadge}
-                        <!-- ПЛАШКА КАТЕГОРИИ (теперь она есть и здесь!) -->
                         <span class="category-badge ${catClass}">${item.category}</span>
                     </div>
                     
                     <div class="meta-container">
-                        <!-- ТОЛЬКО ДАТА -->
                         <span class="meta-date">${item.date}</span>
                         <span class="meta-author">${item.author || ''}</span>
                     </div>
@@ -342,9 +779,11 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
                 </div>`;
         }).join('');
     }
+
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('search-results');
     let searchTimeout;
+
     searchInput.addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
         const val = e.target.value.trim().toLowerCase();
@@ -367,15 +806,38 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
         ).join('');
         searchResults.style.display = 'block';
     });
+
     function handleSearchResultClick(newsId) {
         searchInput.value = '';
         searchResults.style.display = 'none';
         window.location.href = `/${newsId}.html`;
     }
+
+    // --- Логика мобильного меню и затемнения (NEW) ---
     const menuElement = document.getElementById('menu');
     const mobileMenuElement = document.getElementById('mobileMenu');
     const mobileMenuButton = document.getElementById('mobileMenuButton');
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    document.body.appendChild(overlay);
+
+    if (mobileMenuButton && mobileMenuElement) {
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenuElement.classList.toggle('open');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            mobileMenuElement.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+    }
+    // -------------------------------------------------
+
     const pageTitleElement = document.querySelector('.page-title');
+
     function handleCategoryClick(e) {
         if (!e.target.classList.contains('category-btn')) return;
         document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -383,96 +845,83 @@ header { background: var(--card); padding: 15px 5px; display: flex; justify-cont
         const cat = e.target.dataset.category;
         pageTitleElement.textContent = cat === 'all' ? 'Все новости' : cat;
         renderNews(cat === 'all' ? allNews : allNews.filter(n => n.category === cat));
-        if (mobileMenuElement.classList.contains('open')) {
+        
+        if (mobileMenuElement && mobileMenuElement.classList.contains('open')) {
             mobileMenuElement.classList.remove('open');
+            overlay.classList.remove('active');
         }
     }
-    menuElement.addEventListener('click', handleCategoryClick);
-    mobileMenuElement.addEventListener('click', handleCategoryClick);
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenuElement.classList.toggle('open');
-    });
+
+    if (menuElement) menuElement.addEventListener('click', handleCategoryClick);
+    if (mobileMenuElement) mobileMenuElement.addEventListener('click', handleCategoryClick);
+
+    // Старая логика закрытия по клику вне (оставляем как запасной вариант, но основной — через overlay)
     document.addEventListener('click', (e) => {
-        if (mobileMenuElement.classList.contains('open') && !mobileMenuElement.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+        if (mobileMenuElement && mobileMenuElement.classList.contains('open') && !mobileMenuElement.contains(e.target) && !mobileMenuButton.contains(e.target)) {
             mobileMenuElement.classList.remove('open');
+            overlay.classList.remove('active');
         }
     });
-    // Функция для получения класса цвета по названию категории
-function getCategoryClass(category) {
-    if (!category) return 'cat-default';
-    
-    const cat = category.toLowerCase();
 
-    // 1. СВО
-    if (cat.includes('сво')) return 'cat-svo';
+    function getCategoryClass(category) {
+        if (!category) return 'cat-default';
+        
+        const cat = category.toLowerCase();
 
-    // 2. Политика / Государство / Власть
-    if (cat.includes('политика') || cat.includes('госдума') || cat.includes('президент') || cat.includes('власть')) return 'cat-politics';
-    if (cat.includes('государство')) return 'cat-state';
-    if (cat.includes('геополитика')) return 'cat-geopolitics';
+        if (cat.includes('сво')) return 'cat-svo';
+        if (cat.includes('политика') || cat.includes('госдума') || cat.includes('президент') || cat.includes('власть')) return 'cat-politics';
+        if (cat.includes('государство')) return 'cat-state';
+        if (cat.includes('геополитика')) return 'cat-geopolitics';
+        if (cat.includes('происшествие') || cat.includes('чп') || cat.includes('авария')) return 'cat-incidents';
+        if (cat.includes('общество')) return 'cat-society';
+        if (cat.includes('регионы') || cat.includes('регион')) return 'cat-regions';
+        if (cat.includes('криминал')) return 'cat-crime';
+        if (cat.includes('коррупция')) return 'cat-corruption';
+        if (cat.includes('культура') || cat.includes('искусство')) return 'cat-culture';
+        if (cat.includes('наука') || cat.includes('технологии')) return 'cat-science';
+        if (cat.includes('стиль') || cat.includes('мода')) return 'cat-style';
+        if (cat.includes('спорт')) return 'cat-sports';
+        if (cat.includes('шоу-бизнес') || cat.includes('знаменитости')) return 'cat-showbiz';
 
-    // 3. Происшествия (НОВОЕ!)
-    if (cat.includes('происшествие') || cat.includes('чп') || cat.includes('авария')) return 'cat-incidents';
-
-    // 4. Общество
-    if (cat.includes('общество')) return 'cat-society';
-
-    // 5. Регионы
-    if (cat.includes('регионы') || cat.includes('регион')) return 'cat-regions';
-
-    // 6. Криминал
-    if (cat.includes('криминал')) return 'cat-crime';
-
-    // 7. Коррупция
-    if (cat.includes('коррупция')) return 'cat-corruption';
-
-    // 8. Культура
-    if (cat.includes('культура') || cat.includes('искусство')) return 'cat-culture';
-
-    // 9. Наука
-    if (cat.includes('наука') || cat.includes('технологии')) return 'cat-science';
-
-    // 10. Стиль
-    if (cat.includes('стиль') || cat.includes('мода')) return 'cat-style';
-
-    // 11. Спорт
-    if (cat.includes('спорт')) return 'cat-sports';
-
-    // 12. Шоу-бизнес
-    if (cat.includes('шоу-бизнес') || cat.includes('знаменитости')) return 'cat-showbiz';
-
-    return 'cat-default';
-}
+        return 'cat-default';
+    }
 
     loadNews();
+
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrollPercent = (scrollTop / docHeight) * 100;
-        document.getElementById('top-scroll-indicator').style.width = scrollPercent + '%';
+        const indicator = document.getElementById('top-scroll-indicator');
+        if (indicator) indicator.style.width = scrollPercent + '%';
     });
+
     function scrollToTop() {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     }
-    window.addEventListener('scroll', () => {
-    const btn = document.getElementById('scrollToTop');
-    if (!btn) return;
 
-    if (window.scrollY > 300) {
-        btn.style.display = 'flex';
-        btn.style.opacity = '0.7';
-        btn.style.bottom = '150px'; 
-        btn.style.right = '20px';
-    } else {
-        btn.style.display = 'none';
-    }
-});
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('scrollToTop');
+        if (!btn) return;
+
+        if (window.scrollY > 300) {
+            btn.style.display = 'flex';
+            btn.style.opacity = '0.7';
+            btn.style.bottom = '150px'; 
+            btn.style.right = '20px';
+        } else {
+            btn.style.display = 'none';
+        }
+    });
+
     (function() {
         const text = "Ракурс NEWS |";
         const container = document.querySelector('.logo-wrapper span');
+        if (!container) return;
+        
         let index = 0;
         let timer;
         function type() {
