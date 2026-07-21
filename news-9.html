@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -23,13 +23,6 @@
         
         .theme-toggle { cursor: pointer; background: transparent; border: 1px solid var(--accent); color: var(--text); display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: all 0.3s; height: 32px; width: 32px; padding: 0; }
         .theme-toggle:hover { background: var(--accent); color: #000; }
-
-        .modal-overlay { position: fixed; top:0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9998; display: none; justify-content: flex-end; }
-        .modal-overlay.active { display: flex; }
-        .share-panel { width: 100%; max-width: 300px; height: 100vh; background: var(--card); border-left: 4px solid var(--accent); padding: 20px; box-sizing: border-box; transition: transform 0.3s ease; }
-        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text); }
-        .social-share-link { display: block; padding: 10px; background: var(--card); text-decoration: none; color: var(--text); border-radius: 4px; text-align: center; margin-bottom: 10px; border: 1px solid var(--accent); }
-        .social-share-link.tg { background: #2481cc; color: white; border-color: #2481cc; }.social-share-link.vk { background: #0077FF; color: white; border-color: #0077FF; }
     </style>
 </head>
 <body>
@@ -66,17 +59,6 @@
         <a href="index.html" class="btn">На главную</a>
         <button class="btn" id="shareButton">Поделиться</button>
     </div>
-    
-    <div class="modal-overlay" id="shareModal">
-        <div class="share-panel">
-            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-                <h3>Поделиться</h3>
-                <button class="close-modal" id="closeShareModal">&times;</button>
-            </div>
-            <a href="#" class="social-share-link tg" id="shareTg">Telegram</a>
-            <a href="#" class="social-share-link vk" id="shareVk">ВКонтакте</a>
-        </div>
-    </div>
 
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -90,38 +72,23 @@
         }
 
         const shareButton = document.getElementById('shareButton');
-        const shareModal = document.getElementById('shareModal');
-        const closeShareModal = document.getElementById('closeShareModal');
-        const shareTg = document.getElementById('shareTg');
-        const shareVk = document.getElementById('shareVk');
-        const currentUrl = encodeURIComponent(window.location.href);
-
+        
         shareButton.addEventListener('click', () => {
-            shareModal.classList.add('active');
-        });
-
-        closeShareModal.addEventListener('click', () => {
-            shareModal.classList.remove('active');
-        });
-
-        shareModal.addEventListener('click', (event) => {
-            if (event.target === shareModal) {
-                shareModal.classList.remove('active');
+            const url = window.location.href;
+            const title = document.title;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    url: url,
+                }).then(() => console.log('Успешно поделились'))
+                .catch((error) => console.error('Ошибка при отправке:', error));
+            } else {
+                // Fallback for browsers that don't support the Web Share API
+                alert(`Скопируйте эту ссылку: ${url}`);
             }
-        });
-
-        shareTg.href = `https://t.me/share/url?url=${currentUrl}`;
-        shareVk.href = `https://vk.com/share.php?url=${currentUrl}`;
-
-        shareTg.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.open(shareTg.href, '_blank', 'width=600,height=400');
-        });
-
-        shareVk.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.open(shareVk.href, '_blank', 'width=600,height=400');
         });
     </script>
 </body>
 </html>
+ 
