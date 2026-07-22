@@ -349,16 +349,15 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px; /* Было 70px, уменьшил до 60px. Меняй на 50px если нужно еще меньше */
+    height: 60px;
     background: var(--footer-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid var(--accent);
     
-    /* Центрирование содержимого */
     display: flex;
-    justify-content: center;       /* Иконки по горизонтали строго в центре */
-    align-items: center;           /* Иконки по вертикали строго в центре высоты футера */
+    justify-content: center;
+    align-items: center;
     
     z-index: 1001;
 }
@@ -551,27 +550,27 @@
 <header>
     <div class="logo-wrapper">
         <img src="/images/logo.png" alt="Logo">
-        <span>Ракурс NEWS</span>
+        <span id="logo-text">Ракурс NEWS</span>
     </div>
     <div class="controls-wrapper">
         <div class="search-wrapper">
-    <input type="text" id="searchInput" placeholder="Поиск...">
-    <div id="search-results"></div>
-</div>
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="Сменить тему">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="5"></circle>
-        <line x1="12" y1="1" x2="12" y2="3"></line>
-        <line x1="12" y1="21" x2="12" y2="23"></line>
-        <line x1="1" y1="12" x2="3" y2="12"></line>
-        <line x1="21" y1="12" x2="23" y2="12"></line>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-</button>
-</div>
+            <input type="text" id="searchInput" placeholder="Поиск...">
+            <div id="search-results"></div>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Сменить тему">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
 </header>
 <div class="categories-wrapper" id="menu" style="position: sticky; top: 60px; z-index: 1001; background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
     <button class="category-btn active" data-category="all">Все новости</button>
@@ -837,45 +836,74 @@
         }
     });
 
+    // Цикличная анимация печатания названия сайта
     (function() {
-        const text = "Ракурс NEWS |";
-        const container = document.querySelector('.logo-wrapper span');
+        const text = "Ракурс NEWS";
+        const container = document.getElementById('logo-text');
         if (!container) return;
         
         let index = 0;
-        let timer;
+        let isDeleting = false;
+        let timeout;
+        
+        // Естественные задержки для эффекта печати
+        const delays = [120, 150, 130, 170, 140, 160, 110, 180, 135, 155];
+        
         function type() {
-            if (index < text.length) {
-                container.textContent = text.substring(0, index + 1);
-                index++;
-                const delays = [100, 150, 120, 180, 140, 160, 130, 170, 110, 190, 150, 200, 100];
-                const delay = delays[index % delays.length] || 150;
-                            timer = setTimeout(type, delay);
-        } else {
-            container.textContent = text;
+            if (!isDeleting) {
+                if (index < text.length) {
+                    container.textContent = text.substring(0, index + 1);
+                    index++;
+                    const delay = delays[(index - 1) % delays.length] || 150;
+                    timeout = setTimeout(type, delay);
+                } else {
+    // Пауза на 3 секунды перед удалением
+    setTimeout(() => {
+        isDeleting = true;
+        deleteText();
+    }, 5000);
+}
+            } else {
+                if (index > 0) {
+                    container.textContent = text.substring(0, index - 1);
+                    index--;
+                    timeout = setTimeout(deleteText, 100);
+                } else {
+                    isDeleting = false;
+                    index = 0;
+                    type();
+                }
+            }
         }
-    }
-    type();
-})();
 
-window.addEventListener('resize', () => {
-    const grid = document.querySelector('.news-grid');
-    if (grid) {
-        const cards = grid.querySelectorAll('.card');
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-        });
-        setTimeout(() => {
-            cards.forEach(card => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
+        function deleteText() {
+            type();
+        }
+
+        type();
+    })();
+
+    // Обработчик для плавного скролла к якорю
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
-        }, 100);
-    }
-});
+        });
+    });
+
+    // Управление плавающими кнопками соцсетей
+    const floatingButtons = document.getElementById('floatingButtons');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            floatingButtons.style.opacity = '1';
+            floatingButtons.style.visibility = 'visible';
+        } else {
+            floatingButtons.style.opacity = '0';
+            floatingButtons.style.visibility = 'hidden';
+        }
+    });
 </script>
 </body>
 </html>
-
-
