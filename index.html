@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ракурс NEWS — ироничные новости с экспертным взглядом</title>
 
-    <!-- Иконка на вкладке браузера (лучше использовать простую favicon, а не длинный логотип) -->
+    <!-- Иконка на вкладке браузера -->
     <link rel="icon" type="image/png" href="https://rakurs-news.github.io/rakurs-news/images/logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://rakurs-news.github.io/rakurs-news/images/logo.png">
 
@@ -14,8 +14,6 @@
     <meta property="og:url" content="https://rakurs-news.github.io/rakurs-news/">
     <meta property="og:title" content="Ракурс NEWS">
     <meta property="og:description" content="Свежие новости с иронией. Вся правда в иронии">
-    
-    <!-- ВАЖНО: Здесь ставим ЛОГОТИП, если он квадратный и подходит под требования соцсетей (минимум 1200x630) -->
     <meta property="og:image" content="https://rakurs-news.github.io/rakurs-news/images/logo.png"> 
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
@@ -24,519 +22,524 @@
     <meta name="description" content="Ракурс NEWS: Ироничный взгляд на главные новости политики, общества и мира. Раскрываем правду через сарказм и острый анализ">
     
     <style>
-</head>
-    :root {
-        --bg: #ffffff;
-        --card: #f9f9f9;
-        --text: #1a1a1a;
-        --accent: #ff9800;
-        --meta: #666;
-        --mobile-menu-bg: var(--card);
-        --mobile-menu-text: var(--text);
-        --mobile-menu-border: var(--accent);
-    }
-
-    [data-theme="dark"] {
-        --bg: #121212;
-        --card: #1e1e1e;
-        --text: #e0e0e0;
-        --accent: #ff9800;
-        --meta: #aaa;
-        --mobile-menu-bg: #000000;
-        --mobile-menu-text: var(--text);
-        --mobile-menu-border: var(--accent);
-    }
-
-    body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: sans-serif;
-        margin: 0;
-        transition: background 0.3s;
-    }
-
-    h1 {
-        display: none;
-    }
-
-    #progress-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 3px;
-        background: var(--accent);
-        z-index: 2000;
-    }
-
-    header {
-        background: var(--card);
-        padding: 15px 5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid var(--accent);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    .logo-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: bold;
-        font-size: 20px;
-        margin-left: 5px;
-    }
-
-    .logo-wrapper img {
-        width: 30px;
-        height: 30px;
-    }
-
-    .controls-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    #searchInput {
-        height: 32px;
-        width: 150px;
-        padding: 0 10px;
-        border: 1px solid var(--accent);
-        background: var(--bg);
-        color: var(--text);
-        border-radius: 2px;
-        box-sizing: border-box;
-    }
-
-    @media (max-width: 500px) {
-        #searchInput {
-            width: 90px;
+        :root {
+            --bg: #ffffff;
+            --card: #f9f9f9;
+            --text: #1a1a1a;
+            --accent: #ff9800;
+            --meta: #666;
+            --mobile-menu-bg: var(--card);
+            --mobile-menu-text: var(--text);
+            --mobile-menu-border: var(--accent);
+            --footer-bg: rgba(255, 255, 255, 0.3);
         }
-    }
 
-    /* Обновленный блок категорий: горизонтальная прокрутка, подчеркивание, без бургер-меню */
-    .categories-wrapper {
-        padding: 15px 20px;
-        overflow-x: auto;
-        white-space: nowrap;
-        border-bottom: 1px solid var(--accent);
-        display: flex;
-        gap: 20px;
-        scrollbar-width: none; /* Firefox */
-    }
-
-    .categories-wrapper::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
-    }
-
-    .category-btn {
-        background: none;
-        border: none;
-        color: var(--text);
-        cursor: pointer;
-        text-transform: uppercase;
-        font-size: 13px;
-        font-weight: bold;
-        flex-shrink: 0;
-        position: relative;
-        padding-bottom: 8px; /* Место под подчеркивание */
-        transition: color 0.2s;
-    }
-
-    .category-btn::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0%;
-        height: 2px;
-        background-color: var(--accent);
-        transition: width 0.2s ease-in-out;
-    }
-
-    .category-btn.active {
-        color: var(--accent);
-    }
-
-    .category-btn.active::after {
-        width: 100%;
-    }
-
-    .category-btn:hover:not(.active) {
-        color: var(--accent);
-    }
-
-    .search-wrapper {
-        position: relative;
-    }
-
-    #search-results {
-        position: absolute;
-        top: 40px;
-        right: 0;
-        width: 250px;
-        max-height: 400px;
-        overflow-y: auto;
-        background: var(--card);
-        border: 1px solid var(--accent);
-        z-index: 1500;
-        display: none;
-    }
-
-    .result-item {
-        display: flex;
-        padding: 10px;
-        gap: 10px;
-        border-bottom: 1px solid var(--accent);
-        cursor: pointer;
-        align-items: center;
-    }
-
-    .highlight {
-        background: var(--accent);
-        color: #000;
-    }
-
-    .breadcrumbs {
-        padding: 10px 20px;
-        font-size: 12px;
-        color: var(--meta);
-    }
-
-    .featured-news {
-        background: var(--card);
-        padding: 15px;
-        border-bottom: 2px solid var(--accent);
-    }
-
-    .news-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .card {
-        background: var(--card);
-        padding: 15px;
-        border-left: 4px solid var(--accent);
-        transition: transform 0.2s;
-        cursor: pointer;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .meta-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
-    }
-
-    .meta-date {
-        color: var(--accent);
-        font-size: 13px;
-    }
-
-    .meta-author {
-        color: var(--accent);
-        font-size: 13px;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-
-    .desc {
-        font-size: 14px;
-        color: var(--meta);
-        margin-top: 8px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .theme-toggle {
-        cursor: pointer;
-        background: transparent;
-        border: 1px solid var(--accent);
-        color: var(--text);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 2px;
-        transition: all 0.3s;
-        height: 32px;
-        width: 32px;
-        padding: 0;
-    }
-
-    .theme-toggle:hover {
-        background: var(--accent);
-        color: #000;
-    }
-
-    #scrollToTop {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: var(--accent);
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        display: none;
-        cursor: pointer;
-        transition: opacity 0.3s, transform 0.3s;
-        opacity: 0.7;
-    }
-
-    #scrollToTop:hover {
-        opacity: 1;
-    }
-
-    .floating-buttons {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        transition: opacity 0.3s;
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .floating-buttons img {
-        width: 40px;
-        height: 40px;
-    }
-
-    @media (max-width: 500px) {
-        #scrollToTop {
-            width: 44px;
-            height: 44px;
-            bottom: 90px;
-            right: 20px;
+        [data-theme="dark"] {
+            --bg: #121212;
+            --card: #1e1e1e;
+            --text: #e0e0e0;
+            --accent: #ff9800;
+            --meta: #aaa;
+            --mobile-menu-bg: #000000;
+            --mobile-menu-text: var(--text);
+            --mobile-menu-border: var(--accent);
+            --footer-bg: rgba(18, 18, 18, 0.3);
         }
-        .floating-buttons img {
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: sans-serif;
+            margin: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        h1 {
+            display: none;
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+        }
+
+        header {
+            background: var(--card);
+            padding: 15px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 20px;
+            margin-left: 5px;
+        }
+
+        .logo-wrapper img {
             width: 30px;
             height: 30px;
         }
-    }
 
-    .card-image {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 4px 4px 0 0;
-        margin-bottom: 12px;
-        background-color: #333;
-    }
-
-    .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 70px;
-        background: var(--bg);
-        border-top: 1px solid var(--accent);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .social-icons {
-        display: flex;
-        gap: 35px;
-    }
-
-    .social-icons img {
-        width: 40px;
-        height: 40px;
-    }
-
-    .mobile-menu-button {
-        display: none; /* Удалено бургер-меню */
-    }
-
-    .mobile-menu {
-        display: none; /* Полностью удалено мобильное меню */
-    }
-
-    .page-title-wrapper {
-        padding: 15px 20px;
-        border-bottom: 1px solid var(--accent);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .page-title-indicator {
-        width: 4px;
-        height: 20px;
-        background-color: var(--accent);
-    }
-
-    .page-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin: 0;
-    }
-
-    @media (max-width: 768px) {
-        /* Категории остаются видимыми и прокручиваемыми на мобильных */
-        .categories-wrapper {
+        .controls-wrapper {
             display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .page-title-wrapper {
-            padding: 10px 15px;
-            gap: 8px;
-        }
-        .page-title {
-            font-size: 18px;
-        }
-        .page-title-indicator {
-            height: 18px;
-        }
-    }
 
-    .scroll-indicator-track {
-        position: fixed;
-        right: 4px;
-        top: 0;
-        width: 4px;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.08);
-        pointer-events: none;
-        z-index: 999;
-    }
+        #searchInput {
+            height: 32px;
+            width: 150px;
+            padding: 0 10px;
+            border: 1px solid var(--accent);
+            background: var(--bg);
+            color: var(--text);
+            border-radius: 2px;
+            box-sizing: border-box;
+        }
 
-    .scroll-indicator-thumb {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 0%;
-        background: var(--accent);
-        border-radius: 2px;
-        pointer-events: none;
-    }
+        @media (max-width: 500px) {
+            #searchInput {
+                width: 90px;
+            }
+        }
 
-    @keyframes fadeInUp {
-        to {
+        /* Обновленный блок категорий: горизонтальная прокрутка, подчеркивание */
+        .categories-wrapper {
+            padding: 15px 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--accent);
+            display: flex;
+            gap: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .categories-wrapper::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .category-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: bold;
+            flex-shrink: 0;
+            position: relative;
+            padding-bottom: 8px; /* Место под подчеркивание */
+            transition: color 0.2s;
+        }
+
+        .category-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.2s ease-in-out;
+        }
+
+        .category-btn.active {
+            color: var(--accent);
+        }
+
+        .category-btn.active::after {
+            width: 100%;
+        }
+
+        .category-btn:hover:not(.active) {
+            color: var(--accent);
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        #search-results {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            width: 250px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: var(--card);
+            border: 1px solid var(--accent);
+            z-index: 1500;
+            display: none;
+        }
+
+        .result-item {
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+            border-bottom: 1px solid var(--accent);
+            cursor: pointer;
+            align-items: center;
+        }
+
+        .highlight {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .breadcrumbs {
+            padding: 10px 20px;
+            font-size: 12px;
+            color: var(--meta);
+        }
+
+        .featured-news {
+            background: var(--card);
+            padding: 15px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 15px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.2s, opacity 0.6s;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .meta-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .meta-date {
+            color: var(--accent);
+            font-size: 13px;
+        }
+
+        .meta-author {
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: var(--meta);
+            margin-top: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            transition: all 0.3s;
+            height: 32px;
+            width: 32px;
+            padding: 0;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        #scrollToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: none;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0.7;
+            z-index: 999;
+        }
+
+        #scrollToTop:hover {
             opacity: 1;
-            transform: translateY(0);
         }
-    }
 
-    .card-image-wrapper {
-        position: relative;
-        display: block;
-    }
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            transition: opacity 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 998;
+        }
 
-    .hot-badge {
-        background-color: #ff4444;
-        color: #ffffff;
-        padding: 6px 12px;
-        font-size: 11px;
-        font-weight: bold;
-        border-radius: 0 4px 4px 0;
-        position: absolute;
-        top: 10px;
-        left: 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        z-index: 10;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
+        .floating-buttons img {
+            width: 40px;
+            height: 40px;
+        }
 
-    .category-badge {
-        position: absolute;
-        top: 15px;
-        right: 0px;
-        padding: 6px 12px;
-        font-size: 11px;
-        font-weight: bold;
-        color: white;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border-radius: 2px;
-        z-index: 20;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        pointer-events: none;
-        line-height: 1;
-    }
+        @media (max-width: 500px) {
+            #scrollToTop {
+                width: 44px;
+                height: 44px;
+                bottom: 90px;
+                right: 20px;
+            }
+            .floating-buttons img {
+                width: 30px;
+                height: 30px;
+            }
+        }
 
-    .cat-svo {
-        background-color: #d32f2f;
-    }
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 4px 4px 0 0;
+            margin-bottom: 12px;
+            background-color: #333;
+        }
 
-    .cat-politics {
-        background-color: #1976d2;
-    }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--footer-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
 
-    .cat-state {
-        background-color: #2e7d32;
-    }
+        .social-icons {
+            display: flex;
+            gap: 35px;
+        }
 
-    .cat-geopolitics {
-        background-color: #4a148c;
-    }
+        .social-icons img {
+            width: 40px;
+            height: 40px;
+        }
 
-    .cat-society {
-        background-color: #f57c00;
-    }
+        .mobile-menu-button {
+            display: none;
+        }
 
-    .cat-regions {
-        background-color: #ffab40;
-    }
+        .mobile-menu {
+            display: none;
+        }
 
-    .cat-crime {
-        background-color: #7b1fa2;
-    }
+        .page-title-wrapper {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .cat-corruption {
-        background-color: #c62828;
-    }
+        .page-title-indicator {
+            width: 4px;
+            height: 20px;
+            background-color: var(--accent);
+        }
 
-    .cat-culture {
-        background-color: #388e3c;
-    }
+        .page-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
 
-    .cat-science {
-        background-color: #00897b;
-    }
+        @media (max-width: 768px) {
+            .categories-wrapper {
+                display: flex;
+            }
+            .page-title-wrapper {
+                padding: 10px 15px;
+                gap: 8px;
+            }
+            .page-title {
+                font-size: 18px;
+            }
+            .page-title-indicator {
+                height: 18px;
+            }
+        }
 
-    .cat-style {
-        background-color: #ec407a;
-    }
+        .scroll-indicator-track {
+            position: fixed;
+            right: 4px;
+            top: 0;
+            width: 4px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.08);
+            pointer-events: none;
+            z-index: 999;
+        }
 
-    .cat-incidents {
-        background-color: #b71c1c;
-    }
+        .scroll-indicator-thumb {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--accent);
+            border-radius: 2px;
+            pointer-events: none;
+        }
 
-    .cat-sports {
-        background-color: #e91e63;
-    }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .cat-showbiz {
-        background-color: #fbc02d;
-    }
+        .card-image-wrapper {
+            position: relative;
+            display: block;
+        }
 
-    .cat-default {
-        background-color: #555;
-    }
+        .hot-badge {
+            background-color: #ff4444;
+            color: #ffffff;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 0 4px 4px 0;
+            position: absolute;
+            top: 10px;
+            left: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            right: 0px;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            z-index: 20;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        .cat-svo {
+            background-color: #d32f2f;
+        }
+
+        .cat-politics {
+            background-color: #1976d2;
+        }
+
+        .cat-state {
+            background-color: #2e7d32;
+        }
+
+        .cat-geopolitics {
+            background-color: #4a148c;
+        }
+
+        .cat-society {
+            background-color: #f57c00;
+        }
+
+        .cat-regions {
+            background-color: #ffab40;
+        }
+
+        .cat-crime {
+            background-color: #7b1fa2;
+        }
+
+        .cat-corruption {
+            background-color: #c62828;
+        }
+
+        .cat-culture {
+            background-color: #388e3c;
+        }
+
+        .cat-science {
+            background-color: #00897b;
+        }
+
+        .cat-style {
+            background-color: #ec407a;
+        }
+
+        .cat-incidents {
+    background-color: #b71c1c;
+}
+
+.cat-sports {
+    background-color: #e91e63;
+}
+
+.cat-showbiz {
+    background-color: #fbc02d;
+}
+
+.cat-default {
+    background-color: #555;
+}
 </style>
 </head>
 <body>
@@ -844,34 +847,32 @@
                 index++;
                 const delays = [100, 150, 120, 180, 140, 160, 130, 170, 110, 190, 150, 200, 100];
                 const delay = delays[index % delays.length] || 150;
-                timer = setTimeout(type, delay);
-            } else {
-                setTimeout(() => {
-                    index = 0;
-                    container.textContent = "";
-                    type();
-                }, 5000);
-            }
+                            timer = setTimeout(type, delay);
+        } else {
+            container.textContent = text;
         }
-        type();
-    })();
-    
-    const observerOptions = {
-        threshold: 0.1
-    };
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    }
+    type();
+})();
 
-    document.querySelectorAll('.card').forEach(card => {
-                observer.observe(card);
-    });
+window.addEventListener('resize', () => {
+    const grid = document.querySelector('.news-grid');
+    if (grid) {
+        const cards = grid.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+        });
+        setTimeout(() => {
+            cards.forEach(card => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            });
+        }, 100);
+    }
+});
 </script>
 </body>
 </html>
+
+
