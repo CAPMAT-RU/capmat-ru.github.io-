@@ -1,53 +1,45 @@
-console.log('Скрипт запустился');console.log('Скрипт запустился');
+console.log('Скрипт запустился');
 
-fetch('news.json')
- 
-
-Полный обновленный  script.js  с этим изменением:
-
- 
 document.addEventListener('DOMContentLoaded', () => {
     const newsContainer = document.getElementById('news-container');
     const loader = document.getElementById('loader');
     const categoryButtons = document.querySelectorAll('.category-btn');
     const searchInput = document.getElementById('searchInput');
-    const searchResultsContainer = document.getElementById('search-results');
     const featuredNewsContainer = document.getElementById('main-news');
     const progressBar = document.getElementById('progress-bar');
     const scrollToTopButton = document.getElementById('scrollToTop');
 
-    let allNewsData = []; // Для хранения всех новостей
-    let currentCategory = 'all'; // Текущая выбранная категория
+    let allNewsData = [];
+    let currentCategory = 'all';
 
-    // --- Загрузка данных из JSON ---
-    fetch('news.json') // <--- ИЗМЕНЕНО ЗДЕСЬ
+    // --- 1. ЗАГРУЗКА НОВОСТЕЙ (НЕ ТРОГАТЬ) ---
+    fetch('news.json')
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
             return response.json();
         })
         .then(data => {
-            allNewsData = data.items; // Сохраняем все новости
-            // Отображаем сначала "главную" новость, если она есть
+            allNewsData = data.items;
+            
+            // Показываем главную новость
             if (data.featuredNewsId && allNewsData.length > 0) {
                 const featuredNews = allNewsData.find(item => item.id === data.featuredNewsId);
-                if (featuredNews) {
-                    displayFeaturedNews(featuredNews);
-                }
+                if (featuredNews) displayFeaturedNews(featuredNews);
             }
-            // Отображаем все новости по умолчанию
+
+            // Показываем список новостей
             displayNews(allNewsData);
-            loader.style.display = 'none'; // Скрыть индикатор загрузки
+            
+            loader.style.display = 'none'; // Скрываем лоадер ТОЛЬКО после успеха
         })
         .catch(error => {
-            console.error('Ошибка при загрузке новостей:', error);
-            loader.textContent = 'Не удалось загрузить новости. Попробуйте позже.';
+            console.error('Ошибка загрузки новостей:', error);
+            loader.textContent = 'Не удалось загрузить новости. Проверьте консоль.';
         });
 
-    // --- Функция отображения главной новости ---
+    // --- ФУНКЦИИ ОТРИСОВКИ ---
     function displayFeaturedNews(newsItem) {
-        featuredNewsContainer.style.display = 'block'; // Показать блок для главной новости
+        featuredNewsContainer.style.display = 'block';
         featuredNewsContainer.innerHTML = `
             <div class="featured-news-card">
                 <img src="${newsItem.image}" alt="${newsItem.title}" class="featured-news-image">
@@ -59,34 +51,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-        // Добавляем обработчик для кнопки "Читать полностью"
         featuredNewsContainer.querySelector('.read-more-featured').addEventListener('click', (e) => {
             e.preventDefault();
-            const newsId = e.target.getAttribute('data-id');
-            handleReadMoreClick(newsId); // Используем общую функцию обработки клика
+            handleReadMoreClick(e.target.getAttribute('data-id'));
         });
     }
 
-    // --- Функция отображения списка новостей ---
     function displayNews(newsArray) {
-        newsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых новостей
-
+        newsContainer.innerHTML = '';
         if (!newsArray || newsArray.length === 0) {
-            newsContainer.innerHTML = '<p>Новостей по данной категории не найдено.</p>';
+            newsContainer.innerHTML = '<p>Новостей не найдено.</p>';
             return;
         }
 
         newsArray.forEach(newsItem => {
+            const formattedDate = new Date(newsItem.date).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+            
             const newsElement = document.createElement('div');
-            newsElement.classList.add('news-item'); // Класс для стилизации карточки
-
-            // Форматирование даты (пример, можно улучшить)
-            const formattedDate = new Date(newsItem.date).toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-
+            newsElement.classList.add('news-item');
             newsElement.innerHTML = `
                 <div class="news-card">
                     <img src="${newsItem.image}" alt="${newsItem.title}" class="news-image">
@@ -102,126 +84,92 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Фильтрация по категориям ---
+    // --- ФИЛЬТРАЦИЯ И ПОИСК ---
     categoryButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Снимаем класс 'active' со всех кнопок
             categoryButtons.forEach(btn => btn.classList.remove('active'));
-            // Добавляем класс 'active' к нажатой кнопке
             button.classList.add('active');
-
             currentCategory = button.getAttribute('data-category');
             filterNews();
         });
     });
 
-    // --- Функция фильтрации новостей ---
     function filterNews() {
-        let filteredNews = [];
-        if (currentCategory === 'all') {
-            filteredNews = allNewsData;
-        } else {
-            filteredNews = allNewsData.filter(item => item.category === currentCategory);
-        }
-        displayNews(filteredNews);
+        const filtered = currentCategory === 'all' 
+            ? allNewsData 
+            : allNewsData.filter(item => item.category === currentCategory);
+        displayNews(filtered);
     }
 
-    // --- Поиск (базовая реализация) ---
     searchInput.addEventListener('input', () => {
         const query = searchInput.value.toLowerCase().trim();
-        if (query.length > 1) { // Начинаем поиск после ввода 2 символов
-            const filteredNews = allNewsData.filter(item =>
+        if (query.length > 1) {
+            const filtered = allNewsData.filter(item =>
                 item.title.toLowerCase().includes(query) ||
-                item.description.toLowerCase().includes(query) ||
-                item.content.toLowerCase().includes(query) ||
-                item.tags.some(tag => tag.toLowerCase().includes(query))
+                item.description.toLowerCase().includes(query)
             );
-            // Пока просто отображаем найденные новости в общем контейнере
-            // Для полноценного поиска может потребоваться отдельный блок результатов
-            displayNews(filteredNews);
+            displayNews(filtered);
         } else if (query.length === 0) {
-            // Если поле поиска пустое, отображаем новости текущей категории
             filterNews();
         }
     });
 
-    // --- Обработка кликов по ссылкам "Читать далее" и "Читать полностью" ---
-    // Объединяем обработчики для разных кнопок
+    // --- ЧТЕНИЕ НОВОСТЕЙ ---
     function handleReadMoreClick(newsId) {
-        const selectedNews = allNewsData.find(item => item.id === newsId);
-        if (selectedNews) {
-            alert(`Вы кликнули по новости: ${selectedNews.title}\nID: ${selectedNews.id}`);
-            // Здесь вы можете реализовать:
-            // 1. Отображение полной статьи (например, в модальном окне)
-            // 2. Переход на другую страницу с полной статьей (если она есть)
-            // Пример: displayFullArticle(selectedNews);
-        }
+        const item = allNewsData.find(i => i.id === newsId);
+        if (item) alert(`Вы кликнули: ${item.title}`);
     }
 
     newsContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains('read-more')) {
             event.preventDefault();
-            const newsId = event.target.getAttribute('data-id');
-            handleReadMoreClick(newsId);
+            handleReadMoreClick(event.target.getAttribute('data-id'));
         }
     });
 
-    // Обработчик для кнопки "Читать полностью" в главной новости
-    // (уже добавлен в displayFeaturedNews)
-
-
-    // --- Прокрутка наверх ---
+    // --- ПРОКРУТКА И ПРОГРЕСС-БАР ---
     window.onscroll = function() {
         scrollFunction();
         progressBarScroll();
     };
 
     function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            scrollToTopButton.style.display = "block";
-        } else {
-            scrollToTopButton.style.display = "none";
-        }
+        const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        scrollToTopButton.style.display = (scrollTop > 20) ? "block" : "none";
     }
 
     function scrollToTop() {
-        document.body.scrollTop = 0; // Для Safari
-        document.documentElement.scrollTop = 0; // Для Chrome, Firefox, IE и Opera
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     }
 
-    // --- Индикатор прогресса прокрутки ---
     function progressBarScroll() {
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        progressBar.style.width = scrolled + '%';
+        if (height > 0) {
+            progressBar.style.width = ((winScroll / height) * 100) + '%';
+        }
     }
 
-    // --- Переключение темы (пример, требует реализации в CSS) ---
-    // ... (предыдущий код с fetch и категориями оставляем как есть) ...
-
-    // --- ПЕРЕКЛЮЧЕНИЕ ТЕМЫ (ИСПРАВЛЕННАЯ ВЕРСИЯ) ---
-    
+    // --- 2. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ (ИСПРАВЛЕНО) ---
     const themeToggleBtn = document.querySelector('.theme-toggle');
     
-    if (themeToggleBtn) { // Проверка, чтобы скрипт не упал, если кнопки нет
+    if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
             
-            // Сохраняем состояние
             if (document.body.classList.contains('dark-theme')) {
                 localStorage.setItem('theme', 'dark');
             } else {
-                localStorage.removeItem('theme'); // Удаляем запись, значит тема светлая
+                localStorage.removeItem('theme');
             }
         });
     }
 
-    // --- ИНИЦИАЛИЗАЦИЯ ТЕМЫ ПРИ ЗАГРУЗКЕ ---
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    // Проверка сохраненной темы при старте
+    if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('dark-theme');
     } else {
-      
-        document.body.classList.remove('dark-theme'); 
+        document.body.classList.remove('dark-theme'); // Гарантированно убираем, если была
     }
+});
