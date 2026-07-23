@@ -6,904 +6,99 @@
     <title>Ракурс NEWS — ироничные новости с экспертным взглядом</title>
 
     <!-- Иконка на вкладке браузера -->
-    <link rel="icon" type="image/png" href="https://rakurs-news.github.io/rakurs-news/images/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://rakurs-news.github.io/rakurs-news/images/logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
 
     <!-- Мета для соцсетей (OG) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rakurs-news.github.io/rakurs-news/">
     <meta property="og:title" content="Ракурс NEWS">
     <meta property="og:description" content="Свежие новости с иронией. Вся правда в иронии">
-    <meta property="og:image" content="https://rakurs-news.github.io/rakurs-news/images/logo.png"> 
+    <meta property="og:image" content="images/logo.png"> 
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <meta name="description" content="Ракурс NEWS: Ироничный взгляд на главные новости политики, общества и мира. Раскрываем правду через сарказм и острый анализ">
     
-    <style>
-        :root {
-            --bg: #ffffff;
-            --card: #f9f9f9;
-            --text: #1a1a1a;
-            --accent: #ff9800;
-            --meta: #666;
-            --mobile-menu-bg: var(--card);
-            --mobile-menu-text: var(--text);
-            --mobile-menu-border: var(--accent);
-            --footer-bg: rgba(255, 255, 255, 0.3);
-        }
-
-        [data-theme="dark"] {
-            --bg: #121212;
-            --card: #1e1e1e;
-            --text: #e0e0e0;
-            --accent: #ff9800;
-            --meta: #aaa;
-            --mobile-menu-bg: #000000;
-            --mobile-menu-text: var(--text);
-            --mobile-menu-border: var(--accent);
-            --footer-bg: rgba(18, 18, 18, 0.3);
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: sans-serif;
-            margin: 0;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        h1 {
-            display: none;
-        }
-
-        #progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--accent);
-            z-index: 2000;
-        }
-
-        header {
-            background: var(--card);
-            padding: 15px 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--accent);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-            font-size: 20px;
-            margin-left: 5px;
-        }
-
-        .logo-wrapper img {
-            width: 30px;
-            height: 30px;
-        }
-
-        .controls-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        #searchInput {
-            height: 32px;
-            width: 150px;
-            padding: 0 10px;
-            border: 1px solid var(--accent);
-            background: var(--bg);
-            color: var(--text);
-            border-radius: 2px;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 500px) {
-            #searchInput {
-                width: 90px;
-            }
-        }
-
-        /* Обновленный блок категорий: горизонтальная прокрутка, подчеркивание */
-        .categories-wrapper {
-            padding: 15px 20px;
-            overflow-x: auto;
-            white-space: nowrap;
-            border-bottom: 1px solid var(--accent);
-            display: flex;
-            gap: 20px;
-            scrollbar-width: none; /* Firefox */
-        }
-
-        .categories-wrapper::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-
-        .category-btn {
-            background: none;
-            border: none;
-            color: var(--text);
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 13px;
-            font-weight: bold;
-            flex-shrink: 0;
-            position: relative;
-            padding-bottom: 8px; /* Место под подчеркивание */
-            transition: color 0.2s;
-        }
-
-        .category-btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.2s ease-in-out;
-        }
-
-        .category-btn.active {
-            color: var(--accent);
-        }
-
-        .category-btn.active::after {
-            width: 100%;
-        }
-
-        .category-btn:hover:not(.active) {
-            color: var(--accent);
-        }
-
-        .search-wrapper {
-            position: relative;
-        }
-
-        #search-results {
-            position: absolute;
-            top: 40px;
-            right: 0;
-            width: 250px;
-            max-height: 400px;
-            overflow-y: auto;
-            background: var(--card);
-            border: 1px solid var(--accent);
-            z-index: 1500;
-            display: none;
-        }
-
-        .result-item {
-            display: flex;
-            padding: 10px;
-            gap: 10px;
-            border-bottom: 1px solid var(--accent);
-            cursor: pointer;
-            align-items: center;
-        }
-
-        .highlight {
-            background: var(--accent);
-            color: #000;
-        }
-
-        .breadcrumbs {
-            padding: 10px 20px;
-            font-size: 12px;
-            color: var(--meta);
-        }
-
-        .featured-news {
-            background: var(--card);
-            padding: 15px;
-            border-bottom: 2px solid var(--accent);
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .card {
-            background: var(--card);
-            padding: 15px;
-            border-left: 4px solid var(--accent);
-            transition: transform 0.2s, opacity 0.6s;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .meta-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .meta-date {
-            color: var(--accent);
-            font-size: 13px;
-        }
-
-        .meta-author {
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .desc {
-            font-size: 14px;
-            color: var(--meta);
-            margin-top: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .theme-toggle {
-            cursor: pointer;
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 2px;
-            transition: all 0.3s;
-            height: 32px;
-            width: 32px;
-            padding: 0;
-        }
-
-        .theme-toggle:hover {
-            background: var(--accent);
-            color: #000;
-        }
-
-        #scrollToTop {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: none;
-            cursor: pointer;
-            transition: opacity 0.3s, transform 0.3s;
-            opacity: 0.7;
-            z-index: 999;
-        }
-
-        #scrollToTop:hover {
-            opacity: 1;
-        }
-
-        .floating-buttons {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            transition: opacity 0.3s;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 998;
-        }
-
-        .floating-buttons img {
-            width: 40px;
-            height: 40px;
-        }
-
-        @media (max-width: 500px) {
-            #scrollToTop {
-                width: 44px;
-                height: 44px;
-                bottom: 90px;
-                right: 20px;
-            }
-            .floating-buttons img {
-                width: 30px;
-                height: 30px;
-            }
-        }
-
-        .card-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 4px 4px 0 0;
-            margin-bottom: 12px;
-            background-color: #333;
-        }
-
-        .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: var(--footer-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid var(--accent);
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    z-index: 1001;
-}
-
-        .social-icons {
-            display: flex;
-            gap: 25px;
-        }
-
-        .social-icons img {
-            width: 36px;
-            height: 36px;
-        }
-
-        .mobile-menu-button {
-            display: none;
-        }
-
-        .mobile-menu {
-            display: none;
-        }
-
-        .page-title-wrapper {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .page-title-indicator {
-            width: 4px;
-            height: 20px;
-            background-color: var(--accent);
-        }
-
-        .page-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .categories-wrapper {
-                display: flex;
-            }
-            .page-title-wrapper {
-                padding: 10px 15px;
-                gap: 8px;
-            }
-            .page-title {
-                font-size: 18px;
-            }
-            .page-title-indicator {
-                height: 18px;
-            }
-        }
-
-        .scroll-indicator-track {
-            position: fixed;
-            right: 4px;
-            top: 0;
-            width: 4px;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.08);
-            pointer-events: none;
-            z-index: 999;
-        }
-
-        .scroll-indicator-thumb {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background: var(--accent);
-            border-radius: 2px;
-            pointer-events: none;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card-image-wrapper {
-            position: relative;
-            display: block;
-        }
-
-        .hot-badge {
-            background-color: #ff4444;
-            color: #ffffff;
-            padding: 6px 12px;
-            font-size: 11px;
-            font-weight: bold;
-            border-radius: 0 4px 4px 0;
-            position: absolute;
-            top: 10px;
-            left: 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            z-index: 10;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .category-badge {
-            position: absolute;
-            top: 15px;
-            right: 0px;
-            padding: 6px 12px;
-            font-size: 11px;
-            font-weight: bold;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-radius: 2px;
-            z-index: 20;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-            pointer-events: none;
-            line-height: 1;
-        }
-
-        .cat-svo {
-            background-color: #d32f2f;
-        }
-
-        .cat-politics {
-            background-color: #1976d2;
-        }
-
-        .cat-state {
-            background-color: #2e7d32;
-        }
-
-        .cat-geopolitics {
-            background-color: #4a148c;
-        }
-
-        .cat-society {
-            background-color: #f57c00;
-        }
-
-        .cat-regions {
-            background-color: #ffab40;
-        }
-
-        .cat-crime {
-            background-color: #7b1fa2;
-        }
-
-        .cat-corruption {
-            background-color: #c62828;
-        }
-
-        .cat-culture {
-            background-color: #388e3c;
-        }
-
-        .cat-science {
-            background-color: #00897b;
-        }
-
-        .cat-style {
-            background-color: #ec407a;
-        }
-
-        .cat-incidents {
-    background-color: #b71c1c;
-}
-
-.cat-sports {
-    background-color: #e91e63;
-}
-
-.cat-showbiz {
-    background-color: #fbc02d;
-}
-
-.cat-default {
-    background-color: #555;
-}
-</style>
+    <!-- ПОДКЛЮЧЕНИЕ ВНЕШНЕГО CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Актуальные новости Ракурс NEWS</h1>
-<div id="progress-bar"></div>
-<header>
-    <div class="logo-wrapper">
-        <img src="/images/logo.png" alt="Logo">
-        <span id="logo-text">Ракурс NEWS</span>
-    </div>
-    <div class="controls-wrapper">
-        <div class="search-wrapper">
-            <input type="text" id="searchInput" placeholder="Поиск...">
-            <div id="search-results"></div>
+    <h1>Актуальные новости Ракурс NEWS</h1>
+    <div id="progress-bar"></div>
+    <header>
+        <div class="logo-wrapper">
+            <img src="images/logo.png" alt="Logo">
+            <span id="logo-text">Ракурс NEWS</span>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Сменить тему">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        </button>
+        <div class="controls-wrapper">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Поиск...">
+                <div id="search-results"></div>
+            </div>
+            <button class="theme-toggle" aria-label="Сменить тему">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+    <div class="categories-wrapper" id="menu" style="position: sticky; top: 60px; z-index: 1001; background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
+        <button class="category-btn active" data-category="all">Все новости</button>
+        <button class="category-btn" data-category="СВО">СВО</button>
+        <button class="category-btn" data-category="Общество">Общество</button>
+        <button class="category-btn" data-category="Регионы">Регионы</button>
+        <button class="category-btn" data-category="Государство">Государство</button>
+        <button class="category-btn" data-category="Происшествия">Происшествия</button>
+        <button class="category-btn" data-category="Криминал">Криминал</button>
+        <button class="category-btn" data-category="Политика">Политика</button>
+        <button class="category-btn" data-category="Геополитика">Геополитика</button>
+        <button class="category-btn" data-category="Коррупция">Коррупция</button>
+        <button class="category-btn" data-category="Шоу-бизнес">Шоу-бизнес</button>
+        <button class="category-btn" data-category="Спорт">Спорт</button>
+        <button class="category-btn" data-category="Наука">Наука</button>
+        <button class="category-btn" data-category="Стиль">Стиль</button>
+        <button class="category-btn" data-category="Культура">Культура</button>
     </div>
-</header>
-<div class="categories-wrapper" id="menu" style="position: sticky; top: 60px; z-index: 1001; background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
-    <button class="category-btn active" data-category="all">Все новости</button>
-    <button class="category-btn" data-category="СВО">СВО</button>
-    <button class="category-btn" data-category="Общество">Общество</button>
-    <button class="category-btn" data-category="Регионы">Регионы</button>
-    <button class="category-btn" data-category="Государство">Государство</button>
-    <button class="category-btn" data-category="Происшествия">Происшествия</button>
-    <button class="category-btn" data-category="Криминал">Криминал</button>
-    <button class="category-btn" data-category="Политика">Политика</button>
-    <button class="category-btn" data-category="Геополитика">Геополитика</button>
-    <button class="category-btn" data-category="Коррупция">Коррупция</button>
-    <button class="category-btn" data-category="Шоу-бизнес">Шоу-бизнес</button>
-    <button class="category-btn" data-category="Спорт">Спорт</button>
-    <button class="category-btn" data-category="Наука">Наука</button>
-    <button class="category-btn" data-category="Стиль">Стиль</button>
-    <button class="category-btn" data-category="Культура">Культура</button>
-</div>
-<div id="top-scroll-indicator" style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 4px;
-    background: var(--accent);
-    z-index: 2001;
-"></div>
-<div id="loader" style="text-align:center; padding: 20px;">Загрузка новостей...</div>
-<div id="main-news" class="featured-news" style="display: none;"></div>
-<div id="news-container" class="news-grid" style="padding-bottom: 80px;"></div>
-<button id="scrollToTop" onclick="scrollToTop()" aria-label="Вернуться наверх" role="button">
-    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: auto;">
-        <line x1="12" y1="19" x2="12" y2="5"></line>
-        <polyline points="5 12 12 5 19 12"></polyline>
-    </svg>
-</button>
-<div class="floating-buttons" id="floatingButtons">
-    <a href="https://vk.ru/rakurs_news" target="_blank"><img src="/images/VK.png" alt="VK"></a>
-    <a href="https://t.me/RAKURS_NEWS_RU" target="_blank"><img src="/images/Telegram.png" alt="Telegram"></a>
-</div>
-<div class="footer">
-    <div class="social-icons">
-        <a href="https://vk.ru/rakurs_news" target="_blank"><img src="/images/VK.png" alt="VK"></a>
-        <a href="https://t.me/RAKURS_NEWS_RU" target="_blank"><img src="/images/Telegram.png" alt="Telegram"></a>
+    <div id="top-scroll-indicator" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: var(--accent);
+        z-index: 2001;
+    "></div>
+    <div id="loader" style="text-align:center; padding: 20px;">Загрузка новостей...</div>
+    <div id="main-news" class="featured-news" style="display: none;"></div>
+    <div id="news-container" class="news-grid" style="padding-bottom: 80px;"></div>
+    <button id="scrollToTop" onclick="scrollToTop()" aria-label="Вернуться наверх" role="button">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: auto;">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+    <div class="floating-buttons" id="floatingButtons">
+        <a href="https://vk.ru/rakurs_news" target="_blank"><img src="images/VK.png" alt="VK"></a>
+        <a href="https://t.me/RAKURS_NEWS_RU" target="_blank"><img src="images/Telegram.png" alt="Telegram"></a>
     </div>
-</div>
+    <div class="footer">
+        <div class="social-icons">
+            <a href="https://vk.ru/rakurs_news" target="_blank"><img src="images/VK.png" alt="VK"></a>
+            <a href="https://t.me/RAKURS_NEWS_RU" target="_blank"><img src="images/Telegram.png" alt="Telegram"></a>
+        </div>
+    </div>
 
-<script>
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateCategoriesBackground(newTheme);
-    }
-
-    function updateCategoriesBackground(theme) {
-        const menu = document.getElementById('menu');
-        if (!menu) return;
-
-        if (theme === 'light') {
-            menu.style.background = 'rgba(255, 255, 255, 0.9)';
-            const buttons = menu.querySelectorAll('.category-btn');
-            buttons.forEach(btn => {
-                btn.style.color = '#1a1a1a';
-                btn.classList.add('light-theme-btn');
-                btn.classList.remove('dark-theme-btn');
-            });
-        } else {
-            menu.style.background = 'rgba(30, 30, 30, 0.8)';
-            const buttons = menu.querySelectorAll('.category-btn');
-            buttons.forEach(btn => {
-                btn.style.color = '#ffffff';
-                btn.classList.add('dark-theme-btn');
-                btn.classList.remove('light-theme-btn');
-            });
-        }
-    }
-
-    updateCategoriesBackground(savedTheme);
-
-    let allNews = [];
-    let featuredNewsId = null;
-
-    async function loadNews() {
-        try {
-            const res = await fetch('news.json');
-            if (!res.ok) throw new Error('Не удалось загрузить news.json');
-            allNews = await res.json();
-            featuredNewsId = allNews.featuredNewsId;
-            document.getElementById('loader').style.display = 'none';
-            renderNews(allNews);
-        } catch(e) {
-            console.error('Ошибка загрузки:', e);
-            document.getElementById('loader').innerHTML = `<p style="color: red;">Ошибка: ${e.message}</p>`;
-        }
-    }
-
-    function renderNews(data, query = '') {
-        const container = document.getElementById('news-container');
-        container.innerHTML = '';
-        
-        if (featuredNewsId && data.some(item => item.id === featuredNewsId)) {
-            const featuredNews = data.find(item => item.id === featuredNewsId);
-            if (featuredNews) {
-                const hotBadge = featuredNews.isHot 
-                    ? '<span class="hot-badge">ТОП</span>' 
-                    : '';
-                
-                const featuredCatClass = getCategoryClass(featuredNews.category);
-
-                const featuredHTML = `
-                    <div class="card" style="width: 100%;">
-                        <div class="card-image-wrapper">
-                            <img src="${featuredNews.image || '/images/placeholder.jpg'}" alt="${featuredNews.title}" class="card-image" loading="lazy">
-                            ${hotBadge}
-                            <span class="category-badge ${featuredCatClass}">${featuredNews.category}</span>
-                        </div>
-                        
-                        <div class="meta-container">
-                            <span class="meta-date">${featuredNews.date}</span>
-                            <span class="meta-author">${featuredNews.author || ''}</span>
-                        </div>
-                        <h3>${featuredNews.title}</h3>
-                        <div class="desc">${featuredNews.description || ''}</div>
-                    </div>`;
-                
-                document.getElementById('main-news').innerHTML = featuredHTML;
-                document.getElementById('main-news').style.display = 'block';
-            }
-        } else {
-            document.getElementById('main-news').style.display = 'none';
-        }
-
-        const filteredNews = data.filter(item => item.id !== featuredNewsId);
-        
-        container.innerHTML = filteredNews.map(item => {
-            const hotBadge = item.isHot 
-                ? '<span class="hot-badge">ТОП</span>' 
-                : '';
-            
-            const catClass = getCategoryClass(item.category); 
-            
-            let title = query ? item.title.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>') : item.title;
-            
-            return `
-                <div class="card" onclick="window.location.href='/${item.id}.html'">
-                    <div class="card-image-wrapper">
-                        <img src="${item.image || '/images/placeholder.jpg'}" alt="${item.title}" class="card-image" loading="lazy">
-                        ${hotBadge}
-                        <span class="category-badge ${catClass}">${item.category}</span>
-                    </div>
-                    
-                    <div class="meta-container">
-                        <span class="meta-date">${item.date}</span>
-                        <span class="meta-author">${item.author || ''}</span>
-                    </div>
-                    <h3>${title}</h3>
-                    <div class="desc">${item.description || ''}</div>
-                </div>`;
-        }).join('');
-    }
-
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('search-results');
-    let searchTimeout;
-
-    searchInput.addEventListener('input', (e) => {
-        clearTimeout(searchTimeout);
-        const val = e.target.value.trim().toLowerCase();
-        if (val.length < 3) { 
-            searchResults.style.display = 'none'; 
-            return; 
-        }
-        const filtered = allNews
-            .filter(n => n.title.toLowerCase().includes(val))
-            .sort((a, b) => new Date(b.date) - new Date(a.date));
-        if (filtered.length === 0) {
-            searchResults.innerHTML = '<div class="result-item">Ничего не найдено</div>';
-            searchResults.style.display = 'block';
-            return;
-        }
-        searchResults.innerHTML = filtered.map(n => 
-            `<div class="result-item" onclick="handleSearchResultClick('${n.id}')">
-                ${n.title.replace(new RegExp(`(${val})`, 'gi'), '<span class="highlight">$1</span>')}
-            </div>`
-        ).join('');
-        searchResults.style.display = 'block';
-    });
-
-    function handleSearchResultClick(newsId) {
-        searchInput.value = '';
-        searchResults.style.display = 'none';
-        window.location.href = `/${newsId}.html`;
-    }
-
-    const menuElement = document.getElementById('menu');
-
-    function handleCategoryClick(e) {
-        if (!e.target.classList.contains('category-btn')) return;
-        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        const cat = e.target.dataset.category;
-        renderNews(cat === 'all' ? allNews : allNews.filter(n => n.category === cat));
-    }
-
-    if (menuElement) menuElement.addEventListener('click', handleCategoryClick);
-
-    function getCategoryClass(category) {
-        if (!category) return 'cat-default';
-        
-        const cat = category.toLowerCase();
-
-        if (cat.includes('сво')) return 'cat-svo';
-        if (cat.includes('политика') || cat.includes('госдума') || cat.includes('президент') || cat.includes('власть')) return 'cat-politics';
-        if (cat.includes('государство')) return 'cat-state';
-        if (cat.includes('геополитика')) return 'cat-geopolitics';
-        if (cat.includes('происшествие') || cat.includes('чп') || cat.includes('авария')) return 'cat-incidents';
-        if (cat.includes('общество')) return 'cat-society';
-        if (cat.includes('регионы') || cat.includes('регион')) return 'cat-regions';
-        if (cat.includes('криминал')) return 'cat-crime';
-        if (cat.includes('коррупция')) return 'cat-corruption';
-        if (cat.includes('культура') || cat.includes('искусство')) return 'cat-culture';
-        if (cat.includes('наука') || cat.includes('технологии')) return 'cat-science';
-        if (cat.includes('стиль') || cat.includes('мода')) return 'cat-style';
-        if (cat.includes('спорт')) return 'cat-sports';
-        if (cat.includes('шоу-бизнес') || cat.includes('знаменитости')) return 'cat-showbiz';
-
-        return 'cat-default';
-    }
-
-    loadNews();
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        const indicator = document.getElementById('top-scroll-indicator');
-        if (indicator) indicator.style.width = scrollPercent + '%';
-    });
-
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    window.addEventListener('scroll', () => {
-        const btn = document.getElementById('scrollToTop');
-        if (!btn) return;
-
-        if (window.scrollY > 300) {
-            btn.style.display = 'flex';
-            btn.style.opacity = '0.7';
-            btn.style.bottom = '150px'; 
-            btn.style.right = '20px';
-        } else {
-            btn.style.display = 'none';
-        }
-    });
-
-    // Цикличная анимация печатания названия сайта
-    (function() {
-        const text = "Ракурс NEWS";
-        const container = document.getElementById('logo-text');
-        if (!container) return;
-        
-        let index = 0;
-        let isDeleting = false;
-        let timeout;
-        
-        // Естественные задержки для эффекта печати
-        const delays = [120, 150, 130, 170, 140, 160, 110, 180, 135, 155];
-        
-        function type() {
-            if (!isDeleting) {
-                if (index < text.length) {
-                    container.textContent = text.substring(0, index + 1);
-                    index++;
-                    const delay = delays[(index - 1) % delays.length] || 150;
-                    timeout = setTimeout(type, delay);
-                } else {
-    // Пауза на 3 секунды перед удалением
-    setTimeout(() => {
-        isDeleting = true;
-        deleteText();
-    }, 5000);
-}
-            } else {
-                if (index > 0) {
-                    container.textContent = text.substring(0, index - 1);
-                    index--;
-                    timeout = setTimeout(deleteText, 100);
-                } else {
-                    isDeleting = false;
-                    index = 0;
-                    type();
-                }
-            }
-        }
-
-        function deleteText() {
-            type();
-        }
-
-        type();
-    })();
-
-    // Обработчик для плавного скролла к якорю
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Управление плавающими кнопками соцсетей
-    const floatingButtons = document.getElementById('floatingButtons');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            floatingButtons.style.opacity = '1';
-            floatingButtons.style.visibility = 'visible';
-        } else {
-            floatingButtons.style.opacity = '0';
-            floatingButtons.style.visibility = 'hidden';
-        }
-    });
-</script>
+    <!-- ПОДКЛЮЧЕНИЕ ВНЕШНЕГО JS С ОТЛОЖЕННОЙ ЗАГРУЗКОЙ -->
+    <script src="script.js" defer></script>
 </body>
 </html>
