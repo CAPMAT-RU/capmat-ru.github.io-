@@ -8,8 +8,8 @@
     --mobile-menu-text: var(--text);
     --mobile-menu-border: var(--accent);
     --footer-bg: rgba(255, 255, 255, 0.3);
-    --categories-bg-light: rgba(255, 255, 255, 0.3); /* Фон категорий для светлой темы */
-    --categories-bg-dark: rgba(30, 30, 30, 0.8); /* Фон категорий для темной темы */
+    --categories-bg-light: rgba(255, 255, 255, 0.3);
+    --categories-bg-dark: rgba(30, 30, 30, 0.8);
 }
 
 body.dark-theme {
@@ -91,37 +91,35 @@ header {
     }
 }
 
-/* Панель под шапкой */
+/* --- ИСПРАВЛЕННАЯ ПАНЕЛЬ КАТЕГОРИЙ --- */
 .categories-panel {
-    height: 30px;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     position: sticky;
-    top: calc(var(--header-height, 60px)); /* Замените 60px на реальную высоту header при необходимости */
+    top: calc(var(--header-height, 60px));
     z-index: 1001;
     display: flex;
     align-items: center;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
+    /* На десктопе: отключаем скролл, высота авто */
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    padding: 5px 0 !important;
 }
 
 body.dark-theme .categories-panel {
     background-color: rgba(30, 30, 30, 0.3);
 }
 
-.categories-panel::-webkit-scrollbar {
-    display: none;
-}
-
-/* Блок категорий с горизонтальным скроллом и адаптивным фоном */
-.categories-wrapper {
+.categories-wrapper#menu {
     padding: 0 10px;
-    display: flex;
-    gap: 20px;
-    flex-shrink: 0;
+    display: flex !important;
+    flex-wrap: wrap !important; /* Разрешает перенос на новую строку */
+    gap: 8px !important;        /* Отступ между кнопками */
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .category-btn {
@@ -133,9 +131,10 @@ body.dark-theme .categories-panel {
     font-size: 13px;
     font-weight: bold;
     position: relative;
-    padding-bottom: 8px;
-    transition: color 0.2s;
+    padding: 6px 12px;
     white-space: nowrap;
+    border-radius: 20px;
+    transition: all 0.2s ease;
 }
 
 .category-btn::after {
@@ -160,6 +159,32 @@ body.dark-theme .categories-panel {
 .category-btn:hover:not(.active) {
     color: var(--accent);
 }
+
+/* Адаптив: на мобильных возвращаем горизонтальный скролл */
+@media (max-width: 900px) {
+    .categories-panel {
+        height: 42px !important;
+        overflow-x: auto !important;
+        padding: 0 10px !important;
+    }
+
+    .categories-wrapper#menu {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding-right: 20px !important;
+        justify-content: flex-start;
+    }
+
+    .categories-panel::-webkit-scrollbar {
+        height: 6px;
+    }
+    .categories-panel::-webkit-scrollbar-thumb {
+        background: rgba(128, 128, 128, 0.4);
+        border-radius: 3px;
+    }
+}
+/* --------------------------------------- */
 
 .search-wrapper {
     position: relative;
@@ -220,10 +245,12 @@ body.dark-theme .categories-panel {
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.6s ease forwards;
+    border-radius: 4px;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .meta-container {
@@ -231,16 +258,16 @@ body.dark-theme .categories-panel {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--meta);
 }
 
 .meta-date {
     color: var(--accent);
-    font-size: 13px;
 }
 
 .meta-author {
     color: var(--accent);
-    font-size: 13px;
     font-weight: bold;
     white-space: nowrap;
 }
@@ -286,19 +313,16 @@ body.dark-theme .categories-panel {
     width: 50px;
     height: 50px;
     cursor: pointer;
-    z-index: 9999; /* Поднял выше, чтобы ничего не перекрывало */
-    display: flex; /* Важно: flex позволяет центрировать SVG внутри */
+    z-index: 9999;
+    display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    
-    /* Скрываем через opacity и visibility, а не через display:none */
     opacity: 0;       
     visibility: hidden; 
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Этот класс добавляет JS, чтобы показать кнопку */
 #scrollToTop.visible {
     opacity: 1;
     visibility: visible;
@@ -306,14 +330,14 @@ body.dark-theme .categories-panel {
 
 #scrollToTop:hover {
     transform: scale(1.1);
-    opacity: 1; /* При наведении делаем полностью видимой */
+    opacity: 1;
 }
 
 @media (max-width: 500px) {
     #scrollToTop {
         width: 44px;
         height: 44px;
-        bottom: 90px; /* Чуть выше, чтобы не мешать мобильным кнопкам */
+        bottom: 90px;
         right: 20px;
     }
 }
@@ -337,12 +361,6 @@ body.dark-theme .categories-panel {
 }
 
 @media (max-width: 500px) {
-    #scrollToTop {
-        width: 44px;
-        height: 44px;
-        bottom: 90px;
-        right: 20px;
-    }
     .floating-buttons img {
         width: 30px;
         height: 30px;
@@ -512,15 +530,15 @@ body.dark-theme .categories-panel {
 .cat-default {
     background-color: #555;
 }
+
 .news-item {
-    /* Общий контейнер для одной новости */
-    display: flex; /* Чтобы контент внутри карточки выравнивался */
-    flex-direction: column; /* Располагаем элементы друг под другом */
+    display: flex;
+    flex-direction: column;
     background: var(--card);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    overflow: hidden; /* Обрезаем все, что выходит за границы */
+    overflow: hidden;
     cursor: pointer;
 }
 
@@ -530,26 +548,25 @@ body.dark-theme .categories-panel {
 }
 
 .news-card {
-    /* Конкретная карточка новости */
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Чтобы карточки в сетке были одинаковой высоты */
+    height: 100%;
 }
 
 .news-image {
     width: 100%;
-    height: 200px; /* Фиксированная высота изображения */
-    object-fit: cover; /* Масштабирует изображение, сохраняя пропорции и обрезая лишнее */
-    display: block; /* Убирает лишний отступ под изображением */
-    background-color: #333; /* Цвет фона, пока изображение загружается */
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background-color: #333;
 }
 
 .news-content {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Позволяет блоку контента растягиваться */
+    flex-grow: 1;
 }
 
 .news-title {
@@ -557,7 +574,7 @@ body.dark-theme .categories-panel {
     margin-top: 0;
     margin-bottom: 10px;
     color: var(--text);
-    display: -webkit-box; /* Для обрезки заголовка, если он слишком длинный */
+    display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -574,9 +591,9 @@ body.dark-theme .categories-panel {
     font-size: 14px;
     color: var(--meta);
     margin-bottom: 15px;
-    flex-grow: 1; /* Позволяет описанию занять доступное пространство */
-    display: -webkit-box; /* Для обрезки описания */
-    -webkit-line-clamp: 3; /* Количество строк для описания */
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -592,14 +609,13 @@ body.dark-theme .categories-panel {
     font-weight: bold;
     text-align: center;
     transition: background 0.2s ease-in-out;
-    margin-top: auto; /* Прижимает кнопку к низу, если контент не заполняет блок */
+    margin-top: auto;
 }
 
 .read-more:hover {
-    background: #e68a00; /* Более темный оттенок акцента */
+    background: #e68a00;
 }
 
-/* --- Стили для главной новости (featured-news) --- */
 .featured-news-card {
     background: var(--card);
     border-radius: 8px;
@@ -613,7 +629,7 @@ body.dark-theme .categories-panel {
 }
 
 .featured-news-image {
-    width: 40%; /* Или другая ширина */
+    width: 40%;
     height: 250px;
     object-fit: cover;
     border-radius: 4px;
@@ -661,7 +677,6 @@ body.dark-theme .categories-panel {
     background: #e68a00;
 }
 
-/* --- Адаптивность для карточек --- */
 @media (max-width: 768px) {
     .news-grid {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -683,7 +698,7 @@ body.dark-theme .categories-panel {
 
 @media (max-width: 500px) {
     .news-grid {
-        grid-template-columns: 1fr; /* Одна колонка на очень маленьких экранах */
+        grid-template-columns: 1fr;
         padding: 10px;
     }
     .news-item {
@@ -710,14 +725,6 @@ body.dark-theme .categories-panel {
     }
 }
 
-/* --- Дополнительные стили, если они нужны --- */
-/* Например, для класса .active на кнопках категорий */
-.category-btn.active {
-    color: var(--accent);
-    font-weight: bold;
-}
-
-/* Стили для .card, если вы хотите использовать их вместо .news-item */
 .card {
     background: var(--card);
     padding: 15px;
@@ -730,7 +737,7 @@ body.dark-theme .categories-panel {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.card-image { /* Используйте этот класс для изображений в карточках .card */
+.card-image {
     width: 100%;
     height: 180px;
     object-fit: cover;
@@ -757,48 +764,7 @@ body.dark-theme .categories-panel {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Плавная прокрутка
-    });
-}
-/* --- СТИЛИ ДЛЯ МЕТКИ КАТЕГОРИИ --- */
-.news-category-badge {
-    position: relative;
-    top: 10px;
-    right: 10px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 10;
-}
 
-/* Цвета для разных категорий (меняй значения hex на свои) */
-.category-sport { background-color: #ff4757; }       /* Красный */
-.category-politics { background-color: #2f3542; }   /* Темно-серый */
-.category-economy { background-color: #1e90ff; }    /* Голубой */
-.category-tech { background-color: #ffa502; }      /* Оранжевый */
-.category-culture { background-color: #a29bfe; }    /* Фиолетовый */
-.category-science { background-color: #00d2d3; }   /* Бирюзовый */
-.category-world { background-color: #57606f; }     /* Серый */
-
-/* Если категория неизвестна, будет нейтральная */
-.category-other { background-color: #95a5a6; }
-/* 1. Обязательно: делаем карточку "контейнером" для плашки */
-.news-card {
-    position: relative; /* Без этого плашка улетит в угол экрана */
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-/* 2. Стили самой плашки (яркие, непрозрачные) */
 .news-category-badge {
     position: absolute;
     top: 12px;
@@ -807,68 +773,83 @@ function scrollToTop() {
     border-radius: 6px;
     font-size: 11px;
     font-weight: 700;
-    color: #ffffff; /* Белый текст */
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Легкая тень для объема */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     z-index: 10;
-    /* Нет прозрачности, сплошной цвет берется из следующего блока */
 }
 
-/* 3. Яркие цвета для категорий (сплошные, без прозрачности) */
-.category-sport { background-color: #ff4757; }       /* Красный */
-.category-politics { background-color: #2f3542; }   /* Темно-серый */
-.category-economy { background-color: #1e90ff; }    /* Голубой */
-.category-tech { background-color: #ffa502; }      /* Оранжевый */
-.category-culture { background-color: #a29bfe; }   /* Фиолетовый */
-.category-science { background-color: #00d2d3; }  /* Бирюзовый */
-.category-world { background-color: #57606f; }     /* Серый */
-
-/* Если категория не найдена или пустая - нейтральный цвет */
+.category-sport { background-color: #ff4757; }
+.category-politics { background-color: #2f3542; }
+.category-economy { background-color: #1e90ff; }
+.category-tech { background-color: #ffa502; }
+.category-culture { background-color: #a29bfe; }
+.category-science { background-color: #00d2d3; }
+.category-world { background-color: #57606f; }
 .category-other { background-color: #95a5a6; }
+
 /* Базовые стили для контейнера категорий */
 .categories-wrapper {
+    padding: 0 10px;
     display: flex;
-    flex-wrap: wrap; /* Разрешает перенос кнопок на новую строку */
-    gap: 8px;        /* Расстояние между кнопками (компактно) */
-    padding: 4px 0;  /* Небольшой отступ сверху/снизу внутри панели */
+    gap: 20px;
+    flex-shrink: 0;
 }
 
-/* Стили самих кнопок */
+/* Стили самих кнопок категорий */
 .category-btn {
-    padding: 6px 12px;       /* Компактный размер */
-    font-size: 14px;         /* Чуть меньше шрифт */
-    border-radius: 20px;     /* Закругление */
-    white-space: nowrap;     /* Текст кнопки не будет ломаться */
+    background: none;
+    border: none;
+    color: var(--text);
     cursor: pointer;
-    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 8px;
+    transition: color 0.2s;
+    white-space: nowrap;
 }
 
-/* Убираем горизонтальный скролл у родительской панели для десктопа */
-.categories-panel {
-    overflow-x: visible;     /* Важно: отключаем скролл, чтобы кнопки переносились */
-    height: auto;            /* Высота станет автоматической */
-    padding: 5px 0;          /* Отступы панели */
+.category-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--accent);
+    transition: width 0.2s ease-in-out;
 }
 
-/* --- АДАПТИВНОСТЬ --- */
+.category-btn.active {
+    color: var(--accent);
+}
 
-/* МОБИЛЬНЫЕ (до 768px): Возвращаем горизонтальный скролл, как было раньше */
+.category-btn.active::after {
+    width: 100%;
+}
+
+.category-btn:hover:not(.active) {
+    color: var(--accent);
+}
+
+/* Адаптивность для категорий */
 @media (max-width: 768px) {
     .categories-wrapper {
         flex-direction: row;
-        flex-wrap: nowrap;   /* В одну строку */
-        overflow-x: auto;    /* Включаем скролл */
-        padding-right: 20px; /* Место для скролла */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-right: 20px;
     }
 
     .categories-panel {
-        height: 40px;        /* Фиксированная высота на мобильном */
-        overflow-x: auto;    /* Скролл по горизонтали */
+        height: 40px;
+        overflow-x: auto;
         padding: 0 10px;
     }
 
-    /* Скрываем скроллбар для красоты (работает в Chrome/Safari) */
     .categories-panel::-webkit-scrollbar {
         height: 4px;
     }
@@ -877,59 +858,12 @@ function scrollToTop() {
         border-radius: 2px;
     }
 }
-/* --- ГАРАНТИРОВАННОЕ РЕШЕНИЕ ДЛЯ КАТЕГОРИЙ --- */
 
-/* Контейнер с кнопками: включаем перенос строк */
-.categories-wrapper#menu {
-    display: flex !important;
-    flex-wrap: wrap !important;       /* ГЛАВНОЕ: разрешает перенос на новую строку */
-    gap: 6px !important;             /* Компактный отступ между кнопками */
-    justify-content: flex-start;     /* Выравнивание по левому краю */
-    padding: 4px 0 !important;
-}
-
-/* Сами кнопки: делаем их компактными */
-.category-btn {
-    padding: 5px 10px !important;    /* Уменьшили внутренние отступы */
-    font-size: 13px !important;      /* Чуть меньше шрифт для компактности */
-    line-height: 1.2;                /* Плотный текст */
-    white-space: nowrap !important;  /* Текст внутри кнопки не переносится */
-    min-width: auto !important;      /* Убираем возможную фиксированную ширину */
-    max-width: fit-content;          /* Кнопка ровно по тексту */
-    cursor: pointer;
-}
-
-/* Панель-обёртка: убираем горизонтальный скролл, высота становится автоматической */
-.categories-panel {
-    overflow-x: visible !important;  /* ОТКЛЮЧАЕМ скролл (это критично!) */
-    overflow-y: visible !important;
-    height: auto !important;         /* Высота подстраивается под количество строк */
-    padding: 2px 0 !important;
-    width: 100% !important;
-}
-
-/* АДАПТИВНОСТЬ: на мобильных (до 900px) возвращаем горизонтальный скролл */
-@media (max-width: 900px) {
-    .categories-wrapper#menu {
-        flex-direction: row !important;
-        flex-wrap: nowrap !important; /* В одну строку */
-        overflow-x: auto !important;  /* Включаем скролл */
-        padding-right: 20px !important;
-        justify-content: flex-start;
-    }
-
-    .categories-panel {
-        height: 42px !important;      /* Фиксированная высота для скролла */
-        overflow-x: auto !important;
-        padding: 0 10px !important;
-    }
-
-    /* Скрываем полосу прокрутки для красоты (Chrome, Safari, Edge) */
-    .categories-panel::-webkit-scrollbar {
-        height: 6px;
-    }
-    .categories-panel::-webkit-scrollbar-thumb {
-        background: rgba(128, 128, 128, 0.4);
-        border-radius: 3px;
+@media (max-width: 500px) {
+    .category-btn {
+        padding: 6px 12px;
+        font-size: 12px;
     }
 }
+
+
